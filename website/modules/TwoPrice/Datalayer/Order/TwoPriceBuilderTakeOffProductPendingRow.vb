@@ -11,6 +11,8 @@ Namespace DataLayer
     Public Class TwoPriceBuilderTakeOffProductPendingRow
         Inherits TwoPriceBuilderTakeOffProductPendingRowBase
 
+        'EDit using git hub source control
+
         Public Sub New()
             MyBase.New()
         End Sub 'New
