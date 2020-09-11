@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<configuration>
+    <startup> 
+        <supportedRuntime version="v4.0" sku=".NETFramework,Version=v4.5.2" />
+    </startup>
+  <appSettings>
+    <add key="ResourceGroupFileCopySourcePath" value="\\\\10.10.224.52\\cbusalob"/>
+    <add key="SourceForTest" value="\\\\medserver\\Server_share\\CBUSA\\TmpPDFFiles"/>
+    <add key="ResourceGroupFileCopyDestinationPath" value="C:\CBUSA_Inv_Downloads_Temp\"/>
+    <add key="DestinationForTest" value="C:\Temp\"/>
+  </appSettings>
+</configuration>

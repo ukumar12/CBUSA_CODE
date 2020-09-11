@@ -1,0 +1,145 @@
+﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="discrepancy-response.aspx.vb" Inherits="rebates_discrepancy_response" %>
+
+<CT:MasterPage ID="CTMain" runat="server">
+<script type="text/javascript">
+    function ResponseSubmitResult(res,ctxt) {
+        if (res.errors) return;
+        var div = $get(ctxt.control.id + '_divFormWrapper');
+        div.style.display = 'none';
+    }
+    function CloseForm(form) {
+        form.Close();
+    }
+    function UpdateReason(drp) {
+        var trReason = $get(drp.id.replace('drpResponse','trReason'));
+        var trNewAmount = $get(drp.id.replace('drpResponse','trNewAmount'));
+        var sel = drp.options[drp.selectedIndex].text.toLowerCase();
+        if(sel.indexOf('refuse') >= 0) {
+            trReason.style.display = '';
+            trNewAmount.style.display = 'none';
+        } else if(sel.indexOf('new') >= 0) {
+            trReason.style.display = 'none';
+            trNewAmount.style.display = '';        
+        } else {
+            trReason.style.display = 'none';
+            trNewAmount.style.display = 'none';        
+        }
+    }
+</script>
+    
+    <div class="pckggraywrpr">
+    <div class="pckghdgred">Discrepancy Report - Vendor Response</div>
+    <asp:UpdatePanel id="upReport" runat="server" UpdateMode="Conditional" childrenastriggers="false">
+    <ContentTemplate>
+        <asp:PlaceHolder id="phResult" runat="server" visible="false">
+            <h2>Dispute response has been submitted.</h2>
+        </asp:PlaceHolder>
+        <asp:Repeater id="rptReport" runat="server">
+            <HeaderTemplate>
+                <table cellpadding="4" cellspacing="1" border="0" class="tblcompr" style="display:block;margin:auto;width:90%;">
+                    <tr>
+                        <th>Builder</th>
+                        <th>Initial Vendor Total</th>
+                        <th>Builder Total</th>
+                        <th>Response</th>
+                        <th>Reason</th>
+                        <th colspan="2">&nbsp;</th>
+                    </tr>
+            </HeaderTemplate>
+            <ItemTemplate>
+                <tr>
+                    <td><%#DataBinder.Eval(Container.DataItem, "BuilderCompany")%></td>
+                    <td><%#FormatCurrency(DataBinder.Eval(Container.DataItem, "VendorTotalAmount"))%></td>
+                    <td><%#FormatCurrency(DataBinder.Eval(Container.DataItem, "BuilderTotalAmount"))%></td>
+                    <td><asp:Literal id="ltlResponse" runat="server"></asp:Literal></td>
+                    <td><asp:Literal id="ltlReason" runat="server"></asp:Literal></td>
+                    <td>
+                        <asp:Button id="btnResponse" runat="server" text="Respond" cssclass="btnred" />
+                        <CC:PopupForm ID="frmResponse" runat="server" OpenMode="MoveToClick" Animate="true" CssClass="pform" OpenTriggerId="btnResponse" CloseTriggerId="btnCancel" ErrorPlaceholderId="spanErrors" ValidateCallback="true" ShowVeil="true" VeilCloses="false" style="width:400px;">
+                            <FormTemplate>
+                                <div class="pckggraywrpr">
+                                <div class="pckghdgred">Respond to Builder Dispute</div>
+                                <div id="divFormWrapper" runat="server">
+                                    <span id="spanErrors" runat="server"></span>
+                                    <table style="width:100%;">
+                                        <tr>
+                                            <td>&nbsp;</td>
+                                            <td class="fieldreq">&nbsp;</td>
+                                            <td class="smallest"> indicates required field</td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="fieldlbl">Builder:</span></td>
+                                            <td>&nbsp;</td>
+                                            <td>
+                                                <asp:Literal id="ltlBuilder" runat="server"></asp:Literal>
+                                                <asp:HiddenField id="hdnSalesReportDisputeId" runat="server"></asp:HiddenField>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="fieldlbl">Builder Report:</span></td>
+                                            <td>&nbsp;</td>
+                                            <td><asp:Literal id="ltlBuilderAmount" runat="server"></asp:Literal></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="fieldlbl">Builder Comments:</span></td>
+                                            <td>&nbsp;</td>
+                                            <td><asp:Literal id="ltlBuilderComments" runat="server"></asp:Literal></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="fieldlbl">Vendor Report:</span></td>
+                                            <td>&nbsp;</td>
+                                            <td><asp:Literal id="ltlVendorAmount" runat="server"></asp:Literal></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="fieldlbl">Response:</span></td>
+                                            <td id="bardrpResponse" runat="server" class="fieldreq">&nbsp;</td>
+                                            <td>
+                                                <asp:DropDownList id="drpResponse" runat="server" onchange="UpdateReason(this)"></asp:DropDownList>
+                                            </td>
+                                        </tr>
+                                        <tr id="trReason" runat="server">
+                                            <td><span class="fieldlbl">Reason:</span></td>
+                                            <td id="bardrpReason" runat="server" class="fieldreq">&nbsp;</td>
+                                            <td>
+                                                <asp:DropDownList id="drpReason" runat="server"></asp:DropDownList>
+                                            </td>
+                                        </tr>
+                                        <tr id="trNewAmount" runat="server">
+                                            <td><span class="fieldlbl">New Amount:</span></td>
+                                            <td id="bartxtNewAmount" runat="server" class="fieldreq">&nbsp;</td>
+                                            <td><asp:TextBox id="txtNewAmount" runat="server" columns="10" maxlength="10"></asp:TextBox></td>
+                                        </tr>
+                                        <tr>
+                                            <td><span class="fieldlbl">Comments:</span></td>
+                                            <td>&nbsp;</td>
+                                            <td><asp:TextBox id="txtComments" runat="server" textmode="MultiLine" rows="4" columns="50"></asp:TextBox></td>
+                                        </tr>
+                                    </table>
+                                    <p style="text-align:center;">
+                                        <asp:Button id="btnSubmit" runat="server" text="Submit" cssclass="btnred" />
+                                        <asp:Button id="btnCancel" runat="server" text="Cancel" cssclass="btnred" />
+                                    </p>
+                                    <CC:RequiredFieldValidatorFront ID="rfvdrpResponse" runat="server" ControlToValidate="drpResponse" ErrorMessage="Response is required"></CC:RequiredFieldValidatorFront>
+                                    <CC:FloatValidatorFront ID="fvtxtNewAmount" runat="server" ControlToValidate="txtNewAmount" ErrorMessage="New Amount is invalid"></CC:FloatValidatorFront>
+                                </div>
+                                <div id="divResult" runat="server" style="display:none;">
+                                    <p style="text-align:center;">
+                                        <b>Your response has been submitted</b><br /><br />
+                                        <asp:Button id="btnClose" runat="server" text="Close" cssclass="btnRed" />
+                                    </p>
+                                </div>
+                                </div>
+                            </FormTemplate>
+                            <Buttons>
+                                <CC:PopupFormButton ControlID="btnSubmit" ButtonType="Postback" />
+                                <CC:PopupFormButton ControlID="btnCancel" ButtonType="ScriptOnly" />
+                            </Buttons>
+                        </CC:PopupForm>
+                    </td>
+                </tr>
+            </ItemTemplate>
+        </asp:Repeater>
+    </ContentTemplate>
+    </asp:UpdatePanel>
+    </div>
+</CT:MasterPage>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="90fbcec0-e040-43dc-be55-6c2ddc0fc364" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="c:\Inetpub\wwwroot\cbusa\common\vindicia\wsdl\prodtest\Account.wsdl" Protocol="file" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="Account.wsdl" MetadataType="Wsdl" ID="9deda562-fbe8-4de3-b648-bfd4ba08886a" SourceId="1" SourceUrl="file:///c:/Inetpub/wwwroot/cbusa/common/vindicia/wsdl/prodtest/Account.wsdl" />
+    <MetadataFile FileName="Vindicia.xsd" MetadataType="Schema" ID="db4bc8bb-d7f2-4978-8c48-f9a1e23769e2" SourceId="1" SourceUrl="file:///c:/Inetpub/wwwroot/cbusa/common/vindicia/wsdl/prodtest/Vindicia.xsd" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

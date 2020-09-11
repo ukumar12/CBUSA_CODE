@@ -1,0 +1,10 @@
+div.bdywrpr {float: left; padding: 5px;}
+.mainbody {text-align:left; background-color:#ffffff; margin:0; padding:0;}
+.bdywrpr {width:660px; text-align:left; margin:0 auto; z-index:1;}
+
+table.tbldfault {width:650px; table-layout: fixed;}
+table.tbldfault td.maincol {width:650px; table-layout: fixed;}
+table.tblnwto {width:650px; table-layout: fixed;}
+table.tblcompr {width: 650px; table-layout: fixed;}
+
+div.stacktblwrpr {width:650px;}

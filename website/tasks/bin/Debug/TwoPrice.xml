@@ -1,0 +1,129 @@
+﻿<?xml version="1.0"?>
+<doc>
+<assembly>
+<name>
+TwoPrice
+</name>
+</assembly>
+<members>
+<member name="T:TwoPrice.My.Resources.Resources">
+<summary>
+  A strongly-typed resource class, for looking up localized strings, etc.
+</summary>
+</member>
+<member name="P:TwoPrice.My.Resources.Resources.ResourceManager">
+<summary>
+  Returns the cached ResourceManager instance used by this class.
+</summary>
+</member>
+<member name="P:TwoPrice.My.Resources.Resources.Culture">
+<summary>
+  Overrides the current thread's CurrentUICulture property for all
+  resource lookups using this strongly typed resource class.
+</summary>
+</member>
+<member name="T:TwoPrice.DataLayer.TwoPriceCampaignRow">
+ <summary>
+ Represents a row in the TwoPriceCampaign table in the database.
+ </summary>
+ <remarks>Custom methods should be placed in this class, not in <see cref="T:TwoPrice.DataLayer.TwoPriceCampaignRowBase" />.</remarks>
+ 
+</member>
+<member name="M:TwoPrice.DataLayer.TwoPriceCampaignRow.#ctor">
+ <overloads>Initializes a new instance of the <see cref="T:TwoPrice.DataLayer.TwoPriceCampaignRow" /> class.</overloads>
+ <summary>
+ Initializes a new instance of the <see cref="T:TwoPrice.DataLayer.TwoPriceCampaignRow" /> class using default settings.
+ </summary>
+ <remarks>This constructor calls 
+ <see cref="M:DataLayer.TwoPriceCampaignRowBase.#ctor">TwoPriceCampaignRowBase.New</see>.</remarks>
+</member>
+<member name="M:TwoPrice.DataLayer.TwoPriceCampaignRow.#ctor(Database)">
+ <summary>
+ Initializes a new instance of the <see cref="T:TwoPrice.DataLayer.TwoPriceCampaignRow" /> class with the database connection
+ specified by <paramref name="DB" />.
+ </summary>
+ <param name="DB">A reference to the <see cref="T:Database" /> for the application.</param>
+ <remarks><para>If you don't use this constructor or 
+ <see cref="M:DataLayer.TwoPriceCampaignRow.#ctor(Database,System.Int32)">New(Database, Integer)</see>,
+ be sure to set the <see cref="P:TwoPrice.DataLayer.TwoPriceCampaignRowBase.DB" /> property before executing any code which must connect to the
+ database.</para>
+ <para>This constructor calls 
+ <see cref="M:DataLayer.TwoPriceCampaignRowBase.#ctor(Database)">TwoPriceCampaignRowBase.New(Database)</see>.</para></remarks>
+</member>
+<member name="M:TwoPrice.DataLayer.TwoPriceCampaignRow.#ctor(Database,System.Int32)">
+ <summary>
+ Initializes a new instance of the <see cref="T:TwoPrice.DataLayer.TwoPriceCampaignRow" /> class representing the row which uses
+ <paramref name="TwoPriceCampaignId" /> as its primary key and <paramref name="DB" /> as its database connection.
+ </summary>
+ <param name="DB">A reference to the <see cref="T:Database" /> for the application.</param>
+ <param name="TwoPriceCampaignId">The primary key value of the row being referenced.</param>
+ <remarks><para>If you don't use this constructor or 
+ <see cref="M:DataLayer.TwoPriceCampaignRow.#ctor(Database)">New(Database)</see>,
+ be sure to set the <see cref="P:TwoPrice.DataLayer.TwoPriceCampaignRowBase.DB" /> property before executing any code which must connect to the
+ database.</para>
+ <para>This constructor calls 
+ <see cref="M:DataLayer.TwoPriceCampaignRowBase.#ctor(Database,System.Int32)">TwoPriceCampaignRowBase.New(Database, Integer)</see>.</para></remarks>
+</member>
+<member name="M:TwoPrice.DataLayer.TwoPriceCampaignRow.GetRow(Database,System.Int32)">
+ <summary>
+ Gets the row from the specified <see cref="T:Database" /> with the specified 
+ <paramref name="TwoPriceCampaignId" />.
+ </summary>
+ <param name="DB">A reference to the <see cref="T:Database" /> for the application.</param>
+ <param name="TwoPriceCampaignId">The primary key value of the row being retrieved.</param>
+ <returns>An instance of <see cref="T:TwoPrice.DataLayer.TwoPriceCampaignRow" /> loaded with the values from the specified 
+ row in the database.</returns>
+ <remarks>This method uses <see cref="M:DataLayer.TwoPriceCampaignRowBase.Load">Load</see>.</remarks>
+</member>
+<member name="M:TwoPrice.DataLayer.TwoPriceCampaignRow.RemoveRow(Database,System.Int32)">
+ <summary>
+ Removes the row from the specified <see cref="T:Database" /> with the specified 
+ <paramref name="TwoPriceCampaignId" />.
+ </summary>
+ <param name="DB">A reference to the <see cref="T:Database" /> for the application.</param>
+ <param name="TwoPriceCampaignId">The primary key value of the row being removed.</param>
+</member>
+<member name="M:TwoPrice.DataLayer.TwoPriceCampaignRow.Remove">
+ <summary>
+ Removes this row from the specified <see cref="T:Database" />.
+ </summary>
+ <remarks>This method calls <c>RemoveRow(DB, TwoPriceCampaignId)</c></remarks>
+</member>
+<member name="M:TwoPrice.DataLayer.TwoPriceCampaignRow.GetList(Database,System.String,System.String,System.String)">
+ <summary>
+ Retrieves the TwoPriceCampaign table from the specified <see cref="T:Database" /> ordered based on 
+ <paramref name="SortBy" /> and <paramref name="SortOrder" />.
+ </summary>
+ <param name="DB">A reference to the <see cref="T:Database" /> for the application.</param>
+ <param name="SortBy">The SQL field name to sort the results by.</param>
+ <param name="SortOrder">The order by which to sort the results (ASC, DESC).  The default value of this
+ parameter is "ASC".</param>
+ <returns>A <see cref="T:System.Data.DataTable" /> containing the data returned by the query.</returns>
+ <remarks>If <paramref name="SortBy" /> is not provided, the data is not sorted during the query.</remarks>
+</member>
+<member name="M:TwoPrice.DataLayer.TwoPriceCampaignRow.InsertToLLC(System.Int32)">
+ <summary>
+ Inserts a single entry into the TwoPricingCampaignLLC_Rel table using the current value of <see cref="P:TwoPrice.DataLayer.TwoPriceCampaignRowBase.TwoPriceCampaignId" /> 
+ and the specified <paramref name="LLCID" />.
+ </summary>
+ <param name="LLCID">A value for LLCID in the TwoPricingCampaignLLC_Rel table.</param>
+ <remarks>This method will likely fail if the intended pairing is already in the table.</remarks>
+</member>
+<member name="M:TwoPrice.DataLayer.TwoPriceCampaignRow.InsertToCampaignBuilder(System.Int32)">
+ <summary>
+ Inserts a single entry into the TwoPricingCampaignBuilder_Rel table using the current value of <see cref="P:TwoPrice.DataLayer.TwoPriceCampaignRowBase.TwoPriceCampaignId" /> 
+ and the specified <paramref name="LLCID" />.
+ </summary>
+ <param name="BuilderId">A value for BuilderId in the TwoPricingCampaignLLC_Rel table.</param>
+ <remarks>This method will likely fail if the intended pairing is already in the table.</remarks>
+</member>
+<member name="M:TwoPrice.DataLayer.TwoPriceCampaignRow.InsertToCampaignVendor(System.Int32)">
+ <summary>
+ Inserts a single entry into the TwoPricingCampaignVendor_Rel table using the current value of <see cref="P:TwoPrice.DataLayer.TwoPriceCampaignRowBase.TwoPriceCampaignId" /> 
+ and the specified <paramref name="VendorId" />.
+ </summary>
+ <param name="VendorId">A value for Vendor in the TwoPricingCampaignVendor_Rel table.</param>
+ <remarks>This method will likely fail if the intended pairing is already in the table.</remarks>
+</member>
+</members>
+</doc>

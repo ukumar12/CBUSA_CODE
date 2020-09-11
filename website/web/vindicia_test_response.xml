@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<SOAP-ENV:Envelope xmlns:SOAP-ENV="http://schemas.xmlsoap.org/soap/envelope/" xmlns:namesp2="http://soap.vindicia.com/Vindicia" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:SOAP-ENC="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" SOAP-ENV:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/"
+>
+
+  <SOAP-ENV:Body
+  >
+     <namesp1:fetchAllResponse xmlns:namesp1="http://soap.vindicia.com/Product"
+     >
+      <return xsi:type="namesp2:Return"
+      >
+       <returnCode xsi:type="namesp2:ReturnCode"
+       >403</returnCode>
+       <soapId xsi:type="xsd:string"
+       >5487853df34e73e3daed59f2455d130d3c1927ef</soapId>
+        <returnString xsi:type="xsd:string"
+        >Permission denied to domain "soap"</returnString></return>
+      <products xsi:type="namesp2:ArrayOfProducts" SOAP-ENC:arrayType="namesp2:Product[0]"/></namesp1:fetchAllResponse></SOAP-ENV:Body></SOAP-ENV:Envelope>

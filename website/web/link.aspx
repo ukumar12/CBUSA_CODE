@@ -1,0 +1,1 @@
+<%@ Page Language="vb" AutoEventWireup="false" Inherits="Link" CodeFile="link.aspx.vb" %>

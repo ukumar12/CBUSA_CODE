@@ -1,0 +1,2259 @@
+<definitions name="Vindicia" targetNamespace="http://soap.vindicia.com/Vindicia" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:enc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://soap.vindicia.com/Vindicia" xmlns:vin="http://soap.vindicia.com/Vindicia" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsdl="http://soap.vindicia.com/Vindicia" >
+  <documentation>WSDL Specification for Vindicia</documentation>
+  <types>
+    <xsd:schema targetNamespace="http://soap.vindicia.com/Vindicia">
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+      <xsd:import namespace="http://soap.vindicia.com/Vindicia" schemaLocation="./Vindicia.xsd" />
+      <xsd:complexType name="Account">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+An account (i.e., a customer)<dl>
+<dt><b>VID</b></dt>
+<dd>Vindicia's Globally Unique Identifier (GUID) for this object</dd>
+<dt><b>merchantAccountId</b></dt>
+<dd>A merchant's unique identifier for this account. Common forms include a database ID, a login, a GUID, or an email address. This is enforced as a unique key in Vindicia's system, so attempting to create duplicate Accounts with the same merchantAccountId will generally update the old rather than creating a new. This is a free-form string of 128 or fewer characters.</dd>
+<dt><b>emailAddress</b></dt>
+<dd>The email address associated with the account. Please note that, even if the emailAddress is used as the merchantAccountId, for email notifications to function properly that data must be duplicated, here. This is a free-form, 255 character or fewer string. No email address validation is performed on this field.</dd>
+<dt><b>emailTypePreference</b></dt>
+<dd>Whether the account prefers to receive email in a text form or an html form.</dd>
+<dt><b>preferredLanguage</b></dt>
+<dd>The account's preferred language of communication, specified as an ISO language string.</dd>
+<dt><b>warnBeforeAutobilling</b></dt>
+<dd>Whether the customer prefers to be warned prior to autobilling activity. The default value for this is set on a merchant-by-merchant basis.</dd>
+<dt><b>company</b></dt>
+<dd>Customer's company, if specified. This is a free-form string of 255 or fewer characters.</dd>
+<dt><b>name</b></dt>
+<dd>Customer's name, if specified. This generally corresponds to the name on card, and is a free-form string of 255 or fewer characters.</dd>
+<dt><b>shippingAddress</b></dt>
+<dd>The customer's shipping address.</dd>
+<dt><b>paymentMethods</b></dt>
+<dd>An array of payment methods (e.g., a credit cards) to be associated with the customer. The array should be in order by preference. Future link=AutoBill creations that do not include explicit payment information will use the first PaymentMethod in this array.</dd>
+<dt><b>nameValues</b></dt>
+<dd>Optional array of name/value pairs the merchant wishes to associate with an Account</dd>
+<dt><b>taxExemptions</b></dt>
+<dd>Default exemptions to apply</dd>
+</dl>
+]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="VID" type="xsd:string" />
+          <xsd:element minOccurs="0" name="merchantAccountId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="emailAddress" type="xsd:string" />
+          <xsd:element minOccurs="0" name="emailTypePreference" type="tns:EmailPreference" />
+          <xsd:element minOccurs="0" name="preferredLanguage" type="xsd:string" />
+          <xsd:element minOccurs="0" name="warnBeforeAutobilling" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="company" type="xsd:string" />
+          <xsd:element minOccurs="0" name="name" type="xsd:string" />
+          <xsd:element minOccurs="0" name="shippingAddress" type="tns:Address" />
+          <xsd:element minOccurs="0" name="paymentMethods" type="tns:ArrayOfPaymentMethods" />
+          <xsd:element minOccurs="0" name="nameValues" type="tns:ArrayOfNameValuePairs" />
+          <xsd:element minOccurs="0" name="taxExemptions" type="vin:ArrayOfTaxExemptions" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfAccounts">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+An array of <a href="#data_type.Account">Account</a> items.]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+          <xsd:restriction base="enc:Array">
+            <xsd:attribute ref="enc:arrayType" wsdl:arrayType="tns:Account[]" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="ActivityTypeArg">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+
+
+      A "master class" for activity subclasses.  While WSDL does not
+      appear to allow for the definition of literal subclasses, this
+      provides similar results.  methodLink=report takes an
+      argument of this class.  Simply fill <b>only</b> the field
+      necessary for the type of activity being recorded.  Note that
+      some activities may not require additional information.  For
+      example, if submitting a uriView, set uriviewArgs to a previously
+      filled <a href="#data_type.ActivityURIView">ActivityURIView</a>.
+
+    <dl>
+<dt><b>loginArgs</b></dt>
+<dd>Information pertaining to a login</dd>
+<dt><b>logoutArgs</b></dt>
+<dd>Information pertaining to a logout</dd>
+<dt><b>uriviewArgs</b></dt>
+<dd>Information pertaining to a URI view</dd>
+<dt><b>phoneArgs</b></dt>
+<dd>Information pertaining to a phone contact</dd>
+<dt><b>emailArgs</b></dt>
+<dd>Information pertaining to an email contact</dd>
+<dt><b>fulfillmentArgs</b></dt>
+<dd>Information pertaining to physical fulfillment of a product. For electronic fulfillment, use uriviewArgs.</dd>
+<dt><b>usageArgs</b></dt>
+<dd>Information on usage of a service by a customer</dd>
+<dt><b>namedvalueArgs</b></dt>
+<dd>Arbitrary name-value pairs describing an activity. Please contact your Vindicia technical support adviser prior to using this field, as it requires support on the server-side, as well. The intent is to allow merchants with novel activities to begin reporting without requiring a SOAP protocol revision, but significant work is still required to support it on the SOAP server.</dd>
+<dt><b>cancellationArgs</b></dt>
+<dd>Arbitrary name-value pairs describing an activity. Please contact your Vindicia technical support adviser prior to using this field, as it requires support on the server-side, as well. The intent is to allow merchants with novel activities to begin reporting without requiring a SOAP protocol revision, but significant work is still required to support it on the SOAP server.</dd>
+<dt><b>noteArgs</b></dt>
+<dd>Information pertaining to a note.</dd>
+</dl>
+]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="loginArgs" type="tns:ActivityLogin" />
+          <xsd:element minOccurs="0" name="logoutArgs" type="tns:ActivityLogout" />
+          <xsd:element minOccurs="0" name="uriviewArgs" type="tns:ActivityURIView" />
+          <xsd:element minOccurs="0" name="phoneArgs" type="tns:ActivityPhoneContact" />
+          <xsd:element minOccurs="0" name="emailArgs" type="tns:ActivityEmailContact" />
+          <xsd:element minOccurs="0" name="fulfillmentArgs" type="tns:ActivityFulfillment" />
+          <xsd:element minOccurs="0" name="usageArgs" type="tns:ActivityUsage" />
+          <xsd:element minOccurs="0" name="namedvalueArgs" type="tns:ActivityNamedValue" />
+          <xsd:element minOccurs="0" name="cancellationArgs" type="tns:ActivityCancellation" />
+          <xsd:element minOccurs="0" name="noteArgs" type="tns:ActivityNote" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ActivityLogin">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+Information about a login<dl>
+<dt><b>ip</b></dt>
+<dd>The IP the login came from</dd>
+</dl>
+]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="ip" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ActivityLogout">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+Information about a logout<dl>
+<dt><b>ip</b></dt>
+<dd>The IP the logout request came from, or null if the logout is implicit (from a timeout)</dd>
+</dl>
+]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="ip" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ActivityUsage">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+
+      Information on usage of a service by a customer. Please convert all durations to seconds.
+    <dl>
+<dt><b>description</b></dt>
+<dd>Description of this usage</dd>
+<dt><b>total</b></dt>
+<dd>Total duration of the usage by customer</dd>
+<dt><b>lastDay</b></dt>
+<dd>Usage by customer in last day</dd>
+<dt><b>lastWeek</b></dt>
+<dd>Usage by customer in last week</dd>
+<dt><b>lastMonth</b></dt>
+<dd>Usage by customer in last month</dd>
+<dt><b>lastYear</b></dt>
+<dd>Usage by customer in last year</dd>
+<dt><b>lastUsageDate</b></dt>
+<dd>Last date of usage by the customer</dd>
+</dl>
+]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="description" type="xsd:string" />
+          <xsd:element minOccurs="0" name="total" type="xsd:int" />
+          <xsd:element minOccurs="0" name="lastDay" type="xsd:int" />
+          <xsd:element minOccurs="0" name="lastWeek" type="xsd:int" />
+          <xsd:element minOccurs="0" name="lastMonth" type="xsd:int" />
+          <xsd:element minOccurs="0" name="lastYear" type="xsd:int" />
+          <xsd:element minOccurs="0" name="lastUsageDate" type="xsd:dateTime" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ActivityNamedValue">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+
+      Generic activity type.  Should not be used permanently; provides
+      a temporary means to bridge to new activities without a SOAP
+      release.  Contact Vindicia before submitting data of this type.
+    <dl>
+<dt><b>type</b></dt>
+<dd>Type string, provided by Vindicia</dd>
+<dt><b>name</b></dt>
+<dd>Name for this activity</dd>
+<dt><b>value</b></dt>
+<dd>Value for this activity</dd>
+</dl>
+]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="1" name="type" type="xsd:string" />
+          <xsd:element minOccurs="1" name="name" type="xsd:string" />
+          <xsd:element minOccurs="1" name="value" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ActivityPhoneContact">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+Information about a phone contact with a customer<dl>
+<dt><b>srcPhoneNumber</b></dt>
+<dd>The caller's number</dd>
+<dt><b>destPhoneNumber</b></dt>
+<dd>The callee's number</dd>
+<dt><b>cidPhoneNumber</b></dt>
+<dd>CID (Caller ID) information, if available</dd>
+<dt><b>aniPhoneNumber</b></dt>
+<dd>ANI (800 Caller ID) information, if available)</dd>
+<dt><b>durationSeconds</b></dt>
+<dd>Duration of the call, in seconds</dd>
+<dt><b>note</b></dt>
+<dd>Notes on the call</dd>
+<dt><b>type</b></dt>
+<dd>Type of call</dd>
+</dl>
+]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="srcPhoneNumber" type="xsd:string" />
+          <xsd:element minOccurs="0" name="destPhoneNumber" type="xsd:string" />
+          <xsd:element minOccurs="0" name="cidPhoneNumber" type="xsd:string" />
+          <xsd:element minOccurs="0" name="aniPhoneNumber" type="xsd:string" />
+          <xsd:element minOccurs="0" name="durationSeconds" type="xsd:int" />
+          <xsd:element minOccurs="0" name="note" type="xsd:string" />
+          <xsd:element minOccurs="1" name="type" type="tns:ActivityCallType" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ActivityEmailContact">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+Information about an email contact with a customer<dl>
+<dt><b>srcEmail</b></dt>
+<dd>The sender's address</dd>
+<dt><b>destEmail</b></dt>
+<dd>The recipient's address</dd>
+<dt><b>note</b></dt>
+<dd>A note about the contents of the email</dd>
+</dl>
+]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="srcEmail" type="xsd:string" />
+          <xsd:element minOccurs="0" name="destEmail" type="xsd:string" />
+          <xsd:element minOccurs="0" name="note" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ActivityFulfillment">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+Information about physical fulfillment of an order<dl>
+<dt><b>merchantTransactionId</b></dt>
+<dd>The ID of the transaction this is fulfilling</dd>
+<dt><b>shipper</b></dt>
+<dd>Description of who the shipping agent is (e.g., UPS)</dd>
+<dt><b>trackingString</b></dt>
+<dd>Tracking information on the package</dd>
+<dt><b>shippingAddress</b></dt>
+<dd>The address shipped to</dd>
+<dt><b>delivered</b></dt>
+<dd>Whether delivery is complete or not at this time</dd>
+<dt><b>receivedTs</b></dt>
+<dd>Receive time information from shipping agent</dd>
+<dt><b>receiptName</b></dt>
+<dd>Recipient's name from shipping agent</dd>
+</dl>
+]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="merchantTransactionId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="shipper" type="xsd:string" />
+          <xsd:element minOccurs="0" name="trackingString" type="xsd:string" />
+          <xsd:element minOccurs="0" name="shippingAddress" type="tns:Address" />
+          <xsd:element minOccurs="0" name="delivered" type="xsd:boolean" />
+          <xsd:element minOccurs="0" name="receivedTs" type="xsd:dateTime" />
+          <xsd:element minOccurs="0" name="receiptName" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ActivityURIView">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+Information about a user visiting a document<dl>
+<dt><b>ip</b></dt>
+<dd>The IP the customer is visiting from</dd>
+<dt><b>uri</b></dt>
+<dd>The URI visited</dd>
+<dt><b>size</b></dt>
+<dd>Size of the download</dd>
+<dt><b>bytesTransferred</b></dt>
+<dd>Bytes actually transferred, if known</dd>
+<dt><b>transferTime</b></dt>
+<dd>Number of second the transfer took</dd>
+<dt><b>description</b></dt>
+<dd>Description of the URI or object downloaded</dd>
+</dl>
+]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="ip" type="xsd:string" />
+          <xsd:element minOccurs="1" name="uri" type="xsd:anyURI" />
+          <xsd:element minOccurs="0" name="size" type="xsd:int" />
+          <xsd:element minOccurs="0" name="bytesTransferred" type="xsd:int" />
+          <xsd:element minOccurs="0" name="transferTime" type="xsd:int" />
+          <xsd:element minOccurs="1" name="description" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ActivityCancellation">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+Information about a user cancellation<dl>
+<dt><b>reason</b></dt>
+<dd>The reason for the cancellation</dd>
+<dt><b>confirmationCode</b></dt>
+<dd>Confirmation code for the cancellation</dd>
+<dt><b>initiator</b></dt>
+<dd>Type of initiator who made the cancellation</dd>
+</dl>
+]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="reason" type="xsd:string" />
+          <xsd:element minOccurs="0" name="confirmationCode" type="xsd:int" />
+          <xsd:element minOccurs="1" name="initiator" type="tns:ActivityCancelInitType" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ActivityNote">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+Information about a merchant customer<dl>
+<dt><b>note</b></dt>
+<dd>The note about a merchant customer</dd>
+</dl>
+]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="note" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Activity">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+Describes an activity by a customer. This class contains the common subset of information used in all activity reports.<dl>
+<dt><b>account</b></dt>
+<dd>Account (customer) this activity describes</dd>
+<dt><b>activityType</b></dt>
+<dd>Type of activity</dd>
+<dt><b>activityArgs</b></dt>
+<dd>Arguments specific to the type of activity</dd>
+<dt><b>timestamp</b></dt>
+<dd>Time the activity occurred</dd>
+</dl>
+]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="account" type="tns:Account" />
+          <xsd:element minOccurs="1" name="activityType" type="tns:ActivityType" />
+          <xsd:element minOccurs="0" name="activityArgs" type="tns:ActivityTypeArg" />
+          <xsd:element minOccurs="1" name="timestamp" type="xsd:dateTime" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfActivities">
+        <xsd:complexContent>
+          <xsd:restriction base="enc:Array">
+            <xsd:attribute ref="enc:arrayType" wsdl:arrayType="tns:Activity[]" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="Address">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+A physical address<dl>
+<dt><b>VID</b></dt>
+<dd>Vindicia's Globally Unique Identifier (GUID) for this object. If not specified, will be assigned.</dd>
+<dt><b>name</b></dt>
+<dd>Name of the person or organization who receives mail at this address. A free-form string of 255 or fewer characters.</dd>
+<dt><b>addr1</b></dt>
+<dd>Address line 1. A free-form string of 255 or fewer characters.</dd>
+<dt><b>addr2</b></dt>
+<dd>Address line 2. A free-form string of 255 or fewer characters.</dd>
+<dt><b>addr3</b></dt>
+<dd>Address line 3. A free-form string of 255 or fewer characters.</dd>
+<dt><b>city</b></dt>
+<dd>City. A free-form string of 64 or fewer characters.</dd>
+<dt><b>county</b></dt>
+<dd>County. A free-form string of 64 or fewer characters.</dd>
+<dt><b>district</b></dt>
+<dd>District (i.e., state or province). A free-form string of 255 or fewer characters.</dd>
+<dt><b>postalCode</b></dt>
+<dd>Postal code (i.e., ZIP code). A free-form string of 255 or fewer characters.</dd>
+<dt><b>country</b></dt>
+<dd>Country. A free-form string of 255 or fewer characters.</dd>
+<dt><b>phone</b></dt>
+<dd>Voice phone. A free-form string of 64 or fewer characters.</dd>
+<dt><b>fax</b></dt>
+<dd>Fax phone. A free-form string of 64 or fewer characters.</dd>
+<dt><b>latitude</b></dt>
+<dd>Latitude as signed decimal value. Filled in by Vindicia in some circumstances.</dd>
+<dt><b>longitude</b></dt>
+<dd>Longitude as signed decimal value. Filled in by Vindicia in some circumstances.</dd>
+</dl>
+]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="VID" type="xsd:string" />
+          <xsd:element minOccurs="0" name="name" type="xsd:string" />
+          <xsd:element minOccurs="0" name="addr1" type="xsd:string" />
+          <xsd:element minOccurs="0" name="addr2" type="xsd:string" />
+          <xsd:element minOccurs="0" name="addr3" type="xsd:string" />
+          <xsd:element minOccurs="0" name="city" type="xsd:string" />
+          <xsd:element minOccurs="0" name="county" type="xsd:string" />
+          <xsd:element minOccurs="0" name="district" type="xsd:string" />
+          <xsd:element minOccurs="0" name="postalCode" type="xsd:string" />
+          <xsd:element minOccurs="0" name="country" type="xsd:string" />
+          <xsd:element minOccurs="0" name="phone" type="xsd:string" />
+          <xsd:element minOccurs="0" name="fax" type="xsd:string" />
+          <xsd:element minOccurs="0" name="latitude" type="xsd:decimal" />
+          <xsd:element minOccurs="0" name="longitude" type="xsd:decimal" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Authentication">
+        <xsd:annotation>
+          <xsd:documentation>
+<![CDATA[
+Authentication information for this request.
+<p>
+<dl>
+<dt><b>version</b></dt>
+<dd>The version of the request.  Current supported version is "1.0" or
+"1.1".</dd>
+<dt><b>login</b></dt>
+<dd>The login ID to use.  This ID is assigned at account creation time and generally has the suffix "Soap".<dd>
+<dt><b>password</b></dt>
+<dd>The password to use.</dd>
+</dl>
+]]>
+</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="1" name="version" type="xsd:string" />
+          <xsd:element minOccurs="1" name="login" type="xsd:string" />
+          <xsd:element minOccurs="1" name="password" type="xsd:string" />
+          <xsd:element minOccurs="0" name="evid" type="xsd:string" />
+          <xsd:element minOccurs="0" name="userAgent" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="AutoBill">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+A description of how to bill a customer on a regular basis. An AutoBill is a, with a little extra information, a join between a link=Product (to describe what is being purchased) an link=Account (to descibe who is purchasing it) and a link=BillingPlan (to describe precisely what amounts are billed, when).<dl>
+<dt><b>VID</b></dt>
+<dd>Vindicia's Globally Unique Identifier (GUID) for this object. When creating new, this field should generally be blank. Most methods will also allow an AutoBill to be referenced based upon the merchantAutoBillId if that is more appropriate the merchant's application.</dd>
+<dt><b>merchantAutoBillId</b></dt>
+<dd>A merchant's unique identifier (e.g. serial number) for this AutoBill. Common forms include a database ID or random string. This is a free-form string of 256 or fewer bytes.</dd>
+<dt><b>account</b></dt>
+<dd>The <a href="#data_type.Account">Account</a> (i.e., Customer) account associated with this AutoBill. When creating a new AutoBill either an existing VID or merchantAccountId must be specified or a new Account will be created.</dd>
+<dt><b>product</b></dt>
+<dd>The <a href="#data_type.Product">Product</a> to be autobilled. When creating a new AutoBill either an existing VID or sku must be specified or a new Product will be created. It is generally recommended that Products be created explicitly in advance rather and implicitly.</dd>
+<dt><b>billingPlan</b></dt>
+<dd>The <a href="#data_type.BillingPlan">BillingPlan</a> from which to create the ArrayOfAutoBillPeriods. This object describes precisely what values should be billed, when.</dd>
+<dt><b>paymentMethod</b></dt>
+<dd>The <a href="#data_type.PaymentMethod">PaymentMethod</a> used for this AutoBill. When creating a new AutoBill an existing VID must be specified or a new PaymentMethod will be created. If no PaymentMethod is specified on creation of a new AutoBill, the paymentMethod from the link=Account is used, if available.</dd>
+<dt><b>currency</b></dt>
+<dd>ISO 4217 currency code to be used for this transaction. Note that the currency code must map to a currency on a previously defined link=BillingPeriodPlan</dd>
+<dt><b>customerAutoBillName</b></dt>
+<dd>Customer-defined, optional name for this autobilling object (e.g, 'Home Subscription').</dd>
+<dt><b>status</b></dt>
+<dd>Status of AutoBilling as enumerated in <a href="#data_type.AutoBillStatus">AutoBillStatus</a>. On creation, should be set to 'New' or left blank</dd>
+<dt><b>startTimestamp</b></dt>
+<dd>Time this autobilling begins. If not specified, defaults to the current time.</dd>
+<dt><b>sourceIp</b></dt>
+<dd>Source IP this autobill was requested from (the customer's, not the merchant's). Useful in fraud prevention.</dd>
+<dt><b>billingStatementIdentifier</b></dt>
+<dd>Optional string that should be displayed on a customer's billing statement when they are charged. If set this value overrides the billingStatementIdentifier in Product object. Please note that this value is probably constrained by the payment processor, and this should be be used with consulting with Vindicia Engineering.</dd>
+<dt><b>billingDay</b></dt>
+<dd>The day of the month the customer is billed. An integer between 1 and 31. If a day of month is specified that does not exist in a given month (e.g., 31 does not exist in February) all those transactions will be billed on the last day of that month in those conditions on monthly rebills.</dd>
+<dt><b>minimumCommitment</b></dt>
+<dd>Number of billing cycles the customer is contractually obligated to complete before cancelling. The only impact this has is upon the AutoBill->cancel() method, which has various modes it supports depending on this value.</dd>
+<dt><b>merchantAffiliateId</b></dt>
+<dd>Merchant's ID for the affiliate that submitted this AutoBill, if any. This is a free-form string of 128 characters or less.</dd>
+<dt><b>merchantAffiliateSubId</b></dt>
+<dd>Merchant's sub-ID for the affiliate that submitted this AutoBill. Allows for finer tracking of affiliate programs (e.g., a campaign). This is a free-form string of 128 characters or less.</dd>
+<dt><b>warnOnExpiration</b></dt>
+<dd>Set to true if the customer should be warned of a pending expiration of a trial period or finite subscription. The warning email will be sent a number of days before the expiration date as set in expire_warning_days in the <a href="#data_type.BillingPlanPeriod">BillingPlanPeriod</a> corresponding to the trial or end of subscription. Defaults to false.</dd>
+</dl>
+]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="VID" type="xsd:string" />
+          <xsd:element minOccurs="0" name="merchantAutoBillId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="account" type="tns:Account" />
+          <xsd:element minOccurs="0" name="product" type="tns:Product" />
+          <xsd:element minOccurs="0" name="billingPlan" type="tns:BillingPlan" />
+          <xsd:element minOccurs="0" name="paymentMethod" type="tns:PaymentMethod" />
+          <xsd:element minOccurs="0" name="currency" type="xsd:string" />
+          <xsd:element minOccurs="0" name="customerAutoBillName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="status" type="tns:AutoBillStatus" />
+          <xsd:element minOccurs="0" name="startTimestamp" type="xsd:dateTime" />
+          <xsd:element minOccurs="0" name="sourceIp" type="xsd:string" />
+          <xsd:element minOccurs="0" name="billingStatementIdentifier" type="xsd:string" />
+          <xsd:element minOccurs="0" name="billingDay" type="xsd:int" />
+          <xsd:element minOccurs="0" name="minimumCommitment" type="xsd:int" />
+          <xsd:element minOccurs="0" name="merchantAffiliateId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="merchantAffiliateSubId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="warnOnExpiration" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfAutoBills">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+An array of <a href="#data_type.AutoBill">AutoBill</a> items.]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+          <xsd:restriction base="enc:Array">
+            <xsd:attribute ref="enc:arrayType" wsdl:arrayType="tns:AutoBill[]" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="BillingPlanPrice">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+Defines a price point for a BillingPlan<dl>
+<dt><b>amount</b></dt>
+<dd>Amount to bill. Must be zero (free) or positive.</dd>
+<dt><b>currency</b></dt>
+<dd>ISO 4217 Currency Code of billing, defaults to USD</dd>
+<dt><b>priceListName</b></dt>
+<dd>Name of price list containing this price. This is free-form string of 255 characters or less and is generally a description of this price point.</dd>
+</dl>
+]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="amount" type="xsd:decimal" />
+          <xsd:element minOccurs="0" name="currency" type="xsd:string" />
+          <xsd:element minOccurs="0" name="priceListName" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfBillingPlanPrices">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+An array of <a href="#data_type.BillingPlanBillPrice">BillingPlanBillPrice</a> items.]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+          <xsd:restriction base="enc:Array">
+            <xsd:attribute ref="enc:arrayType" wsdl:arrayType="tns:BillingPlanPrice[]" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="BillingPlanPeriod">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+A quantity of time and a set of prices to rebill. Used as part of a <a href="#data_type.BillingPlan">BillingPlan</a> object.<dl>
+<dt><b>type</b></dt>
+<dd>The unit the quantity describes, as enumerated in <a href="#data_type.BillingPeriodType">BillingPeriodType</a>.</dd>
+<dt><b>quantity</b></dt>
+<dd>Quantity of the period (in days, weeks, months, etc). Must be a positive integer.</dd>
+<dt><b>cycles</b></dt>
+<dd>Number of times to bill; 0 is inifitely recurring</dd>
+<dt><b>prices</b></dt>
+<dd>List of prices for various currencies.</dd>
+<dt><b>expireWarningDays</b></dt>
+<dd>Number of days before expiration of this billing period to send a warning email.</dd>
+<dt><b>doNotNotifyFirstBill</b></dt>
+<dd>Set to true if the first bill for this billing period should not generate a prenotification email, e.g., the first bill after a free trial for which an expiration warning email is already sent.</dd>
+</dl>
+]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="type" type="tns:BillingPeriodType" />
+          <xsd:element minOccurs="0" name="quantity" type="xsd:int" />
+          <xsd:element minOccurs="0" name="cycles" type="xsd:int" />
+          <xsd:element minOccurs="0" name="prices" type="tns:ArrayOfBillingPlanPrices" />
+          <xsd:element minOccurs="0" name="expireWarningDays" type="xsd:int" />
+          <xsd:element minOccurs="0" name="doNotNotifyFirstBill" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfBillingPlanPeriods">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+An array of <a href="#data_type.BillingPlanPeriod">BillingPlanPeriod</a> items.]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+          <xsd:restriction base="enc:Array">
+            <xsd:attribute ref="enc:arrayType" wsdl:arrayType="tns:BillingPlanPeriod[]" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="BillingPlan">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+Describes the billing terms for a Product. While a Product describes the service or item purchased, the BillingPlan describes how amounts should be billed over time. More than one Product may hence use the same BillingPlan. For example, a music subscription service might have a 'music subscription' product, but multiple BillingPlans at different rates with different comittments. A common name for a BillingPlan is a 'Subscription Tier'.<dl>
+<dt><b>VID</b></dt>
+<dd>Vindicia's Globally Unique Identifier (GUID) for this object. If you do not have a VID, a VID will be provided for you.</dd>
+<dt><b>merchantBillingPlanId</b></dt>
+<dd>Merchant's unique ID for this item. Common forms include a database ID. If there is no appropriate unique identifier for this in the merchant's system, a VID may be used, instead. Free-form string 255 characters or fewer.</dd>
+<dt><b>description</b></dt>
+<dd>Description of this item. A free-form string 2048 characters or smaller.</dd>
+<dt><b>status</b></dt>
+<dd>Status of BillingPlan as enumerated in <a href="#data_type.BillingPlanStatus">BillingPlanStatus</a> - i.e., whether it is still ative, or not.</dd>
+<dt><b>periods</b></dt>
+<dd>Array of items describing billings. This array is used sequentially by the AutoBill object to create actual future billings. This allows for the creation of complex billing plans (e.g. 1 month free then 3 months for 9.99/mo then 12 months for 15.99/mo).</dd>
+<dt><b>prenotifyDays</b></dt>
+<dd>Number of days before billing prenotification emails are sent out; if unspecified, defaults to an automatic value based on the rebill period.</dd>
+<dt><b>endOfLifeTimestamp</b></dt>
+<dd>Time at which BillingPlan will go to end of life; i.e., when mandatory upgrade messaging begins. After this timestamp no more renewals will be allowed. If unspecifed, the product has no end of life set at this time.</dd>
+<dt><b>nameValues</b></dt>
+<dd>Optional array of name/value pairs the merchant wishes to associate with a BillingPlan</dd>
+<dt><b>merchantEntitlementIds</b></dt>
+<dd>Optional array of merchant defined ids that indicate entitlement for specific BillingPlan features. Allows merchant to ask the question, 'Is Account X allowed to access Feature Y?' May be unspecified if Vindicia entitlements are not being used to track access.</dd>
+<dt><b>billingStatementIdentifier</b></dt>
+<dd>The string that should be displayed on a customer's billing statement when they are charged for this BillingPlan. Please note that this value is probably constrained by the Payment Provider and should not be used without prior consultation with Vindicia Engineering.</dd>
+</dl>
+]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="VID" type="xsd:string" />
+          <xsd:element minOccurs="0" name="merchantBillingPlanId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="description" type="xsd:string" />
+          <xsd:element minOccurs="0" name="status" type="tns:BillingPlanStatus" />
+          <xsd:element minOccurs="0" name="periods" type="tns:ArrayOfBillingPlanPeriods" />
+          <xsd:element minOccurs="0" name="prenotifyDays" type="xsd:int" />
+          <xsd:element minOccurs="0" name="endOfLifeTimestamp" type="xsd:dateTime" />
+          <xsd:element minOccurs="0" name="nameValues" type="tns:ArrayOfNameValuePairs" />
+          <xsd:element minOccurs="0" name="merchantEntitlementIds" type="tns:ArrayOfMerchantEntitlementIds" />
+          <xsd:element minOccurs="0" name="billingStatementIdentifier" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfBillingPlans">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+An array of <a href="#data_type.BillingPlan">BillingPlan</a> items.]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+          <xsd:restriction base="enc:Array">
+            <xsd:attribute ref="enc:arrayType" wsdl:arrayType="tns:BillingPlan[]" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="Chargeback">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+Information about a chargeback<dl>
+<dt><b>VID</b></dt>
+<dd>Vindicia's Globally Unique Identifier (GUID) for this object. This field is created by Vindicia and is provided for merchants who don't track their own internal IDs on transactions to have a unique handle to track by. Generally speaking it may be safely ignored in favor of the merchantTransactionId at the merchant's preference. This is a 40-character freeform string.</dd>
+<dt><b>amount</b></dt>
+<dd>The amount charged back. Generally the same as the amount of the original transaction, although it is not unheard of for consumers to only chargeback part of a transaction. Vindicia does not provide at this time any information about the individual items charged back. Also note that, because of exchange rates, transactions across currencies may chargeback at different amounts than the original.</dd>
+<dt><b>currency</b></dt>
+<dd>ISO 4217 Currency Code of this transaction; defaults to USD if not specified.</dd>
+<dt><b>reasonCode</b></dt>
+<dd>The merchant-bank reported reason code for the chargeback</dd>
+<dt><b>caseNumber</b></dt>
+<dd>The merchant-bank reported case number for the chargeback</dd>
+<dt><b>referenceNumber</b></dt>
+<dd>The merchant-bank reported referenceNumber for the chargeback</dd>
+<dt><b>merchantNumber</b></dt>
+<dd>The merchant-bank reported merchant number</dd>
+<dt><b>merchantTransactionId</b></dt>
+<dd>The merchant's transaction ID, as specified to Vindicia during a transaction-related call</dd>
+<dt><b>merchantTransactionTimestamp</b></dt>
+<dd>The merchant-reported timestamp of the transactio during a transaction-related calls</dd>
+<dt><b>processorReceivedTimestamp</b></dt>
+<dd>The time the merchant bank received the chargeback</dd>
+<dt><b>postedTimestamp</b></dt>
+<dd>Time the chargeback was posted; is the 'creation time' of the chargeback</dd>
+<dt><b>statusChangedTimestamp</b></dt>
+<dd>The time this status change ocurred</dd>
+<dt><b>status</b></dt>
+<dd>Status of the item. See <a href="#data_type.ChargebackStatus">ChargebackStatus</a> for possible values</dd>
+<dt><b>merchantUserId</b></dt>
+<dd>Merchant's user ID for this chargeback</dd>
+<dt><b>note</b></dt>
+<dd>Any notes on the chargeback</dd>
+<dt><b>nameValues</b></dt>
+<dd>Optional array of name/value pairs associated with a Chargeback</dd>
+</dl>
+]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="VID" type="xsd:string" />
+          <xsd:element minOccurs="1" name="amount" type="xsd:decimal" />
+          <xsd:element minOccurs="0" name="currency" type="xsd:string" />
+          <xsd:element minOccurs="1" name="reasonCode" type="xsd:string" />
+          <xsd:element minOccurs="0" name="caseNumber" type="xsd:string" />
+          <xsd:element minOccurs="0" name="referenceNumber" type="xsd:string" />
+          <xsd:element minOccurs="0" name="merchantNumber" type="xsd:string" />
+          <xsd:element minOccurs="0" name="merchantTransactionId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="merchantTransactionTimestamp" type="xsd:dateTime" />
+          <xsd:element minOccurs="1" name="processorReceivedTimestamp" type="xsd:dateTime" />
+          <xsd:element minOccurs="1" name="postedTimestamp" type="xsd:dateTime" />
+          <xsd:element minOccurs="0" name="statusChangedTimestamp" type="xsd:dateTime" />
+          <xsd:element minOccurs="1" name="status" type="tns:ChargebackStatus" />
+          <xsd:element minOccurs="0" name="merchantUserId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="note" type="xsd:string" />
+          <xsd:element minOccurs="0" name="nameValues" type="tns:ArrayOfNameValuePairs" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfChargebacks">
+        <xsd:annotation>
+          <xsd:documentation>
+<![CDATA[
+An array of chargebacks
+]]>
+</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+          <xsd:restriction base="enc:Array">
+            <xsd:attribute ref="enc:arrayType" wsdl:arrayType="tns:Chargeback[]" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="ElectronicSignature">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+An electronic signature.<dl>
+<dt><b>VID</b></dt>
+<dd>Vindicia's Globally Unique Identifier (GUID) for this object</dd>
+<dt><b>uri</b></dt>
+<dd>URI of the document being signed</dd>
+<dt><b>sourceIp</b></dt>
+<dd>Source IP this transaction came from</dd>
+<dt><b>timestamp</b></dt>
+<dd>Time the signature is made</dd>
+<dt><b>account</b></dt>
+<dd>User who is being asked to sign</dd>
+<dt><b>transaction</b></dt>
+<dd>The transaction associated with this signature event</dd>
+<dt><b>description</b></dt>
+<dd>Text description of the signature</dd>
+</dl>
+]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="VID" type="xsd:string" />
+          <xsd:element minOccurs="1" name="uri" type="xsd:anyURI" />
+          <xsd:element minOccurs="0" name="sourceIp" type="xsd:string" />
+          <xsd:element minOccurs="1" name="timestamp" type="xsd:dateTime" />
+          <xsd:element minOccurs="1" name="account" type="tns:Account" />
+          <xsd:element minOccurs="1" name="transaction" type="tns:Transaction" />
+          <xsd:element minOccurs="0" name="description" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="EmailTemplate">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+Template of an email<dl>
+<dt><b>vid</b></dt>
+<dd>Vindicia's Globally Unique Identifier (GUID) for this object</dd>
+<dt><b>product</b></dt>
+<dd>product this template refers to; if empty, is the merchant's default</dd>
+<dt><b>templateType</b></dt>
+<dd>Defines situation in which this EmailTemplate should be used</dd>
+<dt><b>version</b></dt>
+<dd>The version of this EmailTemplate. The format is 'X.x' where X is the major version and x is the minor version. Vindicia automatically increments the minor version every time you call update. All previous versions are archived.</dd>
+<dt><b>from</b></dt>
+<dd>The address from which this EmailTemplate should be sent</dd>
+<dt><b>replyTo</b></dt>
+<dd>The address to which this EmailTemplate should be replied</dd>
+<dt><b>htmlMessage</b></dt>
+<dd>Message to use for those who prefer HTML</dd>
+<dt><b>textMessage</b></dt>
+<dd>Message to use for those who prefer plaintext</dd>
+</dl>
+]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="vid" type="xsd:string" />
+          <xsd:element minOccurs="1" name="product" type="tns:Product" />
+          <xsd:element minOccurs="0" name="templateType" type="vin:EmailTemplateType" />
+          <xsd:element minOccurs="0" name="version" type="xsd:string" />
+          <xsd:element minOccurs="0" name="from" type="xsd:string" />
+          <xsd:element minOccurs="0" name="replyTo" type="xsd:string" />
+          <xsd:element minOccurs="0" name="htmlMessage" type="xsd:string" />
+          <xsd:element minOccurs="0" name="textMessage" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfEmailTemplates">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+An array of <a href="#data_type.EmailTemplate">EmailTemplate</a> items]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+          <xsd:restriction base="enc:Array">
+            <xsd:attribute ref="enc:arrayType" wsdl:arrayType="tns:EmailTemplate[]" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="Entitlement">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+Describes access by an Account to a given aspect of a Product<dl>
+<dt><b>merchantEntitlementId</b></dt>
+<dd>The merchant's unique ID of this entitlement</dd>
+<dt><b>account</b></dt>
+<dd>Account that owns this entitlement</dd>
+<dt><b>startTimestamp</b></dt>
+<dd>Time this entitlement begins</dd>
+<dt><b>endTimestamp</b></dt>
+<dd>Time this entitlement ends</dd>
+<dt><b>active</b></dt>
+<dd>Is this entitlement active or expired? Convenient shorthand for, 'Is today between the startTimestamp and the endTimestamp.'</dd>
+</dl>
+]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="merchantEntitlementId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="account" type="vin:Account" />
+          <xsd:element minOccurs="0" name="startTimestamp" type="xsd:dateTime" />
+          <xsd:element minOccurs="0" name="endTimestamp" type="xsd:dateTime" />
+          <xsd:element minOccurs="0" name="active" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfEntitlements">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+An array of entitlements]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+          <xsd:restriction base="enc:Array">
+            <xsd:attribute ref="enc:arrayType" wsdl:arrayType="tns:Entitlement[]" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="MetricStatistics">
+        <xsd:annotation>
+          <xsd:documentation>
+<![CDATA[
+Metric on a class of statistic.
+<dl>
+<dt><b>type</b></dt>
+<dd>The <a href="#dataType.MetricStatusType">type</a>
+of transaction covered by these statistics.</dd>
+<dt><b>numTransactions</b></dt>
+<dd>The number of transactions covered in this report</dd>
+<dt><b>minMs</b></dt>
+<dd>The minimum number of milliseconds necessary to complete a
+transaction in this group.</dd>
+<dt><b>maxMs</b></dt>
+<dd>The maximum number of milliseconds necessary to complete a
+transaction in this group.</dd>
+<dt><b>avgMs</b></dt>
+<dd>The average number of milliseconds necessary to complete a
+transaction in this group.</dd>
+</dl>
+]]>
+</xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="1" name="type" type="vin:MetricStatusType" />
+          <xsd:element minOccurs="1" name="numTransactions" type="xsd:int" />
+          <xsd:element minOccurs="1" name="minMs" type="xsd:long" />
+          <xsd:element minOccurs="1" name="avgMs" type="xsd:long" />
+          <xsd:element minOccurs="1" name="maxMs" type="xsd:long" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfMetricStats">
+        <xsd:annotation>
+          <xsd:documentation>
+<![CDATA[
+An array of 
+<a
+href="#dataType.MetricStatistics">MetricStatistics</a> items.
+]]>
+</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+          <xsd:restriction base="enc:Array">
+            <xsd:attribute ref="enc:arrayType" wsdl:arrayType="vin:MetricStatistics[]" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="CreditCard">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+Details for a CreditCard.<dl>
+<dt><b>account</b></dt>
+<dd>The full account number. For non-CashBox methods (e.g., Transaction::score), this field must be left blank. The precise form used here will vary with the exact payment method, but in general, Vindicia does not validate accounts algorithmically. If validation of an account is desired, it should be handled either by calling link=validate or by setting the appropriate <a href="#data_type.PaymentMethodUpdateOperation">PaymentMethodUpdateOperation</a> value on a link=update call.</dd>
+<dt><b>bin</b></dt>
+<dd>The Bank Identification Number, i.e., the first six digits. If the account field is provided, this may be left blank and it will be filled in by Vindicia.</dd>
+<dt><b>lastDigits</b></dt>
+<dd>The last part of the account number for display purposes, generally the last four digits. If the account field is provided, this may be left blank and it will be filled in by Vindicia.</dd>
+<dt><b>accountLength</b></dt>
+<dd>Length of the total account number. If the full account number is submitted, this field may be left blank; Vindicia will calculate it. If the full account number is not submitted, this field is required.</dd>
+<dt><b>hashType</b></dt>
+<dd>The algorithm used for hashing the account number. If this value is not provided we assume SHA1</dd>
+<dt><b>accountHash</b></dt>
+<dd>A hash of the full account number. Any non-numeric characters should be removed prior to hashing. If the account number is provided, this may be left blank and the hash will be calculated by Vindicia. The exact length and format of this string may depend upon the hash algorithm chosen.</dd>
+<dt><b>expirationDate</b></dt>
+<dd>Expiration date of the credit card. Should be formatted as YYYYMM. For example, July, 2008 should be sent as 200807. No validation is performed to check that this date is in the future.</dd>
+</dl>
+]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="account" type="xsd:string" />
+          <xsd:element minOccurs="0" name="bin" type="xsd:string" />
+          <xsd:element minOccurs="0" name="lastDigits" type="xsd:string" />
+          <xsd:element minOccurs="0" name="accountLength" type="xsd:int" />
+          <xsd:element minOccurs="0" name="hashType" type="vin:HashType" />
+          <xsd:element minOccurs="0" name="accountHash" type="xsd:string" />
+          <xsd:element minOccurs="0" name="expirationDate" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ECP">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+Details for an ECP account.<dl>
+<dt><b>account</b></dt>
+<dd>The full account number, generally a bank account number. For non-CashBox methods (e.g., Transaction::score), this field must be left blank. The precise form used here will vary with the exact payment method, but in general, Vindicia does not validate accounts algorithmically. If validation of an account is desired, it should be handled either by calling link=validate or by setting the appropriate <a href="#data_type.PaymentMethodUpdateOperation">PaymentMethodUpdateOperation</a> value on a link=update call.</dd>
+<dt><b>hashType</b></dt>
+<dd>The algorithm used for hashing the account number. If this value is not provided we assume SHA1</dd>
+<dt><b>accountHash</b></dt>
+<dd>A hash of the full account number. Any non-numeric characters should be removed prior to hashing. If the account number is provided, this may be left blank and the hash will be calculated by Vindicia. The exact length and format of this string may depend upon the hash algorithm chosen.</dd>
+<dt><b>routingNumber</b></dt>
+<dd>The routing number for an ACH/ECP account</dd>
+<dt><b>accountType</b></dt>
+<dd>The account type for an ACH/ECP account</dd>
+<dt><b>lastDigits</b></dt>
+<dd>The last part of the account number for display purposes, generally the last four digits. If the account field is provided, this may be left blank and it will be filled in by Vindicia.</dd>
+<dt><b>accountLength</b></dt>
+<dd>Length of the total account number. If the full account number is submitted, this field may be left blank; Vindicia will calculate it.</dd>
+<dt><b>allowedTransactionType</b></dt>
+<dd>Allowed type(s) of transactions for this PaymentMethod, e.g., Inbound, Outbound. Defaults to 'All.'</dd>
+</dl>
+]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="account" type="xsd:string" />
+          <xsd:element minOccurs="0" name="hashType" type="vin:HashType" />
+          <xsd:element minOccurs="0" name="accountHash" type="xsd:string" />
+          <xsd:element minOccurs="0" name="routingNumber" type="xsd:string" />
+          <xsd:element minOccurs="0" name="accountType" type="tns:AccountType" />
+          <xsd:element minOccurs="0" name="lastDigits" type="xsd:string" />
+          <xsd:element minOccurs="0" name="accountLength" type="xsd:int" />
+          <xsd:element minOccurs="0" name="allowedTransactionType" type="tns:ECPTransactionType" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="DirectDebit">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+Details for a DirectDebit account.<dl>
+<dt><b>account</b></dt>
+<dd>The full account number, generally a bank account number. For non-CashBox methods (e.g., Transaction::score), this field must be left blank. The precise form used here will vary with the exact payment method, but in general, Vindicia does not validate accounts algorithmically. If validation of an account is desired, it should be handled either by calling link=validate or by setting the appropriate <a href="#data_type.PaymentMethodUpdateOperation">PaymentMethodUpdateOperation</a> value on a link=update call.</dd>
+<dt><b>lastDigits</b></dt>
+<dd>The last part of the account number for display purposes, generally the last four digits. If the account field is provided, this may be left blank and it will be filled in by Vindicia.</dd>
+<dt><b>accountLength</b></dt>
+<dd>Length of the total account number. If the full account number is submitted, this field may be left blank; Vindicia will calculate it.</dd>
+<dt><b>hashType</b></dt>
+<dd>The algorithm used for hashing the account number. If this value is not provided we assume SHA1</dd>
+<dt><b>accountHash</b></dt>
+<dd>A hash of the full account number. Any non-numeric characters should be removed prior to hashing. If the account number is provided, this may be left blank and the hash will be calculated by Vindicia. The exact length and format of this string may depend upon the hash algorithm chosen.</dd>
+<dt><b>countryCode</b></dt>
+<dd>The country code for a DirectDebit account</dd>
+<dt><b>bankSortCode</b></dt>
+<dd>The bank sort code for an DirectDebit account</dd>
+<dt><b>ribCode</b></dt>
+<dd>The RIB code for an DirectDebit account (France only)</dd>
+</dl>
+]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="account" type="xsd:string" />
+          <xsd:element minOccurs="0" name="lastDigits" type="xsd:string" />
+          <xsd:element minOccurs="0" name="accountLength" type="xsd:int" />
+          <xsd:element minOccurs="0" name="hashType" type="vin:HashType" />
+          <xsd:element minOccurs="0" name="accountHash" type="xsd:string" />
+          <xsd:element minOccurs="0" name="countryCode" type="xsd:string" />
+          <xsd:element minOccurs="0" name="bankSortCode" type="tns:AccountType" />
+          <xsd:element minOccurs="0" name="ribCode" type="tns:AccountType" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="PayPal">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+Details for a PayPal account.<dl>
+<dt><b>emailAddress</b></dt>
+<dd>The email address for a PayPal account</dd>
+<dt><b>hashType</b></dt>
+<dd>The algorithm used for hashing the account number. If this value is not provided we assume SHA1</dd>
+<dt><b>passwordHash</b></dt>
+<dd>A hash of the password. If the password is provided, this may be left blank and the hash will be calculated by Vindicia. The exact length and format of this string may depend upon the hash algorithm chosen.</dd>
+<dt><b>password</b></dt>
+<dd>The password for a PayPal account</dd>
+</dl>
+]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="emailAddress" type="xsd:string" />
+          <xsd:element minOccurs="0" name="hashType" type="vin:HashType" />
+          <xsd:element minOccurs="0" name="passwordHash" type="xsd:string" />
+          <xsd:element minOccurs="0" name="password" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="PaymentMethod">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+A payment method, e.g., credit card, PayPal, ECP, direct debit.<dl>
+<dt><b>VID</b></dt>
+<dd>Vindicia's Globally Unique Identifier (GUID) for this object. If one is not specified, one will be assigned.</dd>
+<dt><b>type</b></dt>
+<dd>Type of payment method this object represents. If not set, defaults to CreditCard.</dd>
+<dt><b>creditCard</b></dt>
+<dd>The credit card details for a PaymentMethod of type CreditCard.</dd>
+<dt><b>ecp</b></dt>
+<dd>The ECP account details for a PaymentMethod of type ECP.</dd>
+<dt><b>directDebit</b></dt>
+<dd>The direct debit account details for a PaymentMethod of type DirectDebit.</dd>
+<dt><b>paypal</b></dt>
+<dd>The PayPal account details for a PaymentMethod of type PayPal.</dd>
+<dt><b>nameValues</b></dt>
+<dd>An optional array of name-value pair items specific to this payment method type. For example, for a credit card, name 'CVN' and value of '123' might be supplied. At this time, the name 'CVN' (the generic name for VISA CVV2 or MasterCard CVC) is the only supported name/value pair.</dd>
+<dt><b>accountHolderName</b></dt>
+<dd>Name of the account holder. This is a free-form string of 255 characters or less.</dd>
+<dt><b>billingAddress</b></dt>
+<dd>The billing address associated with this payment method, if any.</dd>
+<dt><b>customerSpecifiedType</b></dt>
+<dd>The customer-specified type of this card, if any. This is a free-form string of 64 or fewer characters and generally is going to be something like 'Visa'.</dd>
+<dt><b>customerDescription</b></dt>
+<dd>The name the customer gives this payment method, if any. This is a freeform string of 512 or fewer bytes. For example, 'Work MasterCard'.</dd>
+<dt><b>merchantPaymentMethodId</b></dt>
+<dd>The merchant's optional unique ID for this payment method. This is a free-form, unique string of 1024 or fewer bytes.</dd>
+<dt><b>currency</b></dt>
+<dd>ISO 4217 Currency Code to use if validation is required; defaults to USD</dd>
+<dt><b>sortOrder</b></dt>
+<dd>If this PaymentMethod is to be associated with an link=account, this is the index into the paymentMethods array at which this PaymentMethod should be inserted (see <a href="#data_type.Account)">Account)</a>. If there is already a PaymentMethod at that index (e.g., sortOrder = 2 and the account already has three payment methods), this PaymentMethod will be inserted at index 2, and all others will be moved down the array. If not specified, the PaymentMethod will be added to the end of the array.</dd>
+<dt><b>active</b></dt>
+<dd>If true, this PaymentMethod will be included in the list of PaymentMethods for the associated Account (if there is one). Defaults to true.</dd>
+</dl>
+]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="VID" type="xsd:string" />
+          <xsd:element minOccurs="0" name="type" type="tns:PaymentMethodType" />
+          <xsd:element minOccurs="0" name="creditCard" type="tns:CreditCard" />
+          <xsd:element minOccurs="0" name="ecp" type="tns:ECP" />
+          <xsd:element minOccurs="0" name="directDebit" type="tns:DirectDebit" />
+          <xsd:element minOccurs="0" name="paypal" type="tns:PayPal" />
+          <xsd:element minOccurs="0" name="nameValues" type="tns:ArrayOfNameValuePairs" />
+          <xsd:element minOccurs="0" name="accountHolderName" type="xsd:string" />
+          <xsd:element minOccurs="0" name="billingAddress" type="tns:Address" />
+          <xsd:element minOccurs="0" name="customerSpecifiedType" type="xsd:string" />
+          <xsd:element minOccurs="0" name="customerDescription" type="xsd:string" />
+          <xsd:element minOccurs="0" name="merchantPaymentMethodId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="currency" type="xsd:string" />
+          <xsd:element minOccurs="0" name="sortOrder" type="xsd:int" />
+          <xsd:element minOccurs="0" name="active" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfPaymentMethods">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+An array of <a href="#data_type.PaymentMethod">PaymentMethod</a> objects.]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+          <xsd:restriction base="enc:Array">
+            <xsd:attribute ref="enc:arrayType" wsdl:arrayType="tns:PaymentMethod[]" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="PaymentProvider">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+A payment provider (i.e., a bank)<dl>
+<dt><b>VID</b></dt>
+<dd>Vindicia's Globally Unique Identifier (GUID) for this object</dd>
+<dt><b>description</b></dt>
+<dd>Description of the provider</dd>
+<dt><b>paymentType</b></dt>
+<dd>Type of payments accepted by this provider, as enumerated in <a href="PaymentMethod.html#data_type.PaymentMethodType">PaymentMethodType</a>.</dd>
+<dt><b>account</b></dt>
+<dd>Merchant's account identifier with this provider</dd>
+</dl>
+]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="VID" type="xsd:string" />
+          <xsd:element minOccurs="0" name="description" type="xsd:string" />
+          <xsd:element minOccurs="0" name="paymentType" type="tns:PaymentMethodType" />
+          <xsd:element minOccurs="0" name="account" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="MerchantEntitlementId">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+An id/description pair describing merchant defined ids that indicate entitlement for specific product features.<dl>
+<dt><b>id</b></dt>
+<dd>The unique, merchant-defined id of this entitlement. Free-form string of 1024 or fewer bytes.</dd>
+<dt><b>description</b></dt>
+<dd>The merchant-defined description of this entitlement. Free-form string of 1024 or fewer bytes.</dd>
+</dl>
+]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="1" name="id" type="xsd:string" />
+          <xsd:element minOccurs="1" name="description" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfMerchantEntitlementIds">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+An array of entitlement ids]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+          <xsd:restriction base="enc:Array">
+            <xsd:attribute ref="enc:arrayType" wsdl:arrayType="tns:MerchantEntitlementId[]" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="NameValuePair">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+A name/value pair describing attributes not otherwise supported in the object.<dl>
+<dt><b>name</b></dt>
+<dd>The name of the name/value pair (e.g., VendorID)</dd>
+<dt><b>value</b></dt>
+<dd>The value of the name/value pair (e.g., 12345)</dd>
+</dl>
+]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="1" name="name" type="xsd:string" />
+          <xsd:element minOccurs="1" name="value" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfNameValuePairs">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+An array of <a href="#data_type.NameValuePair">NameValuePair</a> items]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+          <xsd:restriction base="enc:Array">
+            <xsd:attribute ref="enc:arrayType" wsdl:arrayType="tns:NameValuePair[]" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="Product">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+A unique merchant product, with unique price, description and optional autobilling information.<dl>
+<dt><b>VID</b></dt>
+<dd>Vindicia's Globally Unique Identifier (GUID) for this object. If not specified, will be created.</dd>
+<dt><b>merchantProductId</b></dt>
+<dd>Merchant's unique ID for this item (e.g., SKU). Common forms include a database ID or string. This is a free-form string of 256 or fewer bytes.</dd>
+<dt><b>description</b></dt>
+<dd>Description of this item. This is a freeform strin of 32KB or less.</dd>
+<dt><b>status</b></dt>
+<dd>Status of message as enumerated in <a href="#data_type.ProductStatus">ProductStatus</a>. For a new object, should generally be 'New' or blank.</dd>
+<dt><b>taxClassification</b></dt>
+<dd>Product type for tax purposes as enumerated in <a href="#data_type.TaxClassification">TaxClassification</a>.</dd>
+<dt><b>defaultBillingPlan</b></dt>
+<dd>Optional default billing plan that can be used by the AutoBill if none is specified. Useful for merchants who have a single price plan for each Product. Merchants who have multiple pricing plans for each Product will need to associate a BillingPlan when creating an AutoBill.</dd>
+<dt><b>endOfLifeTimestamp</b></dt>
+<dd>Time at which product will go to end of life; i.e., when mandatory upgrade messaging begins. After this timestamp no more renewals will be allowed. If undefined, this Product is not in end of life and may be renewed.</dd>
+<dt><b>nameValues</b></dt>
+<dd>Optional array of name/value pairs the merchant wishes to associate with a Product</dd>
+<dt><b>merchantEntitlementIds</b></dt>
+<dd>Optional array of merchant defined ids that indicate entitlement for specific product features. Allows merchant to ask the question, 'Is Account X allowed to access Feature Y?' If not specified, this product provides no entitlements.</dd>
+<dt><b>billingStatementIdentifier</b></dt>
+<dd>Optional string that should be displayed on a customer's billing statement when they are charged. Please note that this value is probably constrained by the payment processor, and this should be be used with consulting with Vindicia Engineering.</dd>
+</dl>
+]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="VID" type="xsd:string" />
+          <xsd:element minOccurs="0" name="merchantProductId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="description" type="xsd:string" />
+          <xsd:element minOccurs="0" name="status" type="tns:ProductStatus" />
+          <xsd:element minOccurs="0" name="taxClassification" type="tns:TaxClassification" />
+          <xsd:element minOccurs="0" name="defaultBillingPlan" type="tns:BillingPlan" />
+          <xsd:element minOccurs="0" name="endOfLifeTimestamp" type="xsd:dateTime" />
+          <xsd:element minOccurs="0" name="nameValues" type="tns:ArrayOfNameValuePairs" />
+          <xsd:element minOccurs="0" name="merchantEntitlementIds" type="tns:ArrayOfMerchantEntitlementIds" />
+          <xsd:element minOccurs="0" name="billingStatementIdentifier" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfProducts">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+An array of <a href="#data_type.Product">Product</a> objects]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+          <xsd:restriction base="enc:Array">
+            <xsd:attribute ref="enc:arrayType" wsdl:arrayType="tns:Product[]" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="Refund">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+Describes a refund. Refunds fall into two basic categories - merchant-processed and Vindicia-processed. In the former (often ChargeGuard) application, historic refunds are reported to Vindicia. In the latter, a refund is submitted to Vindicia for processing.<dl>
+<dt><b>VID</b></dt>
+<dd>Vindicia's Globally Unique Identifier (GUID) for this object. For new refunds, or historic refunds being reported the first time, this may be left blank upon submission and a VID will be generated by Vindicia.</dd>
+<dt><b>merchantRefundId</b></dt>
+<dd>Id of the refund. In a refund-performance environment, this field should be left blank on submission, but will be filled out on return. This is a free-form string of 255 or fewer characters.</dd>
+<dt><b>transaction</b></dt>
+<dd>The transaction the refund applies to. The most important piece of information for actually processing the refund is, in order of preference, the Transaction.VID followed by the Tranasaction.merchantTransactionId. One of these values must be present and link to an existing, actual transaction for an actual refund to occur.</dd>
+<dt><b>amount</b></dt>
+<dd>Amount of the refund. Must be positive, non-zero, and less than or equal to the entire amount of the original transaction in a refund-perfomance application; may be an arbitrary amount if reporting a historic merchant-processed refund.</dd>
+<dt><b>currency</b></dt>
+<dd>ISO 4217 Currency Code of this transaction; defaults to USD. In a refund-perormance application, this value is ignored and the currency value from the original transaction is used in preference.</dd>
+<dt><b>timestamp</b></dt>
+<dd>Time of the refund. In a refund-performance environment, it may be left blank, and will be automatically filled out.</dd>
+<dt><b>referenceString</b></dt>
+<dd>Any data returned from the payment method processor pertaining the refund (e.g., a refund ID). In a refund-performance environment, this field should be left blank on submission, but will be filled out on return. This is a free-form string of 255 or fewer characters, and its values vary depending on the payment processor used.</dd>
+<dt><b>note</b></dt>
+<dd>Any notes about the refund, such as why it occurred. This is a free-form, 32KB string.</dd>
+</dl>
+]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="VID" type="xsd:string" />
+          <xsd:element minOccurs="0" name="merchantRefundId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="transaction" type="tns:Transaction" />
+          <xsd:element minOccurs="1" name="amount" type="xsd:decimal" />
+          <xsd:element minOccurs="0" name="currency" type="xsd:string" />
+          <xsd:element minOccurs="0" name="timestamp" type="xsd:dateTime" />
+          <xsd:element minOccurs="0" name="referenceString" type="xsd:string" />
+          <xsd:element minOccurs="0" name="note" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfRefunds">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+An array of <a href="#data_type.Refund">Refund</a>]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+          <xsd:restriction base="enc:Array">
+            <xsd:attribute ref="enc:arrayType" wsdl:arrayType="tns:Refund[]" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="Return">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+
+
+All methods return this class, which provides
+information on the result of an operation.  See <a href="#data_type.Return">Return</a> for complete documentation.
+
+    <dl>
+<dt><b>returnCode</b></dt>
+<dd></dd>
+<dt><b>returnString</b></dt>
+<dd></dd>
+<dt><b>soapId</b></dt>
+<dd></dd>
+</dl>
+]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="1" name="returnCode" type="tns:ReturnCode" />
+          <xsd:element minOccurs="0" name="returnString" type="xsd:string" />
+          <xsd:element minOccurs="0" name="soapId" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="SearchItem">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+Description of search<dl>
+<dt><b>attribute</b></dt>
+<dd>Attribute to search on</dd>
+<dt><b>operator</b></dt>
+<dd>Operator of the search (e.g., eq, the less than operator, etc.)</dd>
+<dt><b>name</b></dt>
+<dd>Name to search on name/value type</dd>
+<dt><b>value</b></dt>
+<dd>Value to search for</dd>
+</dl>
+]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="1" name="attribute" type="vin:SearchAttribute" />
+          <xsd:element minOccurs="1" name="operator" type="vin:SearchOperator" />
+          <xsd:element minOccurs="0" name="name" type="xsd:string" />
+          <xsd:element minOccurs="1" name="value" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="Search">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+A grouping of primitives to describe a search<dl>
+<dt><b>attribute</b></dt>
+<dd>Attribute to search on</dd>
+<dt><b>item</b></dt>
+<dd>Values ot search by</dd>
+<dt><b>booleanNextItem</b></dt>
+<dd>How to add the next Search in an array of Searches. If this is the last (or only) item, this value is ignored.</dd>
+</dl>
+]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="attribute" type="vin:SearchAttribute" />
+          <xsd:element minOccurs="0" name="item" type="vin:SearchItem" />
+          <xsd:element minOccurs="0" name="booleanNextItem" type="vin:SearchBoolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfSearches">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+An array of <a href="#data_type.Search">Search</a> items.]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+          <xsd:restriction base="enc:Array">
+            <xsd:attribute ref="enc:arrayType" wsdl:arrayType="tns:Search[]" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="SearchStatus">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+Status of a search<dl>
+<dt><b>status</b></dt>
+<dd>The status of this search</dd>
+<dt><b>itemCount</b></dt>
+<dd>If the search is complete, the number of items it will return</dd>
+<dt><b>search</b></dt>
+<dd>The search that was used to begin this request</dd>
+</dl>
+]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="status" type="vin:SearchStatus" />
+          <xsd:element minOccurs="0" name="itemCount" type="xsd:int" />
+          <xsd:element minOccurs="0" name="search" type="vin:ArrayOfSearches" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfSearchStatuses">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+An array of <a href="#data_type.SearchStatus">SearchStatus</a> items.]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+          <xsd:restriction base="enc:Array">
+            <xsd:attribute ref="enc:arrayType" wsdl:arrayType="tns:SearchStatus[]" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="TaxExemption">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+Describes an exemption to a tax<dl>
+<dt><b>region</b></dt>
+<dd>Region the exemption applies to</dd>
+<dt><b>exemptionId</b></dt>
+<dd>ID that documents the exemption. E.g., a VAT ID, or a US Tax ID.</dd>
+<dt><b>active</b></dt>
+<dd>If true, this exemption is active.</dd>
+</dl>
+]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="region" type="vin:TaxRegion" />
+          <xsd:element minOccurs="0" name="exemptionId" type="xsd:string" />
+          <xsd:element minOccurs="1" name="active" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfTaxExemptions">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+An array of <a href="#data_type.TaxExemption">TaxExemption</a> items.]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+          <xsd:restriction base="enc:Array">
+            <xsd:attribute ref="enc:arrayType" wsdl:arrayType="tns:TaxExemption[]" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="SalesTax">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+Description of a sales tax to be charged<dl>
+<dt><b>description</b></dt>
+<dd>A 256-char maximum free-form string describing the type of sales tax (e.g., 'CA ESD Sales Tax'</dd>
+<dt><b>tax</b></dt>
+<dd>Tax to be charged</dd>
+</dl>
+]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="1" name="description" type="xsd:string" />
+          <xsd:element minOccurs="1" name="tax" type="xsd:decimal" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfSalesTaxes">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+An array of <a href="#data_type.SalesTax">SalesTax</a> items.]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+          <xsd:restriction base="enc:Array">
+            <xsd:attribute ref="enc:arrayType" wsdl:arrayType="tns:SalesTax[]" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfTaxExemption">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+An array of <a href="#data_type.TaxExemption">TaxExemption</a> items.]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+          <xsd:restriction base="enc:Array">
+            <xsd:attribute ref="enc:arrayType" wsdl:arrayType="tns:TaxExemption[]" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="ScoreControl">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+A specific test to be used (or not used).<dl>
+<dt><b>test</b></dt>
+<dd>The enumerated value from <a href="#data_type.ScoreControl">ScoreControl</a>.</dd>
+<dt><b>score</b></dt>
+<dd>The score to be applied. Ranges from 0 (blacklist) to 100 (whitelist). For most tests, you'll want the value 0.</dd>
+<dt><b>active</b></dt>
+<dd>Whether the test is active, or not.</dd>
+</dl>
+]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="1" name="test" type="tns:ScoreControlTests" />
+          <xsd:element minOccurs="1" name="score" type="xsd:int" />
+          <xsd:element minOccurs="1" name="active" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfScoreControls">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+An array of <a href="#data_type.ScoreControl">ScoreControl</a> items.]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+          <xsd:restriction base="enc:Array">
+            <xsd:attribute ref="enc:arrayType" wsdl:arrayType="tns:ScoreControl[]" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="CaptureResult">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+.<dl>
+<dt><b>returnCode</b></dt>
+<dd>The code describing the success or reason of failure for the capture. 200:Ok - Capture succeeded. 402:Unable to re-authorize an AuthExpired transaction. 404:Unable to load transaction. If the transaction may not be loaded by VID or merchantTransactionId. 405:Must specify a transaction that has been Authorized. 500:Internal failure.</dd>
+<dt><b>merchantTransactionId</b></dt>
+<dd>Merchant transaction identifier.</dd>
+<dt><b>originaMerchantTransactionId</b></dt>
+<dd>Merchant transaction identifier for the original transaction, if a re-auth was done.</dd>
+</dl>
+]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="1" name="returnCode" type="xsd:int" />
+          <xsd:element minOccurs="1" name="merchantTransactionId" type="xsd:string" />
+          <xsd:element minOccurs="1" name="originaMerchantTransactionId" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfCaptureResults">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+An array of <a href="#data_type.CaptureResult">CaptureResult</a> items.]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+          <xsd:restriction base="enc:Array">
+            <xsd:attribute ref="enc:arrayType" wsdl:arrayType="tns:CaptureResult[]" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="CancelResult">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+.<dl>
+<dt><b>returnCode</b></dt>
+<dd>The code describing the success or reason of failure for the cancellation. 200:Ok - Cancel succeeded. 400:Transaction already captured and hence not cancellable. 404:Unable to load transaction. If the transaction may not be loaded by VID or merchantTransactionId. 405:Must specify a transaction that has been Authorized.</dd>
+<dt><b>merchantTransactionId</b></dt>
+<dd>Merchant transaction identifier.</dd>
+</dl>
+]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="1" name="returnCode" type="xsd:int" />
+          <xsd:element minOccurs="1" name="merchantTransactionId" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfCancelResults">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+An array of <a href="#data_type.CancelResult">CancelResult</a> items.]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+          <xsd:restriction base="enc:Array">
+            <xsd:attribute ref="enc:arrayType" wsdl:arrayType="tns:CancelResult[]" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="ScoreCode">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+The rule hit by a specific score call<dl>
+<dt><b>description</b></dt>
+<dd>String description of the rule, such as PRIOR_CB_IN_VERTICAL</dd>
+<dt><b>id</b></dt>
+<dd>Integer ID of the rule, such as 1</dd>
+</dl>
+]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="description" type="xsd:string" />
+          <xsd:element minOccurs="0" name="id" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfScoreCodes">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+An array of <a href="#data_type.ScoreCode">ScoreCode</a> items]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+          <xsd:restriction base="enc:Array">
+            <xsd:attribute ref="enc:arrayType" wsdl:arrayType="tns:ScoreCode[]" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="TransactionItem">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+A line-item in a Transaction. For example, a good sold, or sales tax, etc. All line-items added together should add up to the total transaction amount, though no enforcement of that is performed at this time.<dl>
+<dt><b>sku</b></dt>
+<dd>The merchant's tracking key for this item - the merchant's unique identifier for the product or service purchased. This is a free-form string of 256 or fewer characters.</dd>
+<dt><b>name</b></dt>
+<dd>A description of the item. This is a free-form string of 256 or fewer characters.</dd>
+<dt><b>price</b></dt>
+<dd>Price of the item, in the currency of the overall transaction. Currencies may not be mixed on a single transaction. This value must be zero or positive.</dd>
+<dt><b>quantity</b></dt>
+<dd>The number of items sold. If that is nonsensical (e.g., for sales tax) simply use '1'</dd>
+<dt><b>taxClassification</b></dt>
+<dd>Product type for tax purposes as enumerated in <a href="#data_type.TaxClassification">TaxClassification</a>.</dd>
+</dl>
+]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="sku" type="xsd:string" />
+          <xsd:element minOccurs="1" name="name" type="xsd:string" />
+          <xsd:element minOccurs="1" name="price" type="xsd:decimal" />
+          <xsd:element minOccurs="1" name="quantity" type="xsd:int" />
+          <xsd:element minOccurs="0" name="taxClassification" type="tns:TaxClassification" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfTransactionItems">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+An array of <a href="#data_type.TransactionItems">TransactionItems</a>]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+          <xsd:restriction base="enc:Array">
+            <xsd:attribute ref="enc:arrayType" wsdl:arrayType="tns:TransactionItem[]" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="TransactionStatus">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+Reports the current status for a transaction.<dl>
+<dt><b>status</b></dt>
+<dd>The type of report, as specified by the enumerated type <a href="#data_type.TransactionStatusType">TransactionStatusType</a></dd>
+<dt><b>timestamp</b></dt>
+<dd>The time of the status change.</dd>
+<dt><b>authCode</b></dt>
+<dd>Result code for the status update. In the case of auth, capture, and authCapture this should be the code returned by the payment processor. In the case of cancellations, it should be the reason code returned by the payment processor if that is the cause of the cancellation, or -1 if the decision to cancel was made by you or the customer.</dd>
+<dt><b>avsCode</b></dt>
+<dd>AVS response code. If you receive the AVS code as a string along with its authorization code (ie Y:2341234234 or Y-2341234234) just copy it into this field. If you receive the AVS code separate from its authorization code you should concatenate them with a colon as a separator as in the first example.</dd>
+<dt><b>cvnCode</b></dt>
+<dd>CVN response code. If you receive the CVN code as a string along with its authorization code (ie M:2341234234 or M-2341234234) just copy it into this field. If you receive the CVN code separate from its authorization code you should concatenate them with a colon as a separator as in the first example.</dd>
+<dt><b>verificationCode</b></dt>
+<dd>Response from other verification system (e.g., Verified by Visa (VbV) or MasterCard SecureCode)</dd>
+</dl>
+]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="1" name="status" type="tns:TransactionStatusType" />
+          <xsd:element minOccurs="1" name="timestamp" type="xsd:dateTime" />
+          <xsd:element minOccurs="1" name="authCode" type="xsd:string" />
+          <xsd:element minOccurs="0" name="avsCode" type="xsd:string" />
+          <xsd:element minOccurs="0" name="cvnCode" type="xsd:string" />
+          <xsd:element minOccurs="0" name="verificationCode" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfTransactionStatuses">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+An array of <a href="#data_type.TransactionStatus">TransactionStatus</a> items.]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+          <xsd:restriction base="enc:Array">
+            <xsd:attribute ref="enc:arrayType" wsdl:arrayType="tns:TransactionStatus[]" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="ArrayOfTransactions">
+        <xsd:annotation>
+          <xsd:documentation>
+<![CDATA[
+An array of Transactions
+]]>
+</xsd:documentation>
+        </xsd:annotation>
+        <xsd:complexContent>
+          <xsd:restriction base="enc:Array">
+            <xsd:attribute ref="enc:arrayType" wsdl:arrayType="tns:Transaction[]" />
+          </xsd:restriction>
+        </xsd:complexContent>
+      </xsd:complexType>
+      <xsd:complexType name="Transaction">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+Describes a transaction. Transactions come in two basic flavors: Merchant-processed and Vindicia-processed. Merchant-processed transactions have their processing done at the merchant, then are reported to Vindicia for achival purposes, generally as part of the ChargeGuard product. Vindicia-processed transaction are created as part of a CashBox system. Depending on the basic design of the system, these transactions may be created by the merchant for direct authentication through Vindicia (similar to a traditional payment gateway) or created by Vindicia based upon link=AutoBill records.<dl>
+<dt><b>VID</b></dt>
+<dd>Vindicia's Globally Unique Identifier (GUID) for this object. This field is created by Vindicia and is provided for merchants who don't track their own internal IDs on transactions to have a unique handle to track by. Generally speaking it may be safely ignored in favor of the merchantTransactionId at the merchant's preference. This is a 40-character freeform string.</dd>
+<dt><b>amount</b></dt>
+<dd>Amount of the transaction, as a decimal. Must be positive, but zero is allowed (though specific behavior of zero-amount transactions may vary on a processor by processor basis - if you think you have a need for this functionality, please discuss with Vindicia Engineering, before using). This should add up to the total value of the all the link=TransactionItems associated, though no validation is performend to enforce this.</dd>
+<dt><b>currency</b></dt>
+<dd>ISO 4217 Currency Code of this transaction; defaults to USD if not specified.</dd>
+<dt><b>merchantTransactionId</b></dt>
+<dd>The merchant's unique ID for this transaction. If not specified, this transaction may only be referred to in the future by its VID. For transactions created by Vindicia from link=AutoBill records, this field will be filled in by Vindicia. For other records, this is generally the merchant's invoice number or other unique identifier for a specific transaction. This is stored as a free-form string with no validation and a maximum length of 128 characters. Generally speaking attempting to submit further data on an already used merchantTransactionId will have the effect of updating the previous transaction, as this is a unique key in the Vindicia system.</dd>
+<dt><b>previousMerchantTransactionId</b></dt>
+<dd>Merchant transaction ID for a previous transaction this transaction references. Use only if not submitting any PaymentMethod information with this transaction. This is intended for a very specific application with merchants who store absolutely no credit card information but do have pointers back to previously submitted transactions. It is not used for CashBox and may safely be ignored in that environment.</dd>
+<dt><b>timestamp</b></dt>
+<dd>Time this transaction ocurred. For Vindicia-processed transactions that are submitted for auth, it may be left blank and will be filled out by Vindicia.</dd>
+<dt><b>account</b></dt>
+<dd>The <a href="#data_type.Account">Account</a> (i.e., Customer) account associated with this transaction.</dd>
+<dt><b>sourcePaymentMethod</b></dt>
+<dd>The <a href="#data_type.PaymentMethod">PaymentMethod</a> (e.g., a credit card) that funds were deducted from for this transaction.. In the case of a CashBox transaction, this payment method will be used to perfom the actual billing.</dd>
+<dt><b>destPaymentMethod</b></dt>
+<dd>The <a href="#data_type.PaymentMethod">PaymentMethod</a> (e.g., a credit card) that funds were deposited to for this transaction. In the case of a CashBox transaction, this payment method will be used to perfom the actual deposit. Note - most merchants will not want to ever fill this field out; this is used for ECP/ACH outbound payments and transfers, for example.</dd>
+<dt><b>ecpTransactionType</b></dt>
+<dd>The type of transaction, e.g., inbound, outbound. For use with Transactions using an ECP account.</dd>
+<dt><b>status</b></dt>
+<dd>The current <a href="#data_type.TransactionStatus">TransactionStatus</a> of this transaction. In the case of transactions being submitted to Vindicia for processing in a CashBox environment, this should generally be either 'New' or empty, and Vindicia will fill in the correct new status upon return from the call. In a ChargeGuard environment, this should be set to the appropriate current status of the transaction.</dd>
+<dt><b>sourcePhoneNumber</b></dt>
+<dd>Source phone number this transaction came from. Generally empty in Internet applications.</dd>
+<dt><b>shippingAddress</b></dt>
+<dd><a href="Address.html#data_type.Address">Address</a> shipping address associated with this transaction, if any. No shipping address is required to be specified for CashBox transactions, but it may be helpful for fraud prevention. If sales tax is to be calculated on this transaction, this item is required.</dd>
+<dt><b>nameValues</b></dt>
+<dd>Optional array of name/value pairs the merchant wishes to associate with a Transaction</dd>
+<dt><b>transactionItems</b></dt>
+<dd><a href="#data_type.TransactionItem">TransactionItem</a> array to list the individual line-items that make up this larger transaction. No validation is performed at this time to ensure that the sub-item amounts here add up to the total of the transaction; these items should be considered purely documentary. If sales tax or use tax is calculated by the merchant, that should be included here, as well. If it is calculated by Vindicia, it will be added as a line item on the transaction by Vindicia.</dd>
+<dt><b>merchantAffiliateId</b></dt>
+<dd>Merchant's ID for the affiliate that submitted this transaction, if any. This is a free-form string of 128 characters or less.</dd>
+<dt><b>merchantAffiliateSubId</b></dt>
+<dd>Merchant's sub-ID for the affiliate that submitted this transaction. Allows for finer tracking of affiliate programs. This is a free-form string of 128 characters or less.</dd>
+<dt><b>userAgent</b></dt>
+<dd>Customer's user-agent string for the transaction, as presented by the browser. This is for informational purposes only.</dd>
+<dt><b>note</b></dt>
+<dd>Free-form text notes that describe this transaction, if any</dd>
+<dt><b>sourceMacAddress</b></dt>
+<dd>MAC address of the customer (primarily intended for ISP usage), may be left blank if unavailable or inappropriate</dd>
+<dt><b>sourceIp</b></dt>
+<dd>Source IP this transaction came from (the end customer's, not the merchant's). Of the standard dotted-quad form. Useful in fraud prevention. Generally speaking, for most applications, it is expected to have one of sourceMacAddress, sourcePhone or sourceIp.</dd>
+<dt><b>billingStatementIdentifier</b></dt>
+<dd>The string that should be displayed on a customer's billing statement when charged. Please note that this value is probably constrained by the Payment Provider and should not be used without first consulting with Vindicia engineering.</dd>
+<dt><b>taxExemptions</b></dt>
+<dd>Exemptions that apply to this transaction</dd>
+</dl>
+]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="VID" type="xsd:string" />
+          <xsd:element minOccurs="0" name="amount" type="xsd:decimal" />
+          <xsd:element minOccurs="0" name="currency" type="xsd:string" />
+          <xsd:element minOccurs="0" name="merchantTransactionId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="previousMerchantTransactionId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="timestamp" type="xsd:dateTime" />
+          <xsd:element minOccurs="0" name="account" type="tns:Account" />
+          <xsd:element minOccurs="0" name="sourcePaymentMethod" type="tns:PaymentMethod" />
+          <xsd:element minOccurs="0" name="destPaymentMethod" type="tns:PaymentMethod" />
+          <xsd:element minOccurs="0" name="ecpTransactionType" type="tns:ECPTransactionType" />
+          <xsd:element minOccurs="0" name="status" type="tns:TransactionStatus" />
+          <xsd:element minOccurs="0" name="sourcePhoneNumber" type="xsd:string" />
+          <xsd:element minOccurs="0" name="shippingAddress" type="tns:Address" />
+          <xsd:element minOccurs="0" name="nameValues" type="tns:ArrayOfNameValuePairs" />
+          <xsd:element minOccurs="0" name="transactionItems" type="tns:ArrayOfTransactionItems" />
+          <xsd:element minOccurs="0" name="merchantAffiliateId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="merchantAffiliateSubId" type="xsd:string" />
+          <xsd:element minOccurs="0" name="userAgent" type="xsd:string" />
+          <xsd:element minOccurs="0" name="note" type="xsd:string" />
+          <xsd:element minOccurs="0" name="sourceMacAddress" type="xsd:string" />
+          <xsd:element minOccurs="0" name="sourceIp" type="xsd:string" />
+          <xsd:element minOccurs="0" name="billingStatementIdentifier" type="xsd:string" />
+          <xsd:element minOccurs="0" name="taxExemptions" type="vin:ArrayOfTaxExemptions" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:simpleType name="EmailPreference">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+The preference of an account to receive text or HTML emails]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="plaintext" />
+          <xsd:enumeration value="html" />
+          <xsd:enumeration value="multipart" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="PaymentUpdateBehavior">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+Action to take on payment method update]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="Update" />
+          <xsd:enumeration value="Validate" />
+          <xsd:enumeration value="CatchUp" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="ActivityCancelInitType">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+Enumeration of the known types of initiators for cancellation activities]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="Merchant" />
+          <xsd:enumeration value="Customer" />
+          <xsd:enumeration value="Chargeback" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="ActivityType">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+Enumeration of the known types of activities]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="Login" />
+          <xsd:enumeration value="Logout" />
+          <xsd:enumeration value="URIView" />
+          <xsd:enumeration value="Phone" />
+          <xsd:enumeration value="Email" />
+          <xsd:enumeration value="Fulfillment" />
+          <xsd:enumeration value="Usage" />
+          <xsd:enumeration value="NamedValue" />
+          <xsd:enumeration value="Cancellation" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="ActivityCallType">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+Enumeration of the types of call an Activity describes]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="FromMerchantToCustomer" />
+          <xsd:enumeration value="FromMerchantToOther" />
+          <xsd:enumeration value="FromCustomerToMerchant" />
+          <xsd:enumeration value="FromCustomerToOther" />
+          <xsd:enumeration value="FromOtherToCustomer" />
+          <xsd:enumeration value="FromOtherToMerchant" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="AddressType">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="Shipping" />
+          <xsd:enumeration value="Billing" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="AutoBillStatus">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+Status of this particular autobill item]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="Active" />
+          <xsd:enumeration value="Suspended" />
+          <xsd:enumeration value="Cancelled" />
+          <xsd:enumeration value="Upgraded" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="DuplicateBehavior">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+What to do if the exact same object is submitted twice with no VID to reference it]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="Duplicate" />
+          <xsd:enumeration value="SucceedIgnore" />
+          <xsd:enumeration value="Fail" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="BillingPeriodType">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+Unit of time a period describes]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="Day" />
+          <xsd:enumeration value="Week" />
+          <xsd:enumeration value="Month" />
+          <xsd:enumeration value="Year" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="BillingPlanStatus">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+Whether the BillingPlan is active, or not. Inactive BillingPlans may not be autobill-renewed.]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="Active" />
+          <xsd:enumeration value="Suspended" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="ChargebackStatus">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="New" />
+          <xsd:enumeration value="Retrieval" />
+          <xsd:enumeration value="Responded" />
+          <xsd:enumeration value="Legitimate" />
+          <xsd:enumeration value="Challenged" />
+          <xsd:enumeration value="Represented" />
+          <xsd:enumeration value="Won" />
+          <xsd:enumeration value="Lost" />
+          <xsd:enumeration value="CollectionsNew" />
+          <xsd:enumeration value="CollectionsWon" />
+          <xsd:enumeration value="CollectionsLost" />
+          <xsd:enumeration value="Expired" />
+          <xsd:enumeration value="Pass" />
+          <xsd:enumeration value="Incomplete" />
+          <xsd:enumeration value="NewSecondChargeback" />
+          <xsd:enumeration value="Duplicate" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="EmailTemplateType">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+Defines the situation in which an EmailTemplate should be used]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="PreBilling" />
+          <xsd:enumeration value="PreBillingNoPaymentMethod" />
+          <xsd:enumeration value="Success" />
+          <xsd:enumeration value="FailureSoftFail" />
+          <xsd:enumeration value="FailureHardFail" />
+          <xsd:enumeration value="FailureNoPaymentMethod" />
+          <xsd:enumeration value="BillingDelay" />
+          <xsd:enumeration value="BillingDelayNoPaymentMethod" />
+          <xsd:enumeration value="Cancellation" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="MetricStatusType">
+        <xsd:annotation>
+          <xsd:documentation>
+<![CDATA[
+The type of stat reported in a <a
+href="#dataType.MetricStatistics">MetricStatistics</a>
+object.  Note that TimedOut objects are only for objects in which a
+connection is made, but the transaction is not completed.  If
+connection is not possible, the failure counter should be incremented,
+instead.
+]]>
+</xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="Completed" />
+          <xsd:enumeration value="TimedOut" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="PaymentMethodType">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+The type of a given payment method]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="CreditCard" />
+          <xsd:enumeration value="PayPal" />
+          <xsd:enumeration value="ECP" />
+          <xsd:enumeration value="DirectDebit" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="HashType">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+Type of hash algorithm]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="sha1" />
+          <xsd:enumeration value="md5" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="AccountType">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+Type of bank account, for ECP accounts]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="ConsumerChecking" />
+          <xsd:enumeration value="ConsumerSavings" />
+          <xsd:enumeration value="CorporateChecking" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="ECPTransactionType">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+Types of transactions for ECP accounts. Used for setting both the type of a Transaction and the allowed transaction types for a PaymentMethod.]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="All" />
+          <xsd:enumeration value="Inbound" />
+          <xsd:enumeration value="Outbound" />
+          <xsd:enumeration value="InboundOutbound" />
+          <xsd:enumeration value="Transfer" />
+          <xsd:enumeration value="NA" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="ProductStatus">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+Whether the product is active, or not. Inactive products may not be autobill-renewed.]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="Active" />
+          <xsd:enumeration value="Suspended" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="TaxClassification">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+Whether the product is taxable(generally or per jurisdiction) or not]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="PhysicalGoods" />
+          <xsd:enumeration value="DownloadableExecutableSoftware" />
+          <xsd:enumeration value="DownloadableElectronicData" />
+          <xsd:enumeration value="Service" />
+          <xsd:enumeration value="TaxExempt" />
+          <xsd:enumeration value="OtherTaxable" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="ReturnCode">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+
+
+Return codes for Vindicia applications.  For all codes above 400, all
+data submitted should be assumed not received and must be resubmitted.
+<dl>
+<dt><b>200</b></dt>
+<dd>The request succeeded.</dd>
+<dt><b>400</b></dt>
+<dd>The client issued a request the server is not able to fufill,
+because the request is erroneous, nonsensical or generated a
+"reasonable" error.
+Specific information will be included in the <b>returnString</b>.
+Resubmitting the request unaltered will result in the same error.  A
+"reasonable" error is one which is not caused by a programming error,
+but might be an error condition generated by user input that a
+well-crafted program will detect and handle.</dd>
+<dt><b>403</b></dt>
+<dd>Forbidden.  The requested operation is forbidden under the
+currently provided credentials.  Specific information may or may not
+be available in the <b>returnString</b> depending on specific
+security situations.</dd>
+<dt><b>404</b></dt>
+<dd>The requested item was not found.</dd>
+<dt><b>500</b></dt>
+<dd>The server was unable to fufill your request.  This indicates
+either that the server was utterly unable to understand your request,
+or (more likely) that the server has an error.  Any returnCodes of
+500 or above should be considered high priority Vindicia errors and
+should be reported to your service representative at your earliest
+convenience.  It is not generally anticipated that resubmitting will
+solve this error.</dd>
+<dt><b>503</b></dt>
+<dd>Service Unavailable.  Indiciates that the requested service is
+currently unavailable (due, for example, to load or maintenence).
+Resubmitting at a later date should remove this error.</dd>
+</dl>
+
+    ]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:int">
+          <xsd:enumeration value="200" />
+          <xsd:enumeration value="201" />
+          <xsd:enumeration value="202" />
+          <xsd:enumeration value="203" />
+          <xsd:enumeration value="204" />
+          <xsd:enumeration value="205" />
+          <xsd:enumeration value="206" />
+          <xsd:enumeration value="300" />
+          <xsd:enumeration value="301" />
+          <xsd:enumeration value="302" />
+          <xsd:enumeration value="303" />
+          <xsd:enumeration value="304" />
+          <xsd:enumeration value="305" />
+          <xsd:enumeration value="306" />
+          <xsd:enumeration value="307" />
+          <xsd:enumeration value="400" />
+          <xsd:enumeration value="401" />
+          <xsd:enumeration value="402" />
+          <xsd:enumeration value="403" />
+          <xsd:enumeration value="404" />
+          <xsd:enumeration value="405" />
+          <xsd:enumeration value="406" />
+          <xsd:enumeration value="407" />
+          <xsd:enumeration value="408" />
+          <xsd:enumeration value="409" />
+          <xsd:enumeration value="410" />
+          <xsd:enumeration value="411" />
+          <xsd:enumeration value="412" />
+          <xsd:enumeration value="413" />
+          <xsd:enumeration value="414" />
+          <xsd:enumeration value="415" />
+          <xsd:enumeration value="416" />
+          <xsd:enumeration value="417" />
+          <xsd:enumeration value="500" />
+          <xsd:enumeration value="501" />
+          <xsd:enumeration value="502" />
+          <xsd:enumeration value="503" />
+          <xsd:enumeration value="504" />
+          <xsd:enumeration value="505" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="SearchStatus">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+Status of a search]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="NotFound" />
+          <xsd:enumeration value="Queued" />
+          <xsd:enumeration value="Processing" />
+          <xsd:enumeration value="Complete" />
+          <xsd:enumeration value="Error" />
+          <xsd:enumeration value="Expired" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="SearchAttribute">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+Attributes to Search On]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="VID" />
+          <xsd:enumeration value="Transaction_merchantTransactionId" />
+          <xsd:enumeration value="DateCreated" />
+          <xsd:enumeration value="DateModified" />
+          <xsd:enumeration value="NameValue" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="SearchOperator">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+Operator of a search]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="eq" />
+          <xsd:enumeration value="neq" />
+          <xsd:enumeration value="gt" />
+          <xsd:enumeration value="lt" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="SearchSelect">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+The type of object being searched]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="Transaction" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="SearchBoolean">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+Operator to tie sub-searches together]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="AND" />
+          <xsd:enumeration value="NAND" />
+          <xsd:enumeration value="OR" />
+          <xsd:enumeration value="NOR" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="TaxRegion">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+Region a tax applies to]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="AT" />
+          <xsd:enumeration value="BE" />
+          <xsd:enumeration value="BG" />
+          <xsd:enumeration value="CY" />
+          <xsd:enumeration value="CZ" />
+          <xsd:enumeration value="DE" />
+          <xsd:enumeration value="DK" />
+          <xsd:enumeration value="EE" />
+          <xsd:enumeration value="EL" />
+          <xsd:enumeration value="ES" />
+          <xsd:enumeration value="FI" />
+          <xsd:enumeration value="FR" />
+          <xsd:enumeration value="GB" />
+          <xsd:enumeration value="HU" />
+          <xsd:enumeration value="IE" />
+          <xsd:enumeration value="IT" />
+          <xsd:enumeration value="LT" />
+          <xsd:enumeration value="LU" />
+          <xsd:enumeration value="LV" />
+          <xsd:enumeration value="MT" />
+          <xsd:enumeration value="NL" />
+          <xsd:enumeration value="PL" />
+          <xsd:enumeration value="PT" />
+          <xsd:enumeration value="RO" />
+          <xsd:enumeration value="SE" />
+          <xsd:enumeration value="SI" />
+          <xsd:enumeration value="SK" />
+          <xsd:enumeration value="CH" />
+          <xsd:enumeration value="CA" />
+          <xsd:enumeration value="US" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="ScoreControlTests">
+        <xsd:annotation>
+          <xsd:documentation><![CDATA[
+Controllable tests to automatically reject transactions based upon certain events]]></xsd:documentation>
+        </xsd:annotation>
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="FirstTimeCardMerchant" />
+          <xsd:enumeration value="FirstTimeCardSku" />
+          <xsd:enumeration value="FirstTimeShippingAddressMerchant" />
+          <xsd:enumeration value="FirstTimeShippingAddressSku" />
+          <xsd:enumeration value="FirstTimeBillingAddressMerchant" />
+          <xsd:enumeration value="FirstTimeBillingAddressSku" />
+          <xsd:enumeration value="FirstTimeCardAffiliate" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="TransactionStatusType">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="New" />
+          <xsd:enumeration value="AuthorizedPending" />
+          <xsd:enumeration value="Authorized" />
+          <xsd:enumeration value="AuthorizedForValidation" />
+          <xsd:enumeration value="Cancelled" />
+          <xsd:enumeration value="Captured" />
+          <xsd:enumeration value="Settled" />
+          <xsd:enumeration value="Refunded" />
+          <xsd:enumeration value="Pending" />
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:schema>
+  </types>
+  <message name="Vindicia">
+    <part name="Account" type="tns:Account" />
+    <part name="ArrayOfAccounts" type="tns:ArrayOfAccounts" />
+    <part name="ActivityTypeArg" type="tns:ActivityTypeArg" />
+    <part name="ActivityLogin" type="tns:ActivityLogin" />
+    <part name="ActivityLogout" type="tns:ActivityLogout" />
+    <part name="ActivityUsage" type="tns:ActivityUsage" />
+    <part name="ActivityNamedValue" type="tns:ActivityNamedValue" />
+    <part name="ActivityPhoneContact" type="tns:ActivityPhoneContact" />
+    <part name="ActivityEmailContact" type="tns:ActivityEmailContact" />
+    <part name="ActivityFulfillment" type="tns:ActivityFulfillment" />
+    <part name="ActivityURIView" type="tns:ActivityURIView" />
+    <part name="ActivityCancellation" type="tns:ActivityCancellation" />
+    <part name="ActivityNote" type="tns:ActivityNote" />
+    <part name="Activity" type="tns:Activity" />
+    <part name="ArrayOfActivities" type="tns:ArrayOfActivities" />
+    <part name="Address" type="tns:Address" />
+    <part name="Authentication" type="tns:Authentication" />
+    <part name="AutoBill" type="tns:AutoBill" />
+    <part name="ArrayOfAutoBills" type="tns:ArrayOfAutoBills" />
+    <part name="BillingPlanPrice" type="tns:BillingPlanPrice" />
+    <part name="ArrayOfBillingPlanPrices" type="tns:ArrayOfBillingPlanPrices" />
+    <part name="BillingPlanPeriod" type="tns:BillingPlanPeriod" />
+    <part name="ArrayOfBillingPlanPeriods" type="tns:ArrayOfBillingPlanPeriods" />
+    <part name="BillingPlan" type="tns:BillingPlan" />
+    <part name="ArrayOfBillingPlans" type="tns:ArrayOfBillingPlans" />
+    <part name="Chargeback" type="tns:Chargeback" />
+    <part name="ArrayOfChargebacks" type="tns:ArrayOfChargebacks" />
+    <part name="ElectronicSignature" type="tns:ElectronicSignature" />
+    <part name="EmailTemplate" type="tns:EmailTemplate" />
+    <part name="ArrayOfEmailTemplates" type="tns:ArrayOfEmailTemplates" />
+    <part name="Entitlement" type="tns:Entitlement" />
+    <part name="ArrayOfEntitlements" type="tns:ArrayOfEntitlements" />
+    <part name="MetricStatistics" type="tns:MetricStatistics" />
+    <part name="ArrayOfMetricStats" type="tns:ArrayOfMetricStats" />
+    <part name="CreditCard" type="tns:CreditCard" />
+    <part name="ECP" type="tns:ECP" />
+    <part name="DirectDebit" type="tns:DirectDebit" />
+    <part name="PayPal" type="tns:PayPal" />
+    <part name="PaymentMethod" type="tns:PaymentMethod" />
+    <part name="ArrayOfPaymentMethods" type="tns:ArrayOfPaymentMethods" />
+    <part name="PaymentProvider" type="tns:PaymentProvider" />
+    <part name="MerchantEntitlementId" type="tns:MerchantEntitlementId" />
+    <part name="ArrayOfMerchantEntitlementIds" type="tns:ArrayOfMerchantEntitlementIds" />
+    <part name="NameValuePair" type="tns:NameValuePair" />
+    <part name="ArrayOfNameValuePairs" type="tns:ArrayOfNameValuePairs" />
+    <part name="Product" type="tns:Product" />
+    <part name="ArrayOfProducts" type="tns:ArrayOfProducts" />
+    <part name="Refund" type="tns:Refund" />
+    <part name="ArrayOfRefunds" type="tns:ArrayOfRefunds" />
+    <part name="Return" type="tns:Return" />
+    <part name="SearchItem" type="tns:SearchItem" />
+    <part name="Search" type="tns:Search" />
+    <part name="ArrayOfSearches" type="tns:ArrayOfSearches" />
+    <part name="SearchStatus" type="tns:SearchStatus" />
+    <part name="ArrayOfSearchStatuses" type="tns:ArrayOfSearchStatuses" />
+    <part name="TaxExemption" type="tns:TaxExemption" />
+    <part name="ArrayOfTaxExemptions" type="tns:ArrayOfTaxExemptions" />
+    <part name="SalesTax" type="tns:SalesTax" />
+    <part name="ArrayOfSalesTaxes" type="tns:ArrayOfSalesTaxes" />
+    <part name="ArrayOfTaxExemption" type="tns:ArrayOfTaxExemption" />
+    <part name="ScoreControl" type="tns:ScoreControl" />
+    <part name="ArrayOfScoreControls" type="tns:ArrayOfScoreControls" />
+    <part name="CaptureResult" type="tns:CaptureResult" />
+    <part name="ArrayOfCaptureResults" type="tns:ArrayOfCaptureResults" />
+    <part name="CancelResult" type="tns:CancelResult" />
+    <part name="ArrayOfCancelResults" type="tns:ArrayOfCancelResults" />
+    <part name="ScoreCode" type="tns:ScoreCode" />
+    <part name="ArrayOfScoreCodes" type="tns:ArrayOfScoreCodes" />
+    <part name="TransactionItem" type="tns:TransactionItem" />
+    <part name="ArrayOfTransactionItems" type="tns:ArrayOfTransactionItems" />
+    <part name="TransactionStatus" type="tns:TransactionStatus" />
+    <part name="ArrayOfTransactionStatuses" type="tns:ArrayOfTransactionStatuses" />
+    <part name="ArrayOfTransactions" type="tns:ArrayOfTransactions" />
+    <part name="Transaction" type="tns:Transaction" />
+    <part name="EmailPreference" type="tns:EmailPreference" />
+    <part name="PaymentUpdateBehavior" type="tns:PaymentUpdateBehavior" />
+    <part name="ActivityCancelInitType" type="tns:ActivityCancelInitType" />
+    <part name="ActivityType" type="tns:ActivityType" />
+    <part name="ActivityCallType" type="tns:ActivityCallType" />
+    <part name="AddressType" type="tns:AddressType" />
+    <part name="AutoBillStatus" type="tns:AutoBillStatus" />
+    <part name="DuplicateBehavior" type="tns:DuplicateBehavior" />
+    <part name="BillingPeriodType" type="tns:BillingPeriodType" />
+    <part name="BillingPlanStatus" type="tns:BillingPlanStatus" />
+    <part name="ChargebackStatus" type="tns:ChargebackStatus" />
+    <part name="EmailTemplateType" type="tns:EmailTemplateType" />
+    <part name="MetricStatusType" type="tns:MetricStatusType" />
+    <part name="PaymentMethodType" type="tns:PaymentMethodType" />
+    <part name="HashType" type="tns:HashType" />
+    <part name="AccountType" type="tns:AccountType" />
+    <part name="ECPTransactionType" type="tns:ECPTransactionType" />
+    <part name="ProductStatus" type="tns:ProductStatus" />
+    <part name="TaxClassification" type="tns:TaxClassification" />
+    <part name="ReturnCode" type="tns:ReturnCode" />
+    <part name="SearchAttribute" type="tns:SearchAttribute" />
+    <part name="SearchOperator" type="tns:SearchOperator" />
+    <part name="SearchSelect" type="tns:SearchSelect" />
+    <part name="SearchBoolean" type="tns:SearchBoolean" />
+    <part name="TaxRegion" type="tns:TaxRegion" />
+    <part name="ScoreControlTests" type="tns:ScoreControlTests" />
+    <part name="TransactionStatusType" type="tns:TransactionStatusType" />
+  </message>
+  <portType name="VindiciaPortType">
+    <operation name="getVindicia">
+      <input message="tns:Vindicia" />
+    </operation>
+  </portType>
+  <binding name="VindiciaBinding" type="tns:VindiciaPortType">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="getVindicia">
+      <soap:operation soapAction="http://soap.vindicia.com/Vindicia#getVindicia" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Vindicia" use="encoded" />
+      </input>
+    </operation>
+  </binding>
+  <service name="Vindicia">
+    <port binding="tns:VindiciaBinding" name="VindiciaPort">
+      <soap:address location="https://soap.prodtest.sj.vindicia.com/v3.0/soap.pl" />
+    </port>
+  </service>
+</definitions>

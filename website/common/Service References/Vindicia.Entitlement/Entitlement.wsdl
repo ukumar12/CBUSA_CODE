@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:enc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://soap.vindicia.com/Entitlement" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:vin="http://soap.vindicia.com/Vindicia" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:xsdl="http://soap.vindicia.com/Entitlement" name="Entitlement" targetNamespace="http://soap.vindicia.com/Entitlement" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <documentation>WSDL Specification for Entitlement</documentation>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://soap.vindicia.com/Entitlement">
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+      <xsd:import schemaLocation="./Vindicia.xsd" namespace="http://soap.vindicia.com/Vindicia" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="fetchByEntitlementIdAndAccount_in">
+    <wsdl:part name="auth" type="vin:Authentication" />
+    <wsdl:part name="entitlementId" type="xsd:string" />
+    <wsdl:part name="account" type="vin:Account" />
+  </wsdl:message>
+  <wsdl:message name="fetchByEntitlementIdAndAccount_out">
+    <wsdl:part name="return" type="vin:Return" />
+    <wsdl:part name="entitlement" type="vin:Entitlement" />
+  </wsdl:message>
+  <wsdl:message name="fetchByAccount_in">
+    <wsdl:part name="auth" type="vin:Authentication" />
+    <wsdl:part name="account" type="vin:Account" />
+    <wsdl:part name="showAll" type="xsd:boolean" />
+  </wsdl:message>
+  <wsdl:message name="fetchByAccount_out">
+    <wsdl:part name="return" type="vin:Return" />
+    <wsdl:part name="entitlements" type="vin:ArrayOfEntitlements" />
+  </wsdl:message>
+  <wsdl:portType name="EntitlementPortType">
+    <wsdl:operation name="fetchByEntitlementIdAndAccount" parameterOrder="auth entitlementId account">
+      <wsdl:input message="xsdl:fetchByEntitlementIdAndAccount_in" />
+      <wsdl:output message="xsdl:fetchByEntitlementIdAndAccount_out" />
+    </wsdl:operation>
+    <wsdl:operation name="fetchByAccount" parameterOrder="auth account showAll">
+      <wsdl:input message="xsdl:fetchByAccount_in" />
+      <wsdl:output message="xsdl:fetchByAccount_out" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="EntitlementBinding" type="xsdl:EntitlementPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="fetchByEntitlementIdAndAccount">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Loads an entitlement by its unique merchant id and the Account that owns it.<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>entitlementId</b></dt>
+<dd>The unique id of the entitlement</dd>
+<dt><b>account</b></dt>
+<dd>The account that owns the entitlement</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>entitlement</b></dt>
+<dd>Entitlement for a given Account</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/Entitlement#fetchByEntitlementIdAndAccount" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://soap.vindicia.com/Entitlement" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://soap.vindicia.com/Entitlement" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="fetchByAccount">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Loads list of entitlements by the Account that owns them<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>account</b></dt>
+<dd>The account that owns the entitlement</dd>
+<dt><b>showAll</b></dt>
+<dd>If true, show all entitlements, including those that have expired. Otherwise, only active entitlements will be returned.</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>entitlements</b></dt>
+<dd>List of entitlements for a given Account</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/Entitlement#fetchByAccount" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://soap.vindicia.com/Entitlement" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://soap.vindicia.com/Entitlement" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Entitlement">
+    <wsdl:port name="EntitlementPort" binding="xsdl:EntitlementBinding">
+      <soap:address location="https://soap.vindicia.com/v3.1/soap.pl" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

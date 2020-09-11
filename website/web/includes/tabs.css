@@ -1,0 +1,116 @@
+﻿.shadetabs {
+margin-left: 0;
+margin-bottom: 0;
+list-style-type: none;
+text-align: left;
+}
+
+.shadetabs ul{
+margin:0;
+list-style-type: none;
+margin-left: 5px; /*Left offset of entire tab menu relative to page*/
+padding:0;
+text-align: left;
+}
+
+.shadetabs li{
+display:inline;
+margin:0;
+}
+
+.shadetabs a, .shadetabs a:link, .shadetabs a:visited , .shadetabs a:active {
+float:left;
+/*background:url(/images/rating/shade-l.gif) no-repeat left top;*/
+margin-right: 4px; /*spacing between each tab*/
+padding:0 0 0 6px;
+text-decoration:none;
+font-size:xx-small;
+}
+
+.shadetabs a span, .shadetabs a:link span, .shadetabs a:visited span, .shadetabs a:active span{
+display:block;
+/*background:url(/images/rating/shade.gif) no-repeat right top;*/ 
+padding: 4px 9px 2px 3px;
+font-weight:bold;
+font-size: 12px;
+color:#0f2e51;
+}
+
+/* Commented Backslash Hack hides rule from IE5-Mac \*/
+.shadetabs a span {float:none;}
+/* End IE5-Mac hack */
+
+.shadetabs a:hover span {
+color: #0f2e51;
+}
+
+    .shadetabs .selected a, .shadetabs .selected a:link, .shadetabs .selected a:visited { /*Selected Tab style*/
+        top: 0;
+        background-position: 0 -24px; /*Shift background image up to start of 2nd tab image*/
+        text-decoration: underline; 
+        text-decoration-color: red; 
+    }
+
+.shadetabs .selected a span, .shadetabs .selected a:link span , .shadetabs .selected a:visited span { /*Selected Tab style*/
+background-position:100% -24px; /*Shift background image up to start of 2nd tab image*/
+color:#0e2d50; text-decoration:underline; text-decoration-color: #e92b26;
+}
+
+.shadetabs a:hover{ /*onMouseover style*/
+background-position:0% -24px; /*Shift background image up to start of 2nd tab image*/
+}
+
+.shadetabs a:hover span{ /*onMouseover style*/
+background-position:100% -24px; /*Shift background image up to start of 2nd tab image*/
+}
+
+.smalltabcontentstyle { /*style of tab content oontainer*/
+margin:0;
+border: 1px solid #c3d6e2;
+background-color:#e6e6e6;
+width: 394px;
+height:120px;
+padding: 7px;
+}
+
+.smalltabcontent{
+display:none;
+background-color:#ffffff;
+padding: 7px;
+overflow:auto;
+height:107px;
+}
+
+@media print {
+.tabcontent {
+display:block!important;
+}
+}
+
+.tabcontentstyle { /*style of tab content oontainer*/
+height: 320px;
+margin:0;
+border: 1px solid #c3d6e2;
+background-color:#e6e6e6;
+width: 889px;
+padding: 7px;
+}
+
+.tabdetails {
+/*overflow:auto;*/
+/*height:300px;*/
+margin:0;
+background-color:#e6e6e6;
+padding: 7px;
+}
+
+.tabdetails-briefcase {
+overflow:auto;
+margin:0;
+background-color:#e6e6e6;
+padding: 7px;
+}
+.searchlist
+{
+    max-height:300px !important;
+}

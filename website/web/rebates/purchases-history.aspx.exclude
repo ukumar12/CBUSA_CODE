@@ -1,0 +1,27 @@
+﻿<%@ Page Language="VB" AutoEventWireup="false" CodeFile="purchases-history.aspx.vb" Inherits="rebates_purchases_history" %>
+
+<CT:MasterPage ID="CTMain" runat="server">
+    <div class="pckggraywrpr" style="margin-bottom:0px;">
+        <div class="pckghdgred">Purchases Report History</div>
+        <CC:GridView id="gvPurchases" runat="server" AutoGenerateColumns="false" AllowPaging="true" AllowSorting="true">
+            <Columns>
+                <asp:TemplateField>
+                    <ItemTemplate>
+                        <asp:Button id="btnReport" runat="server" cssclass="btnred" text="View Report" commandargument='<%#DataBinder.Eval(Container.DataItem,"PurchasesReportID") %>' />
+                    </ItemTemplate>
+                </asp:TemplateField>
+                <asp:BoundField DataField="PeriodQuarter" HeaderText="Quarter" SortExpression="Quarter" />
+                <asp:BoundField DataField="PeriodYear" HeaderText="Year" SortExpression="PeriodYear" />
+                <asp:BoundField DataField="TotalAmount" HeaderText="Total" SortExprsesion="TotalAmount" />
+            </Columns>
+        </CC:GridView>
+    </div>
+
+    <asp:UpdatePanel id="upReport" runat="server" UpdateMode="Conditonal" ChildrenAsTriggers="false">
+        <ContentTemplate>
+            <CC:PopupForm ID="frmReport" runat="server" ShowVeil="true" VeilCloses="true" CssClass="pform">
+            
+            </CC:PopupForm>
+        </ContentTemplate>
+    </asp:UpdatePanel>
+</CT:MasterPage>

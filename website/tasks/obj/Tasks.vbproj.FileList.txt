@@ -1,0 +1,15 @@
+bin\Debug\Tasks.exe.config
+bin\Debug\Tasks.exe
+bin\Debug\Tasks.pdb
+bin\Debug\Tasks.xml
+bin\Debug\Common.dll
+bin\Debug\log4net.dll
+bin\Debug\FredCK.FCKeditorV2.dll
+bin\Debug\Common.pdb
+bin\Debug\Common.xml
+obj\Debug\ResolveAssemblyReference.cache
+obj\Debug\Tasks.Resources.resources
+obj\Debug\Tasks.vbproj.GenerateResource.Cache
+obj\Debug\Tasks.exe
+obj\Debug\Tasks.xml
+obj\Debug\Tasks.pdb

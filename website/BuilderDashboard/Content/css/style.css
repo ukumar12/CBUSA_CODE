@@ -1,0 +1,356 @@
+body,
+html {
+  height: 100%;
+  font-family: 'Montserrat', sans-serif;
+}
+.wrapper-area{
+	/*width:780px;*/
+	width:100%;
+}
+/*.tile_count{
+	border-top:2px solid #dfdfdf;
+	padding:20px 0 0 0;
+}*/
+.tile_count .less-padding{
+    padding-left:5px !important;
+    padding-right:5px !important;
+}
+.full-width{
+	width:100%;
+}
+
+.tile_stats_count {
+    border: 2px solid #41729a;
+    padding: 5px;
+    float: left;
+    width: 100%;
+    text-align: center;
+	/*min-height: 90px;*/
+}
+.tile_stats_count.red-border{
+	border-color:#a40313;
+}
+span.count_top {
+    float: left;
+    width: 100%;
+}
+span.count {
+    font-size: 13px;
+    line-height: 35px;
+    font-weight: 600;
+    color: #93948f;
+    float: left;
+}
+span.profit {
+    float: right;
+	color:#2c5a40;
+	font-size: 10px;
+    line-height: 10px;
+}
+span.loss {
+    float: right;
+    color: #de1b29;
+    font-size: 10px;
+    line-height: 10px;
+    /*margin: 15px 0 0 0;*/
+}
+span.block-area {
+    display: block;
+    font-size: 20px;
+    line-height: 20px;
+}
+.count_bottom {
+    margin: 3px 0 0 0;
+    float: left;
+    width: 100%;
+    font-size: 11px;
+}
+.main-heading{
+	padding:12px;
+	background-color:#095394;
+	color:#FFF;
+	font-size:14px;
+	line-height:14px;
+	font-weight:400;
+}
+    .main-heading.redBg {
+        background-color: #a40313;
+    }
+.main-heading.less-margin {
+    margin: 20px 7%;
+    text-align: center;
+}
+
+.quarter-section{
+	/*border:2px solid #671016;
+	padding: 0 15px 15px;*/
+	margin-top: 30px;
+}
+.main-heading-transparant{
+	background-color:transparent;
+	color:#671016;
+	margin: 0;
+    padding-bottom: 0px;
+}
+.quarter-block{
+	background:#eeeeee;
+	position:relative;
+	float: left;
+    width: 100%;
+	padding-bottom: 38px;
+	margin-top: 15px;
+}
+.quarter-block-tagline{
+	position:absolute;
+	padding:6px;
+	background-color:#900502;
+	font-size:11px;
+	line-height:14px;
+	font-weight: 400;
+    color: #fff;
+    left: 0px;
+    bottom: 0px;
+    width: 100%;
+	text-align:center;
+}
+.quarter-left{
+	float:left;
+	position:relative;
+	width:50%;
+}
+.quarter-left .figure{
+	height:150px;
+}
+.quarter-left .figure img{
+	width:100%;
+	height:100%;
+	object-fit: cover;
+}
+.quarter-left .figure .figure-caption{
+	position:absolute;
+	padding:12px;
+	background-color:#eeeeee;
+	opacity:0.7;
+	font-size:14px;
+	line-height:14px;
+	font-weight: 600;
+    color: #000;
+    left: 0px;
+    bottom: 0px;
+    width: 100%;
+}
+.quarter-left .figure .figure-caption .product-price{
+	float:right;
+}
+.quarter-right {
+    float: right;
+    position: relative;
+    width: 50%;
+    padding: 4px;
+}
+.quarter-right h3{
+	font-size:16px;
+	line-height:16px;
+	color:#605e5e;
+	margin:0px;
+	padding:12px 12px;
+}
+.quarter-right ul{
+	float:left;
+	width:100%;
+	margin:0px;
+	padding:0px 12px;
+	list-style-type:none;
+}
+.quarter-right ul li{
+	float:left;
+	width:100%;
+	margin:4px 0 0 0;
+	font-size:10px;
+	line-height:16px;
+}
+.counter {
+    position: absolute;
+    right: -11px;
+    top: -11px;
+    background-color: #8f010f;
+    padding: 6px 12px;
+    color: #FFF;
+    font-size: 12px;
+    line-height: 12px;
+    border-radius: 100%;
+}
+
+.Market-wide{
+	margin-top:20px;
+}
+.tag-area{
+	margin-top:15px;
+	float:left;
+	width:100%;
+}
+.tag-box{
+	float:left;
+	width:100%;
+	height:46px;
+	border:1px solid #cfcfcf;
+	border-radius:6px;
+	padding: 0px 6px 6px;
+	overflow-y: auto;
+}
+.tag-box label{
+	float:left;
+	background-color:#dddddd;
+	border-radius:4px;
+	padding:4px 12px;
+	font-size:12px;
+	line-height:12px;
+	color:#000;
+	margin:6px 0 0 6px;
+}
+.tag-box label:first-child{
+	margin-left:0px;
+}
+.no-purchases {
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    padding: 44px 0 0 0;
+    text-align: center;
+    width: 100%;
+    font-size: 25px;
+    line-height: 25px;
+}
+.decibel-block img{
+	opacity:0.2;
+}
+.decibel-block .quarter-block-tagline{
+	background-color:#666666;
+}
+
+.duplicate-section .quarter-left,.duplicate-section .quarter-right{
+	width:100%;
+}
+.duplicate-section .quarter-block{
+	min-height:288px;
+}
+.duplicate-section .counter{
+	z-index:2;
+}
+div.market-vendorusage-wrapper {
+    /*overflow-x: scroll;*/
+    /*overflow-y: visible;*/
+    width: 750px;
+    /*margin-left: 120px;*/
+    position: relative;
+    /*max-width: 600px;*/
+    overflow: hidden;
+    border: 1px solid #fff;
+    background: #ececec;
+}
+div.table-wrapper-inner {
+    width: 100%;
+    overflow: auto;
+}
+table.market-vendor-use {
+    /*width: 100%;*/
+    /*border: 1px solid black;*/
+    /*border-spacing: 5px 10px;*/
+    border-collapse: separate;
+    display: block;
+    overflow-x: auto;
+    white-space: nowrap;
+}
+
+    table.market-vendor-use th, table.market-vendor-use td {
+        padding: 5px 10px;
+        border: 1px solid #93948f;
+        background: #fff;
+        white-space: nowrap;
+        vertical-align: top;
+        font-size: 11px;
+    }
+    table.market-vendor-use thead {
+        background: #f9f9f9;
+    }
+        table.market-vendor-use td.dashboard-category {
+            color: darkblue;
+            font-weight: 600;
+            text-transform: uppercase;
+            padding: 5px 5px 5px 5px;
+        }
+    table.market-vendor-use td.purchase-indicator {
+        text-align: center;
+        color: #cf0c16;
+        font-weight: bold;
+    }
+
+.builder-column-header {
+    padding: 10px 10px 10px 10px;
+    writing-mode: vertical-rl;
+    transform: rotate(-180deg);
+}
+
+.clone {
+    position: absolute;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+}
+
+    .clone th, .clone td {
+        visibility: hidden
+    }
+
+    .clone td, .clone th {
+        border-color: transparent
+    }
+
+        .clone th.dashboard-category {
+            color: darkblue;
+            text-transform: uppercase;
+            font-weight: 600;
+            padding: 5px 5px 5px 5px;
+        }
+
+    .clone tbody th {
+        visibility: visible;
+        color: red;
+    }
+
+    .clone .fixed-side {
+        border: 1px solid #93948f;
+        background: #eee;
+        visibility: visible;
+        vertical-align: middle;
+    }
+    
+    .clone thead, .clone tfoot {
+        background: transparent;
+    }
+
+.top-left-corner-cell {
+    min-width: 240px;
+    background: #eee;
+    visibility: visible;
+    vertical-align: middle;
+}
+
+.purchase-value {
+    color: #cf0c16;
+}
+
+div.row-toggle {
+    cursor: pointer;
+}
+
+i.row-toggle {
+    cursor: pointer;
+}
+.demo-section .k-multiselect-wrap .k-select {
+    top: 3px !important;
+}
+
+.market-vendor-utilization-main .k-multiselect-wrap .k-input {
+    width: 115px!important;
+}

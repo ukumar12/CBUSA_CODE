@@ -1,0 +1,18 @@
+<%@ Master Language="VB" CodeFile="AdminMasterNotes.master.vb" Inherits="AdminMasterNotes" %>
+<%@ Register TagPrefix="CT" Namespace="MasterPages" Assembly="Common"%>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  "http://www.w3.org/TR/html4/loose.dtd">
+<html lang="en">
+<head runat="server">
+    <title>Untitled Page</title>
+    <link href="/includes/admin.css" rel="stylesheet">
+    <script src="/includes/functions.js.aspx" type="text/javascript"></script>
+    <script src="/includes/XmlHttpLookup.js" type="text/javascript"></script>
+</head>
+
+<body bgcolor="#ffffff" topmargin="5" leftmargin="5" marginheight="3" marginwidth="3">
+    <form id="main" method="post" runat="server">
+     <CT:ErrorMessage id="ErrorPlaceHolder" runat="server" />
+     <asp:contentplaceholder id="ph" runat="server"></asp:contentplaceholder>
+    </form>
+</body>
+</html>

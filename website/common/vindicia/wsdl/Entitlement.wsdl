@@ -1,0 +1,101 @@
+<definitions name="Entitlement" targetNamespace="http://soap.vindicia.com/Entitlement" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:enc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://soap.vindicia.com/Entitlement" xmlns:vin="http://soap.vindicia.com/Vindicia" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsdl="http://soap.vindicia.com/Entitlement" >
+  <documentation>WSDL Specification for Entitlement</documentation>
+  <types>
+    <xsd:schema targetNamespace="http://soap.vindicia.com/Entitlement">
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+      <xsd:import namespace="http://soap.vindicia.com/Vindicia" schemaLocation="./Vindicia.xsd" />
+    </xsd:schema>
+  </types>
+  <message name="fetchByEntitlementIdAndAccount_in">
+    <part name="auth" type="vin:Authentication" />
+    <part name="entitlementId" type="xsd:string" />
+    <part name="account" type="vin:Account" />
+  </message>
+  <message name="fetchByEntitlementIdAndAccount_out">
+    <part name="return" type="vin:Return" />
+    <part name="entitlement" type="vin:Entitlement" />
+  </message>
+  <message name="fetchByAccount_in">
+    <part name="auth" type="vin:Authentication" />
+    <part name="account" type="vin:Account" />
+    <part name="showAll" type="xsd:boolean" />
+  </message>
+  <message name="fetchByAccount_out">
+    <part name="return" type="vin:Return" />
+    <part name="entitlements" type="vin:ArrayOfEntitlements" />
+  </message>
+  <portType name="EntitlementPortType">
+    <operation name="fetchByEntitlementIdAndAccount" parameterOrder="auth entitlementId account">
+      <input message="tns:fetchByEntitlementIdAndAccount_in" />
+      <output message="tns:fetchByEntitlementIdAndAccount_out" />
+    </operation>
+    <operation name="fetchByAccount" parameterOrder="auth account showAll">
+      <input message="tns:fetchByAccount_in" />
+      <output message="tns:fetchByAccount_out" />
+    </operation>
+  </portType>
+  <binding name="EntitlementBinding" type="tns:EntitlementPortType">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="fetchByEntitlementIdAndAccount">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Loads an entitlement by its unique merchant id and the Account that owns it.<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>entitlementId</b></dt>
+<dd>The unique id of the entitlement</dd>
+<dt><b>account</b></dt>
+<dd>The account that owns the entitlement</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>entitlement</b></dt>
+<dd>Entitlement for a given Account</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/Entitlement#fetchByEntitlementIdAndAccount" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Entitlement" use="encoded" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Entitlement" use="encoded" />
+      </output>
+    </operation>
+    <operation name="fetchByAccount">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Loads list of entitlements by the Account that owns them<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>account</b></dt>
+<dd>The account that owns the entitlement</dd>
+<dt><b>showAll</b></dt>
+<dd>If true, show all entitlements, including those that have expired. Otherwise, only active entitlements will be returned.</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>entitlements</b></dt>
+<dd>List of entitlements for a given Account</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/Entitlement#fetchByAccount" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Entitlement" use="encoded" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Entitlement" use="encoded" />
+      </output>
+    </operation>
+  </binding>
+  <service name="Entitlement">
+    <port binding="tns:EntitlementBinding" name="EntitlementPort">
+      <soap:address location="https://soap.vindicia.com/v3.1/soap.pl" />
+    </port>
+  </service>
+</definitions>

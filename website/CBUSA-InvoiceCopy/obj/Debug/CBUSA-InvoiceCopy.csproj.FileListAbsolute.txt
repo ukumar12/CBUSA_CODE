@@ -1,0 +1,6 @@
+C:\Medullus\CBUSA - Code Review and Migration\website\CBUSA-InvoiceCopy\bin\Debug\CBUSA-InvoiceCopy.exe.config
+C:\Medullus\CBUSA - Code Review and Migration\website\CBUSA-InvoiceCopy\bin\Debug\CBUSA-InvoiceCopy.exe
+C:\Medullus\CBUSA - Code Review and Migration\website\CBUSA-InvoiceCopy\bin\Debug\CBUSA-InvoiceCopy.pdb
+C:\Medullus\CBUSA - Code Review and Migration\website\CBUSA-InvoiceCopy\obj\Debug\CBUSA-InvoiceCopy.exe
+C:\Medullus\CBUSA - Code Review and Migration\website\CBUSA-InvoiceCopy\obj\Debug\CBUSA-InvoiceCopy.pdb
+C:\Medullus\CBUSA - Code Review and Migration\website\CBUSA-InvoiceCopy\obj\Debug\CBUSA-InvoiceCopy.csprojResolveAssemblyReference.cache

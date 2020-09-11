@@ -1,0 +1,158 @@
+C:\inetpub\wwwroot\cbusa-exthostingbranch2\modules\TwoPrice\bin\Debug\TwoPrice.dll
+C:\inetpub\wwwroot\cbusa-exthostingbranch2\modules\TwoPrice\bin\Debug\TwoPrice.pdb
+C:\inetpub\wwwroot\cbusa-exthostingbranch2\modules\TwoPrice\bin\Debug\TwoPrice.xml
+C:\inetpub\wwwroot\cbusa-exthostingbranch2\modules\TwoPrice\bin\Debug\Common.dll
+C:\inetpub\wwwroot\cbusa-exthostingbranch2\modules\TwoPrice\bin\Debug\log4net.dll
+C:\inetpub\wwwroot\cbusa-exthostingbranch2\modules\TwoPrice\bin\Debug\Vindicia.dll
+C:\inetpub\wwwroot\cbusa-exthostingbranch2\modules\TwoPrice\bin\Debug\CKEditor.NET.dll
+C:\inetpub\wwwroot\cbusa-exthostingbranch2\modules\TwoPrice\bin\Debug\UltimateSpell.dll
+C:\inetpub\wwwroot\cbusa-exthostingbranch2\modules\TwoPrice\bin\Debug\FredCK.FCKeditorV2.dll
+C:\inetpub\wwwroot\cbusa-exthostingbranch2\modules\TwoPrice\bin\Debug\Lucene.Net.dll
+C:\inetpub\wwwroot\cbusa-exthostingbranch2\modules\TwoPrice\bin\Debug\Highlighter.Net.dll
+C:\inetpub\wwwroot\cbusa-exthostingbranch2\modules\TwoPrice\bin\Debug\library.dll
+C:\inetpub\wwwroot\cbusa-exthostingbranch2\modules\TwoPrice\bin\Debug\SpellChecker.Net.dll
+C:\inetpub\wwwroot\cbusa-exthostingbranch2\modules\TwoPrice\bin\Debug\Common.pdb
+C:\inetpub\wwwroot\cbusa-exthostingbranch2\modules\TwoPrice\bin\Debug\Common.xml
+C:\inetpub\wwwroot\cbusa-exthostingbranch2\modules\TwoPrice\bin\Debug\Highlighter.Net.xml
+C:\inetpub\wwwroot\cbusa-exthostingbranch2\modules\TwoPrice\bin\Debug\SpellChecker.Net.xml
+C:\inetpub\wwwroot\cbusa-exthostingbranch2\modules\TwoPrice\obj\Debug\TwoPrice.vbprojResolveAssemblyReference.cache
+C:\inetpub\wwwroot\cbusa-exthostingbranch2\modules\TwoPrice\obj\Debug\TwoPrice.Resources.resources
+C:\inetpub\wwwroot\cbusa-exthostingbranch2\modules\TwoPrice\obj\Debug\TwoPrice.vbproj.GenerateResource.Cache
+C:\inetpub\wwwroot\cbusa-exthostingbranch2\modules\TwoPrice\obj\Debug\TwoPrice.dll
+C:\inetpub\wwwroot\cbusa-exthostingbranch2\modules\TwoPrice\obj\Debug\TwoPrice.xml
+C:\inetpub\wwwroot\cbusa-exthostingbranch2\modules\TwoPrice\obj\Debug\TwoPrice.pdb
+C:\Users\Medullus User\Desktop\CBUSA\CodeReviews\Source Code\NewCode\Code\modules\TwoPrice\bin\Debug\TwoPrice.dll
+C:\Users\Medullus User\Desktop\CBUSA\CodeReviews\Source Code\NewCode\Code\modules\TwoPrice\bin\Debug\TwoPrice.pdb
+C:\Users\Medullus User\Desktop\CBUSA\CodeReviews\Source Code\NewCode\Code\modules\TwoPrice\bin\Debug\TwoPrice.xml
+C:\Users\Medullus User\Desktop\CBUSA\CodeReviews\Source Code\NewCode\Code\modules\TwoPrice\bin\Debug\Common.dll
+C:\Users\Medullus User\Desktop\CBUSA\CodeReviews\Source Code\NewCode\Code\modules\TwoPrice\bin\Debug\log4net.dll
+C:\Users\Medullus User\Desktop\CBUSA\CodeReviews\Source Code\NewCode\Code\modules\TwoPrice\bin\Debug\Vindicia.dll
+C:\Users\Medullus User\Desktop\CBUSA\CodeReviews\Source Code\NewCode\Code\modules\TwoPrice\bin\Debug\CKEditor.NET.dll
+C:\Users\Medullus User\Desktop\CBUSA\CodeReviews\Source Code\NewCode\Code\modules\TwoPrice\bin\Debug\UltimateSpell.dll
+C:\Users\Medullus User\Desktop\CBUSA\CodeReviews\Source Code\NewCode\Code\modules\TwoPrice\bin\Debug\FredCK.FCKeditorV2.dll
+C:\Users\Medullus User\Desktop\CBUSA\CodeReviews\Source Code\NewCode\Code\modules\TwoPrice\bin\Debug\Lucene.Net.dll
+C:\Users\Medullus User\Desktop\CBUSA\CodeReviews\Source Code\NewCode\Code\modules\TwoPrice\bin\Debug\Highlighter.Net.dll
+C:\Users\Medullus User\Desktop\CBUSA\CodeReviews\Source Code\NewCode\Code\modules\TwoPrice\bin\Debug\library.dll
+C:\Users\Medullus User\Desktop\CBUSA\CodeReviews\Source Code\NewCode\Code\modules\TwoPrice\bin\Debug\SpellChecker.Net.dll
+C:\Users\Medullus User\Desktop\CBUSA\CodeReviews\Source Code\NewCode\Code\modules\TwoPrice\bin\Debug\Common.pdb
+C:\Users\Medullus User\Desktop\CBUSA\CodeReviews\Source Code\NewCode\Code\modules\TwoPrice\bin\Debug\Common.xml
+C:\Users\Medullus User\Desktop\CBUSA\CodeReviews\Source Code\NewCode\Code\modules\TwoPrice\bin\Debug\Highlighter.Net.xml
+C:\Users\Medullus User\Desktop\CBUSA\CodeReviews\Source Code\NewCode\Code\modules\TwoPrice\bin\Debug\SpellChecker.Net.xml
+C:\Users\Medullus User\Desktop\CBUSA\CodeReviews\Source Code\NewCode\Code\modules\TwoPrice\bin\Debug\Common.XmlSerializers.dll
+C:\Users\Medullus User\Desktop\CBUSA\CodeReviews\Source Code\NewCode\Code\modules\TwoPrice\obj\Debug\TwoPrice.vbprojResolveAssemblyReference.cache
+C:\Users\Medullus User\Desktop\CBUSA\CodeReviews\Source Code\NewCode\Code\modules\TwoPrice\obj\Debug\TwoPrice.Resources.resources
+C:\Users\Medullus User\Desktop\CBUSA\CodeReviews\Source Code\NewCode\Code\modules\TwoPrice\obj\Debug\TwoPrice.vbproj.GenerateResource.Cache
+C:\Users\Medullus User\Desktop\CBUSA\CodeReviews\Source Code\NewCode\Code\modules\TwoPrice\obj\Debug\TwoPrice.dll
+C:\Users\Medullus User\Desktop\CBUSA\CodeReviews\Source Code\NewCode\Code\modules\TwoPrice\obj\Debug\TwoPrice.xml
+C:\Users\Medullus User\Desktop\CBUSA\CodeReviews\Source Code\NewCode\Code\modules\TwoPrice\obj\Debug\TwoPrice.pdb
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\modules\TwoPrice\bin\Debug\TwoPrice.dll
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\modules\TwoPrice\bin\Debug\TwoPrice.pdb
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\modules\TwoPrice\bin\Debug\TwoPrice.xml
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\modules\TwoPrice\bin\Debug\Common.dll
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\modules\TwoPrice\bin\Debug\log4net.dll
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\modules\TwoPrice\bin\Debug\Vindicia.dll
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\modules\TwoPrice\bin\Debug\CKEditor.NET.dll
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\modules\TwoPrice\bin\Debug\UltimateSpell.dll
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\modules\TwoPrice\bin\Debug\FredCK.FCKeditorV2.dll
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\modules\TwoPrice\bin\Debug\Lucene.Net.dll
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\modules\TwoPrice\bin\Debug\Highlighter.Net.dll
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\modules\TwoPrice\bin\Debug\library.dll
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\modules\TwoPrice\bin\Debug\SpellChecker.Net.dll
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\modules\TwoPrice\bin\Debug\Common.pdb
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\modules\TwoPrice\bin\Debug\Common.xml
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\modules\TwoPrice\bin\Debug\Common.dll.config
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\modules\TwoPrice\bin\Debug\Highlighter.Net.xml
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\modules\TwoPrice\bin\Debug\SpellChecker.Net.xml
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\modules\TwoPrice\bin\Debug\Common.XmlSerializers.dll
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\modules\TwoPrice\obj\Debug\TwoPrice.vbprojResolveAssemblyReference.cache
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\modules\TwoPrice\obj\Debug\TwoPrice.Resources.resources
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\modules\TwoPrice\obj\Debug\TwoPrice.vbproj.GenerateResource.Cache
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\modules\TwoPrice\obj\Debug\TwoPrice.dll
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\modules\TwoPrice\obj\Debug\TwoPrice.xml
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\modules\TwoPrice\obj\Debug\TwoPrice.pdb
+C:\1DEBASHIS\Project\CBUSA\website\modules\TwoPrice\bin\Debug\TwoPrice.dll
+C:\1DEBASHIS\Project\CBUSA\website\modules\TwoPrice\bin\Debug\TwoPrice.pdb
+C:\1DEBASHIS\Project\CBUSA\website\modules\TwoPrice\bin\Debug\TwoPrice.xml
+C:\1DEBASHIS\Project\CBUSA\website\modules\TwoPrice\bin\Debug\Common.dll
+C:\1DEBASHIS\Project\CBUSA\website\modules\TwoPrice\bin\Debug\log4net.dll
+C:\1DEBASHIS\Project\CBUSA\website\modules\TwoPrice\bin\Debug\Vindicia.dll
+C:\1DEBASHIS\Project\CBUSA\website\modules\TwoPrice\bin\Debug\CKEditor.NET.dll
+C:\1DEBASHIS\Project\CBUSA\website\modules\TwoPrice\bin\Debug\UltimateSpell.dll
+C:\1DEBASHIS\Project\CBUSA\website\modules\TwoPrice\bin\Debug\FredCK.FCKeditorV2.dll
+C:\1DEBASHIS\Project\CBUSA\website\modules\TwoPrice\bin\Debug\Lucene.Net.dll
+C:\1DEBASHIS\Project\CBUSA\website\modules\TwoPrice\bin\Debug\Highlighter.Net.dll
+C:\1DEBASHIS\Project\CBUSA\website\modules\TwoPrice\bin\Debug\library.dll
+C:\1DEBASHIS\Project\CBUSA\website\modules\TwoPrice\bin\Debug\SpellChecker.Net.dll
+C:\1DEBASHIS\Project\CBUSA\website\modules\TwoPrice\bin\Debug\Common.pdb
+C:\1DEBASHIS\Project\CBUSA\website\modules\TwoPrice\bin\Debug\Common.dll.config
+C:\1DEBASHIS\Project\CBUSA\website\modules\TwoPrice\bin\Debug\Highlighter.Net.xml
+C:\1DEBASHIS\Project\CBUSA\website\modules\TwoPrice\bin\Debug\SpellChecker.Net.xml
+C:\1DEBASHIS\Project\CBUSA\website\modules\TwoPrice\bin\Debug\Common.XmlSerializers.dll
+C:\1DEBASHIS\Project\CBUSA\website\modules\TwoPrice\obj\Debug\TwoPrice.vbprojAssemblyReference.cache
+C:\1DEBASHIS\Project\CBUSA\website\modules\TwoPrice\obj\Debug\TwoPrice.Resources.resources
+C:\1DEBASHIS\Project\CBUSA\website\modules\TwoPrice\obj\Debug\TwoPrice.vbproj.GenerateResource.cache
+C:\1DEBASHIS\Project\CBUSA\website\modules\TwoPrice\obj\Debug\TwoPrice.vbproj.CoreCompileInputs.cache
+C:\1DEBASHIS\Project\CBUSA\website\modules\TwoPrice\obj\Debug\TwoPrice.vbproj.CopyComplete
+C:\1DEBASHIS\Project\CBUSA\website\modules\TwoPrice\obj\Debug\TwoPrice.dll
+C:\1DEBASHIS\Project\CBUSA\website\modules\TwoPrice\obj\Debug\TwoPrice.xml
+C:\1DEBASHIS\Project\CBUSA\website\modules\TwoPrice\obj\Debug\TwoPrice.pdb
+C:\1DEBASHIS\Project\CBUSA\website\modules\TwoPrice\bin\Debug\Newtonsoft.Json.dll
+C:\1DEBASHIS\Project\CBUSA\website\modules\TwoPrice\bin\Debug\MedullusSendGridEmailLib.dll
+C:\1DEBASHIS\Project\CBUSA\website\modules\TwoPrice\bin\Debug\Azure_TableStorage.dll
+C:\1DEBASHIS\Project\CBUSA\website\modules\TwoPrice\bin\Debug\Common.xml
+D:\CBUSA\LOB_TFS\modules\TwoPrice\obj\Debug\TwoPrice.Resources.resources
+D:\CBUSA\LOB_TFS\modules\TwoPrice\obj\Debug\TwoPrice.vbproj.GenerateResource.Cache
+D:\CBUSA\LOB_TFS\modules\TwoPrice\bin\Debug\TwoPrice.dll
+D:\CBUSA\LOB_TFS\modules\TwoPrice\bin\Debug\TwoPrice.pdb
+D:\CBUSA\LOB_TFS\modules\TwoPrice\bin\Debug\TwoPrice.xml
+D:\CBUSA\LOB_TFS\modules\TwoPrice\bin\Debug\Common.dll
+D:\CBUSA\LOB_TFS\modules\TwoPrice\bin\Debug\Newtonsoft.Json.dll
+D:\CBUSA\LOB_TFS\modules\TwoPrice\bin\Debug\MedullusSendGridEmailLib.dll
+D:\CBUSA\LOB_TFS\modules\TwoPrice\bin\Debug\log4net.dll
+D:\CBUSA\LOB_TFS\modules\TwoPrice\bin\Debug\Vindicia.dll
+D:\CBUSA\LOB_TFS\modules\TwoPrice\bin\Debug\CKEditor.NET.dll
+D:\CBUSA\LOB_TFS\modules\TwoPrice\bin\Debug\UltimateSpell.dll
+D:\CBUSA\LOB_TFS\modules\TwoPrice\bin\Debug\FredCK.FCKeditorV2.dll
+D:\CBUSA\LOB_TFS\modules\TwoPrice\bin\Debug\Lucene.Net.dll
+D:\CBUSA\LOB_TFS\modules\TwoPrice\bin\Debug\Highlighter.Net.dll
+D:\CBUSA\LOB_TFS\modules\TwoPrice\bin\Debug\library.dll
+D:\CBUSA\LOB_TFS\modules\TwoPrice\bin\Debug\SpellChecker.Net.dll
+D:\CBUSA\LOB_TFS\modules\TwoPrice\bin\Debug\Common.pdb
+D:\CBUSA\LOB_TFS\modules\TwoPrice\bin\Debug\Common.dll.config
+D:\CBUSA\LOB_TFS\modules\TwoPrice\bin\Debug\Highlighter.Net.xml
+D:\CBUSA\LOB_TFS\modules\TwoPrice\bin\Debug\SpellChecker.Net.xml
+D:\CBUSA\LOB_TFS\modules\TwoPrice\bin\Debug\Common.XmlSerializers.dll
+D:\CBUSA\LOB_TFS\modules\TwoPrice\obj\Debug\TwoPrice.dll
+D:\CBUSA\LOB_TFS\modules\TwoPrice\obj\Debug\TwoPrice.xml
+D:\CBUSA\LOB_TFS\modules\TwoPrice\obj\Debug\TwoPrice.pdb
+D:\CBUSA\LOB_TFS\modules\TwoPrice\obj\Debug\TwoPrice.vbprojAssemblyReference.cache
+D:\CBUSA\LOB_TFS\modules\TwoPrice\obj\Debug\TwoPrice.vbproj.CoreCompileInputs.cache
+D:\CBUSA\LOB_TFS\modules\TwoPrice\obj\Debug\TwoPrice.vbproj.CopyComplete
+D:\CBUSA\LOB_TFS\modules\TwoPrice\bin\Debug\Common.xml
+C:\Medullus\CBUSA - Code Review and Migration\website\modules\TwoPrice\obj\Debug\TwoPrice.Resources.resources
+C:\Medullus\CBUSA - Code Review and Migration\website\modules\TwoPrice\obj\Debug\TwoPrice.vbproj.GenerateResource.Cache
+C:\Medullus\CBUSA - Code Review and Migration\website\modules\TwoPrice\bin\Debug\TwoPrice.dll
+C:\Medullus\CBUSA - Code Review and Migration\website\modules\TwoPrice\bin\Debug\TwoPrice.pdb
+C:\Medullus\CBUSA - Code Review and Migration\website\modules\TwoPrice\bin\Debug\TwoPrice.xml
+C:\Medullus\CBUSA - Code Review and Migration\website\modules\TwoPrice\bin\Debug\Common.dll
+C:\Medullus\CBUSA - Code Review and Migration\website\modules\TwoPrice\bin\Debug\Newtonsoft.Json.dll
+C:\Medullus\CBUSA - Code Review and Migration\website\modules\TwoPrice\bin\Debug\MedullusSendGridEmailLib.dll
+C:\Medullus\CBUSA - Code Review and Migration\website\modules\TwoPrice\bin\Debug\Azure_TableStorage.dll
+C:\Medullus\CBUSA - Code Review and Migration\website\modules\TwoPrice\bin\Debug\log4net.dll
+C:\Medullus\CBUSA - Code Review and Migration\website\modules\TwoPrice\bin\Debug\Vindicia.dll
+C:\Medullus\CBUSA - Code Review and Migration\website\modules\TwoPrice\bin\Debug\CKEditor.NET.dll
+C:\Medullus\CBUSA - Code Review and Migration\website\modules\TwoPrice\bin\Debug\UltimateSpell.dll
+C:\Medullus\CBUSA - Code Review and Migration\website\modules\TwoPrice\bin\Debug\FredCK.FCKeditorV2.dll
+C:\Medullus\CBUSA - Code Review and Migration\website\modules\TwoPrice\bin\Debug\Lucene.Net.dll
+C:\Medullus\CBUSA - Code Review and Migration\website\modules\TwoPrice\bin\Debug\Highlighter.Net.dll
+C:\Medullus\CBUSA - Code Review and Migration\website\modules\TwoPrice\bin\Debug\library.dll
+C:\Medullus\CBUSA - Code Review and Migration\website\modules\TwoPrice\bin\Debug\SpellChecker.Net.dll
+C:\Medullus\CBUSA - Code Review and Migration\website\modules\TwoPrice\bin\Debug\Common.pdb
+C:\Medullus\CBUSA - Code Review and Migration\website\modules\TwoPrice\bin\Debug\Common.xml
+C:\Medullus\CBUSA - Code Review and Migration\website\modules\TwoPrice\bin\Debug\Highlighter.Net.xml
+C:\Medullus\CBUSA - Code Review and Migration\website\modules\TwoPrice\bin\Debug\SpellChecker.Net.xml
+C:\Medullus\CBUSA - Code Review and Migration\website\modules\TwoPrice\bin\Debug\Common.XmlSerializers.dll
+C:\Medullus\CBUSA - Code Review and Migration\website\modules\TwoPrice\obj\Debug\TwoPrice.vbprojResolveAssemblyReference.cache
+C:\Medullus\CBUSA - Code Review and Migration\website\modules\TwoPrice\obj\Debug\TwoPrice.dll
+C:\Medullus\CBUSA - Code Review and Migration\website\modules\TwoPrice\obj\Debug\TwoPrice.xml
+C:\Medullus\CBUSA - Code Review and Migration\website\modules\TwoPrice\obj\Debug\TwoPrice.pdb

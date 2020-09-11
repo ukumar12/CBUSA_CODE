@@ -1,0 +1,1160 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="12.0">
+  <PropertyGroup>
+    <ProjectType>Local</ProjectType>
+    <ProductVersion>9.0.30729</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{8BA7310A-5ADB-4DF6-91E0-3106569AB761}</ProjectGuid>
+    <SccProjectName>SAK</SccProjectName>
+    <SccLocalPath>SAK</SccLocalPath>
+    <SccProvider>SAK</SccProvider>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ApplicationIcon>
+    </ApplicationIcon>
+    <AssemblyKeyContainerName>
+    </AssemblyKeyContainerName>
+    <AssemblyName>Common</AssemblyName>
+    <AssemblyOriginatorKeyFile>
+    </AssemblyOriginatorKeyFile>
+    <AssemblyOriginatorKeyMode>None</AssemblyOriginatorKeyMode>
+    <DefaultClientScript>JScript</DefaultClientScript>
+    <DefaultHTMLPageLayout>Grid</DefaultHTMLPageLayout>
+    <DefaultTargetSchema>IE50</DefaultTargetSchema>
+    <DelaySign>false</DelaySign>
+    <OutputType>Library</OutputType>
+    <OptionCompare>Binary</OptionCompare>
+    <OptionExplicit>On</OptionExplicit>
+    <OptionStrict>Off</OptionStrict>
+    <RootNamespace>
+    </RootNamespace>
+    <StartupObject>
+    </StartupObject>
+    <WebReference_EnableProperties>true</WebReference_EnableProperties>
+    <WebReference_EnableSQLTypes>false</WebReference_EnableSQLTypes>
+    <WebReference_EnableLegacyEventingModel>true</WebReference_EnableLegacyEventingModel>
+    <MyType>Windows</MyType>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <SccAuxPath>SAK</SccAuxPath>
+    <SignAssembly>false</SignAssembly>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Common.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>
+    </DefineConstants>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>true</DebugSymbols>
+    <Optimize>false</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>42015,41999,42016,42017,42018,42019,42020,42021,42022,42032,42036,42353,42354,42355</NoWarn>
+    <WarningsAsErrors>
+    </WarningsAsErrors>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <OutputPath>bin\</OutputPath>
+    <DocumentationFile>Common.xml</DocumentationFile>
+    <BaseAddress>285212672</BaseAddress>
+    <ConfigurationOverrideFile>
+    </ConfigurationOverrideFile>
+    <DefineConstants>
+    </DefineConstants>
+    <DefineDebug>false</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <DebugSymbols>false</DebugSymbols>
+    <Optimize>true</Optimize>
+    <RegisterForComInterop>false</RegisterForComInterop>
+    <RemoveIntegerChecks>false</RemoveIntegerChecks>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <WarningLevel>1</WarningLevel>
+    <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036,42353,42354,42355</NoWarn>
+    <WarningsAsErrors>
+    </WarningsAsErrors>
+    <Prefer32Bit>false</Prefer32Bit>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Azure_TableStorage">
+      <HintPath>..\CPModuleTasks\CPModuleScheduleEmail\bin\Debug\Azure_TableStorage.dll</HintPath>
+    </Reference>
+    <Reference Include="CKEditor.NET, Version=3.5.2.0, Culture=neutral, PublicKeyToken=e379cdf2f8354999, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>references\CKEditor.NET.dll</HintPath>
+    </Reference>
+    <Reference Include="FredCK.FCKeditorV2, Version=2.6.3.22909, Culture=neutral, PublicKeyToken=4f86767c9b519a06, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\..\WINDOWS\system32\FredCK.FCKeditorV2.dll</HintPath>
+    </Reference>
+    <Reference Include="Highlighter.Net, Version=2.0.0.1, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="library, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
+      <HintPath>..\..\..\..\..\WINDOWS\system32\log4net.dll</HintPath>
+    </Reference>
+    <Reference Include="Lucene.Net, Version=2.1.0.3, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="MedullusSendGridEmailLib, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\..\..\Users\ADMIN\Desktop\CBUSA\MedullusSendGridEmailLib.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Azure.KeyVault.Core">
+      <HintPath>..\CPModuleTasks\CPModuleScheduleEmail\bin\Debug\Microsoft.Azure.KeyVault.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.WindowsAzure.Storage">
+      <HintPath>..\CPModuleTasks\CPModuleScheduleEmail\bin\Debug\Microsoft.WindowsAzure.Storage.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\web\Bin\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="nStuff.UpdateControls, Version=1.2.0.0, Culture=neutral, PublicKeyToken=954a7d0922d0cc55, processorArchitecture=MSIL" />
+    <Reference Include="SpellChecker.Net, Version=2.0.0.1, Culture=neutral, processorArchitecture=MSIL" />
+    <Reference Include="System">
+      <Name>System</Name>
+    </Reference>
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Data">
+      <Name>System.Data</Name>
+    </Reference>
+    <Reference Include="System.Data.DataSetExtensions">
+      <RequiredTargetFramework>3.5</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Design" />
+    <Reference Include="System.DirectoryServices" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.EnterpriseServices" />
+    <Reference Include="System.Runtime.Serialization">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.ServiceModel">
+      <RequiredTargetFramework>3.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="System.Web">
+      <Name>System.Web</Name>
+    </Reference>
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Extensions.Design" />
+    <Reference Include="System.Web.Services" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml">
+      <Name>System.XML</Name>
+    </Reference>
+    <Reference Include="UltimateSpell, Version=3.1.3101.15815, Culture=neutral, PublicKeyToken=722373a75218b33c, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>references\UltimateSpell.dll</HintPath>
+    </Reference>
+    <Reference Include="Vindicia, Version=24.1.0.0, Culture=neutral, PublicKeyToken=d62a83519ab0862a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>references\Vindicia.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Import Include="Microsoft.VisualBasic" />
+    <Import Include="System" />
+    <Import Include="System.Collections" />
+    <Import Include="System.Configuration" />
+    <Import Include="System.Data" />
+    <Import Include="System.Diagnostics" />
+    <Import Include="System.Linq" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="ActiveDirectory.vb" />
+    <Compile Include="AssemblyInfo.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Controls\Admin\CKEditor.vb" />
+    <Compile Include="Controls\Admin\CKHelper.vb" />
+    <Compile Include="Controls\CheckBoxListEx.vb" />
+    <Compile Include="Controls\ConfirmButton.vb" />
+    <Compile Include="Controls\ConfirmImageButton.vb" />
+    <Compile Include="Controls\ConfirmLink.vb" />
+    <Compile Include="Controls\ConfirmLinkButton.vb" />
+    <Compile Include="Controls\DatePicker.vb" />
+    <Compile Include="Controls\DropDownListEx.vb" />
+    <Compile Include="Controls\ExpDate.vb" />
+    <Compile Include="Controls\FCKEditor.vb" />
+    <Compile Include="Controls\FileUpload.vb" />
+    <Compile Include="Controls\Form.vb" />
+    <Compile Include="Controls\ListBox.vb" />
+    <Compile Include="Controls\OneClickImageButton.vb" />
+    <Compile Include="Controls\Phone.vb" />
+    <Compile Include="Controls\RadioButtonEx.vb" />
+    <Compile Include="Controls\TimePicker.vb" />
+    <Compile Include="Controls\Zip.vb">
+    </Compile>
+    <Compile Include="Core\BaseControl.vb">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Core\BaseSurveyControl.vb">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Core\ConnectionString.vb" />
+    <Compile Include="Core\FilterFields.vb" />
+    <Compile Include="Controls\GridView.vb" />
+    <Compile Include="Controls\Navigator.vb" />
+    <Compile Include="Controls\OneClickButton.vb" />
+    <Compile Include="Controls\Validators.vb" />
+    <Compile Include="CookieUtil.vb" />
+    <Compile Include="Core\BasePage.vb">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="DataLayer\Core.vb" />
+    <Compile Include="Core\Database.vb" />
+    <Compile Include="Core\ErrorHandler.vb" />
+    <Compile Include="Core\Logger.vb" />
+    <Compile Include="Core\URLParameters.vb" />
+    <Compile Include="Core\XTemplate.vb" />
+    <Compile Include="CryptoUtil.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Custom\AutoComplete.vb" />
+    <Compile Include="Custom\DivWindow.vb" />
+    <Compile Include="Custom\DropManager.vb" />
+    <Compile Include="Custom\FrontEndTreeView.vb" />
+    <Compile Include="Custom\HoverList.vb" />
+    <Compile Include="Custom\IUserControlEvent.vb" />
+    <Compile Include="Custom\ListSelect.vb" />
+    <Compile Include="Custom\MultiBox.vb" />
+    <Compile Include="Custom\MultiSelect.vb" />
+    <Compile Include="Custom\NameValuePair.vb" />
+    <Compile Include="Custom\NoValidateDropDownList.vb" />
+    <Compile Include="Custom\PopupForm.vb" />
+    <Compile Include="Custom\PriceComparison.vb">
+    </Compile>
+    <Compile Include="Custom\SearchList.vb" />
+    <Compile Include="Custom\StarRating.vb" />
+    <Compile Include="Custom\SubForm.vb" />
+    <Compile Include="Custom\CustomTreeView.vb" />
+    <Compile Include="Custom\UnvalidatedPostback.vb" />
+    <Compile Include="DataLayer\Admin.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataLayer\AdminAccess.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataLayer\AdminAdminGroup.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataLayer\AdminDocument.vb" />
+    <Compile Include="DataLayer\AdminDocumentBuilderRecipient.vb" />
+    <Compile Include="DataLayer\AdminDocumentPIQRecipient.vb" />
+    <Compile Include="DataLayer\AdminDocumentVendorRecipient.vb" />
+    <Compile Include="DataLayer\AdminGroup.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataLayer\AdminLog.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataLayer\AdminMessage.vb" />
+    <Compile Include="DataLayer\AdminMessageBuilderRecipient.vb" />
+    <Compile Include="DataLayer\AdminMessagePIQRecipient.vb" />
+    <Compile Include="DataLayer\AdminMessageVendorRecipient.vb" />
+    <Compile Include="DataLayer\AdminNavigation.vb" />
+    <Compile Include="DataLayer\AdminPassword.vb" />
+    <Compile Include="DataLayer\AdminSection.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="DataLayer\AutomaticMessageBuilderRecipientRow.vb" />
+    <Compile Include="DataLayer\AutomaticMessages.vb" />
+    <Compile Include="DataLayer\AutomaticMessageVendorRecipient.vb" />
+    <Compile Include="DataLayer\Banner.vb" />
+    <Compile Include="DataLayer\BannerBannerGroup.vb" />
+    <Compile Include="DataLayer\BannerGroup.vb" />
+    <Compile Include="DataLayer\BannerOrderTracking.vb" />
+    <Compile Include="DataLayer\BannerTracking.vb" />
+    <Compile Include="DataLayer\BillingPlan.vb" />
+    <Compile Include="DataLayer\Builder.vb" />
+    <Compile Include="DataLayer\BuilderAccount.vb" />
+    <Compile Include="DataLayer\BuilderBillingPlan.vb" />
+    <Compile Include="DataLayer\BuilderCallout.vb" />
+    <Compile Include="DataLayer\BuilderComparePricesTakeoff.vb" />
+    <Compile Include="DataLayer\BuilderComparePricesVendor.vb" />
+    <Compile Include="DataLayer\BuilderComparisonOrder.vb" />
+    <Compile Include="DataLayer\BuilderComparisonVendor.vb" />
+    <Compile Include="DataLayer\BuilderDocument.vb" />
+    <Compile Include="DataLayer\BuilderIndicatorProduct.vb" />
+    <Compile Include="DataLayer\BuilderIndicatorVendor.vb" />
+    <Compile Include="DataLayer\BuilderMonthlyStats.vb" />
+    <Compile Include="DataLayer\BuilderPricingInformation.vb" />
+    <Compile Include="DataLayer\BuilderRegistration.vb" />
+    <Compile Include="DataLayer\BuilderRegistrationPayment.vb" />
+    <Compile Include="DataLayer\BuilderRegistrationPhaseExpenditure.vb" />
+    <Compile Include="DataLayer\BuilderRegistrationReference.vb" />
+    <Compile Include="DataLayer\BuilderRole.vb" />
+    <Compile Include="DataLayer\BusinessType.vb" />
+    <Compile Include="DataLayer\ContactUs.vb" />
+    <Compile Include="DataLayer\ContactUsQuestion.vb" />
+    <Compile Include="DataLayer\ContactUsReply.vb" />
+    <Compile Include="DataLayer\ContentItemsRow.vb" />
+    <Compile Include="DataLayer\ContentItemsRowBase.vb" />
+    <Compile Include="DataLayer\ContentToolContent.vb" />
+    <Compile Include="DataLayer\ContentToolModule.vb" />
+    <Compile Include="DataLayer\ContentToolNavigation.vb" />
+    <Compile Include="DataLayer\ContentToolPage.vb" />
+    <Compile Include="DataLayer\ContentToolPageRegion.vb" />
+    <Compile Include="DataLayer\ContentToolRegionModule.vb" />
+    <Compile Include="DataLayer\ContentToolSection.vb" />
+    <Compile Include="DataLayer\ContentToolTemplate.vb" />
+    <Compile Include="DataLayer\ContentToolTemplateRegion.vb" />
+    <Compile Include="DataLayer\AdminComparisonOrder.vb" />
+    <Compile Include="DataLayer\AdminComparisonVendor.vb" />
+    <Compile Include="DataLayer\AdminIndicatorVendor.vb" />
+    <Compile Include="DataLayer\AdminIndicatorProduct.vb" />
+    <Compile Include="DataLayer\ContractManufacturerRow.vb" />
+    <Compile Include="DataLayer\ContractManufacturerRowBase.vb" />
+    <Compile Include="DataLayer\NationalContract.vb" />
+    <Compile Include="DataLayer\NCPContent.vb" />
+    <Compile Include="DataLayer\NCPDocument.vb" />
+    <Compile Include="DataLayer\NCPManufacturerRow.vb" />
+    <Compile Include="DataLayer\NCPManufacturerRowBase.vb" />
+    <Compile Include="DataLayer\TakeoffServiceDoument.vb" />
+    <Compile Include="DataLayer\TakeOffServiceRow.vb" />
+    <Compile Include="DataLayer\TakeOffServiceRowBase.vb" />
+    <Compile Include="DataLayer\SalesforceApiLogRow.vb" />
+    <Compile Include="DataLayer\SalesforceApiLogRowBase.vb" />
+    <Compile Include="DataLayer\TwoPriceDocumentRow.vb" />
+    <Compile Include="DataLayer\TwoPriceDocumentRowBase.vb" />
+    <Compile Include="DataLayer\CustomRebateRow.vb" />
+    <Compile Include="DataLayer\ExportQueue.vb" />
+    <Compile Include="DataLayer\CountryRow.vb" />
+    <Compile Include="DataLayer\CreditCardType.vb" />
+    <Compile Include="DataLayer\CustomRebateProgram.vb" />
+    <Compile Include="DataLayer\CustomURLHistory.vb" />
+    <Compile Include="DataLayer\DisputeResponse.vb" />
+    <Compile Include="DataLayer\DisputeResponseReason.vb" />
+    <Compile Include="DataLayer\ExcludedSearchWords.vb" />
+    <Compile Include="DataLayer\Faq.vb" />
+    <Compile Include="DataLayer\FaqCategory.vb" />
+    <Compile Include="DataLayer\FaqReply.vb" />
+    <Compile Include="DataLayer\GiftMessage.vb" />
+    <Compile Include="DataLayer\HowHeard.vb" />
+    <Compile Include="DataLayer\LLC.vb" />
+    <Compile Include="DataLayer\LookupSwatch.vb" />
+    <Compile Include="DataLayer\Lyris.vb" />
+    <Compile Include="DataLayer\MailingGroup.vb" />
+    <Compile Include="DataLayer\MailingHelper.vb" />
+    <Compile Include="DataLayer\MailingList.vb" />
+    <Compile Include="DataLayer\MailingLyrisLookupCompletionStatus.vb" />
+    <Compile Include="DataLayer\MailingMember.vb" />
+    <Compile Include="DataLayer\MailingMessage.vb" />
+    <Compile Include="DataLayer\MailingMessageSlot.vb" />
+    <Compile Include="DataLayer\MailingTemplate.vb" />
+    <Compile Include="DataLayer\MailingTemplateSlot.vb" />
+    <Compile Include="DataLayer\Manufacturer.vb" />
+    <Compile Include="DataLayer\Member.vb" />
+    <Compile Include="DataLayer\MemberAddress.vb" />
+    <Compile Include="DataLayer\MemberReminderRow.vb" />
+    <Compile Include="DataLayer\MemberWishlistItem.vb" />
+    <Compile Include="DataLayer\MemberWishlistItemAttribute.vb" />
+    <Compile Include="Core\Notification.vb" />
+    <Compile Include="DataLayer\Notification.vb" />
+    <Compile Include="DataLayer\Order.vb" />
+    <Compile Include="DataLayer\OrderDrop.vb" />
+    <Compile Include="DataLayer\OrderProduct.vb" />
+    <Compile Include="DataLayer\OrderStatus.vb" />
+    <Compile Include="DataLayer\OrderStatusHistory.vb" />
+    <Compile Include="DataLayer\PaymentLog.vb" />
+    <Compile Include="DataLayer\PaymentStatus.vb" />
+    <Compile Include="DataLayer\PIQ.vb" />
+    <Compile Include="DataLayer\PIQAccount.vb" />
+    <Compile Include="DataLayer\PIQAd.vb" />
+    <Compile Include="DataLayer\PIQDocument.vb" />
+    <Compile Include="DataLayer\POBuilderDocumentRow.vb" />
+    <Compile Include="DataLayer\POBuilderDocumentRowBase.vb" />
+    <Compile Include="DataLayer\POQuoteRequestMessageRow.vb" />
+    <Compile Include="DataLayer\POQuoteRequestMessageRowBase.vb" />
+    <Compile Include="DataLayer\POQuoteRequestRow.vb" />
+    <Compile Include="DataLayer\POQuoteRequestRowBase.vb" />
+    <Compile Include="DataLayer\POQuoteRow.vb" />
+    <Compile Include="DataLayer\POQuoteRowBase.vb" />
+    <Compile Include="DataLayer\PORequestInfoMessageRow.vb" />
+    <Compile Include="DataLayer\PORequestInfoMessageRowBase.vb" />
+    <Compile Include="DataLayer\PORequestInfoThreadRow.vb" />
+    <Compile Include="DataLayer\PORequestInfoThreadRowBase.vb" />
+    <Compile Include="DataLayer\Portfolio.vb" />
+    <Compile Include="DataLayer\POVendorDocumentRow.vb" />
+    <Compile Include="DataLayer\POVendorDocumentRowBase.vb" />
+    <Compile Include="DataLayer\PriceComparison.vb" />
+    <Compile Include="DataLayer\PriceComparisonVendorProductPrice.vb" />
+    <Compile Include="DataLayer\PriceComparisonVendorSummary.vb" />
+    <Compile Include="DataLayer\Product.vb" />
+    <Compile Include="DataLayer\ProductType.vb" />
+    <Compile Include="DataLayer\ProductTypeAttribute.vb" />
+    <Compile Include="DataLayer\ProductTypeAttributeProductValue.vb" />
+    <Compile Include="DataLayer\ProductTypeAttributeValueOption.vb" />
+    <Compile Include="DataLayer\Project.vb" />
+    <Compile Include="DataLayer\ProjectStatus.vb" />
+    <Compile Include="DataLayer\PurchasesReport.vb" />
+    <Compile Include="DataLayer\PurchasesReportVendorPO.vb" />
+    <Compile Include="DataLayer\PurchasesReportVendorTotalAmount.vb" />
+    <Compile Include="DataLayer\RatingCategory.vb" />
+    <Compile Include="DataLayer\RebateTerm.vb" />
+    <Compile Include="DataLayer\RecommendedProduct.vb" />
+    <Compile Include="DataLayer\RecommendedProductStatus.vb" />
+    <Compile Include="DataLayer\Referral.vb" />
+    <Compile Include="DataLayer\ReferralClick.vb" />
+    <Compile Include="DataLayer\RegistrationStatus.vb" />
+    <Compile Include="DataLayer\ResponseCaptureRow.vb" />
+    <Compile Include="DataLayer\SalesReport.vb" />
+    <Compile Include="DataLayer\SalesReportBuilderInvoice.vb" />
+    <Compile Include="DataLayer\SalesReportBuilderTotalAmount.vb" />
+    <Compile Include="DataLayer\SalesReportDispute.vb" />
+    <Compile Include="DataLayer\SampleMonthlyStat.vb" />
+    <Compile Include="DataLayer\SearchTerm.vb" />
+    <Compile Include="DataLayer\SpecialOrderProduct.vb" />
+    <Compile Include="DataLayer\State.vb" />
+    <Compile Include="DataLayer\StoreBrand.vb" />
+    <Compile Include="DataLayer\CustomText.vb" />
+    <Compile Include="DataLayer\StoreDepartment.vb" />
+    <Compile Include="DataLayer\StoreFeatureRow.vb" />
+    <Compile Include="DataLayer\StoreItem.vb" />
+    <Compile Include="DataLayer\StoreItemAttribute.vb" />
+    <Compile Include="DataLayer\StoreItemAttributeTemp.vb" />
+    <Compile Include="DataLayer\StoreItemImage.vb" />
+    <Compile Include="DataLayer\StoreItemNotify.vb" />
+    <Compile Include="DataLayer\StoreItemTemplate.vb" />
+    <Compile Include="DataLayer\StoreItemTemplateAttribute.vb" />
+    <Compile Include="DataLayer\StoreOrder.vb" />
+    <Compile Include="DataLayer\StoreOrderItem.vb" />
+    <Compile Include="DataLayer\StoreOrderItemAttribute.vb" />
+    <Compile Include="DataLayer\StoreOrderNote.vb" />
+    <Compile Include="DataLayer\StoreOrderRecipient.vb" />
+    <Compile Include="DataLayer\StoreOrderStatus.vb" />
+    <Compile Include="DataLayer\StorePromotionRow.vb" />
+    <Compile Include="DataLayer\StoreShippingMethodRow.vb" />
+    <Compile Include="DataLayer\StoreShippingRange.vb" />
+    <Compile Include="DataLayer\SupplyPhase.vb" />
+    <Compile Include="DataLayer\SupplyPhaseCategory.vb" />
+    <Compile Include="DataLayer\Survey.vb" />
+    <Compile Include="DataLayer\SurveyAnswer.vb" />
+    <Compile Include="DataLayer\SurveyCategory.vb" />
+    <Compile Include="DataLayer\SurveyDemographic.vb" />
+    <Compile Include="DataLayer\SurveyDemographicType.vb" />
+    <Compile Include="DataLayer\SurveyPage.vb" />
+    <Compile Include="DataLayer\SurveyQuestion.vb" />
+    <Compile Include="DataLayer\SurveyQuestionCategory.vb" />
+    <Compile Include="DataLayer\SurveyQuestionChoice.vb" />
+    <Compile Include="DataLayer\SurveyQuestionDemographic.vb" />
+    <Compile Include="DataLayer\SurveyResponse.vb" />
+    <Compile Include="DataLayer\SurveyResponseDemographic.vb" />
+    <Compile Include="DataLayer\SysParam.vb">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Core\ErrorHandlerModule.vb" />
+    <Compile Include="DataLayer\TakeOff.vb" />
+    <Compile Include="DataLayer\TakeOffProduct.vb" />
+    <Compile Include="DataLayer\TaskLogRow.vb" />
+    <Compile Include="DataLayer\UnitOfMeasure.vb" />
+    <Compile Include="DataLayer\Vendor.vb" />
+    <Compile Include="DataLayer\VendorAccount.vb" />
+    <Compile Include="DataLayer\VendorBranchOffice.vb" />
+    <Compile Include="DataLayer\VendorCategory.vb" />
+    <Compile Include="DataLayer\VendorComment.vb" />
+    <Compile Include="DataLayer\VendorContractRow.vb" />
+    <Compile Include="DataLayer\VendorDocument.vb" />
+    <Compile Include="DataLayer\VendorOwner.vb" />
+    <Compile Include="DataLayer\VendorPhotoRow.vb" />
+    <Compile Include="DataLayer\VendorPhotoRowBase.vb" />
+    <Compile Include="DataLayer\VendorProductPrice.vb" />
+    <Compile Include="DataLayer\VendorProductPriceHistory.vb" />
+    <Compile Include="DataLayer\VendorProductPriceRequest.vb" />
+    <Compile Include="DataLayer\VendorProductSubstitute.vb" />
+    <Compile Include="DataLayer\VendorRatingCategoryRating.vb" />
+    <Compile Include="DataLayer\VendorRegistration.vb" />
+    <Compile Include="DataLayer\VendorRegistrationBusinessReference.vb" />
+    <Compile Include="DataLayer\VendorRegistrationCustomerReference.vb" />
+    <Compile Include="DataLayer\VendorRegistrationFinancialReference.vb" />
+    <Compile Include="DataLayer\VendorRegistrationMemberReference.vb" />
+    <Compile Include="DataLayer\VendorRole.vb" />
+    <Compile Include="DataLayer\VendorSpecialOrderProductPrice.vb" />
+    <Compile Include="DataLayer\VendorTakeoffProductSubstitute.vb" />
+    <Compile Include="DataLayer\VindiciaSoapLog.vb" />
+    <Compile Include="GlobalDB.vb" />
+    <Compile Include="MasterPages\ModuleControl.vb">
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Payment\AuthorizeNetPaymentProcessor.vb" />
+    <Compile Include="Payment\PayflowProPaymentProcessor.vb" />
+    <Compile Include="Payment\PaymentProcessor.vb" />
+    <Compile Include="Payment\PayPalPaymentProcessor.vb" />
+    <Compile Include="Providers\BaseProviders\URLMappingCollection.vb" />
+    <Compile Include="Providers\BaseProviders\URLMappingConfiguration.vb" />
+    <Compile Include="Providers\BaseProviders\URLMappingManager.vb" />
+    <Compile Include="Providers\BaseProviders\URLMappingProvider.vb" />
+    <Compile Include="Providers\RegExURLMappingProvider.vb" />
+    <Compile Include="RegExUrlMapping\RegExUrlMappingBaseModule.vb" />
+    <Compile Include="RegExUrlMapping\RegExUrlMappingConfigHandler.vb" />
+    <Compile Include="RegExUrlMapping\RegExUrlMappingModule.vb" />
+    <Compile Include="MasterPages\ContentRegion.vb" />
+    <Compile Include="MasterPages\ErrorMessage.vb" />
+    <Compile Include="MasterPages\IModule.vb" />
+    <Compile Include="MasterPages\MasterPages.vb" />
+    <Compile Include="MasterPages\NavigationRegion.vb" />
+    <Compile Include="My Project\Application.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Application.myapp</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Resources.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="My Project\Settings.Designer.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
+    <Compile Include="Reports\StoreOrder.vb" />
+    <Compile Include="SalesForce\SalesForce.vb" />
+    <Compile Include="SalesForce\SVendor.vb" />
+    <Compile Include="SalesForce\SBuilderContact.vb" />
+    <Compile Include="vindicia\VindiciaWebSession.vb" />
+    <None Include="app.config" />
+    <None Include="SalesForce\SalesForceWrapper.vb.back" />
+    <Compile Include="SalesForce\SBuilder.vb" />
+    <Compile Include="SalesForce\SBuilderAccount.vb" />
+    <Compile Include="SalesForce\SVendorContact.vb" />
+    <Compile Include="SalesForce\SVendorAccount.vb" />
+    <Compile Include="search\BitFilter.vb" />
+    <Compile Include="search\CustomQueryParser.vb" />
+    <Compile Include="search\IndexQuery.vb" />
+    <Compile Include="search\KeyFilter.vb" />
+    <Compile Include="search\PorterStemmerAnalyzer.vb" />
+    <Compile Include="search\SearchIndex.vb" />
+    <Compile Include="search\SpellCheck.vb" />
+    <Compile Include="Service References\sforce\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\Vindicia_OLD.Account\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\Vindicia_OLD.AllDataTypes\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\Vindicia_OLD.AutoBill\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\Vindicia_OLD.BillingPlan\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\Vindicia_OLD.Entitlement\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\Vindicia_OLD.Product\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Service References\Vindicia_OLD.Transaction\Reference.vb">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
+    <Compile Include="Settings.vb" />
+    <Compile Include="Shipping\FedEx.vb" />
+    <Compile Include="Shipping\UPS.vb" />
+    <None Include="Service References\sforce\partial_sandbox_partner_5.wsdl" />
+    <None Include="Service References\sforce\sforce.convertLeadResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.createResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.DebuggingInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.deleteResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.DeleteResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.describeAllTabsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.DescribeAppMenuItem.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.describeAppMenuResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.DescribeApprovalLayout.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.describeApprovalLayoutResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.DescribeAvailableQuickActionResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.describeAvailableQuickActionsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.DescribeCompactLayout.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.describeCompactLayoutsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.DescribeCompactLayoutsResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.DescribeDataCategoryGroupResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.describeDataCategoryGroupsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.DescribeDataCategoryGroupStructureResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.describeDataCategoryGroupStructuresResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.DescribeFlexiPageResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.describeFlexiPagesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.describeGlobalResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.DescribeGlobalResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.DescribeGlobalTheme.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.describeGlobalThemeResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.describeKnowledgeSettingsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.describeLayoutResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.DescribeLayoutResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.DescribeNounResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.describeNounsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.DescribePathAssistant.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.describePathAssistantsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.describePrimaryCompactLayoutsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.DescribeQuickActionResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.describeQuickActionsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.describeSearchableEntitiesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.DescribeSearchableEntityResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.DescribeSearchLayoutResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.describeSearchLayoutsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.describeSearchScopeOrderResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.DescribeSearchScopeOrderResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.describeSObjectListViewsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.describeSObjectResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.DescribeSObjectResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.describeSObjectsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.describeSoftphoneLayoutResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.DescribeSoftphoneLayoutResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.DescribeSoqlListView.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.describeSoqlListViewsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.DescribeTab.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.DescribeTabSetResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.describeTabsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.DescribeThemeItem.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.describeThemeResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.describeVisualForceResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.DescribeVisualForceResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.emptyRecycleBinResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.EmptyRecycleBinResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.executeListViewResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.ExecuteListViewResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.findDuplicatesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.FindDuplicatesResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.getDeletedResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.GetDeletedResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.getServerTimestampResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.GetServerTimestampResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.getUpdatedResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.GetUpdatedResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.getUserInfoResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.GetUserInfoResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.invalidateSessionsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.InvalidateSessionsResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.KnowledgeSettings.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.LeadConvertResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.LimitInfo.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.loginResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.LoginResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.logoutResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.mergeResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.MergeResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.PerformQuickActionResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.performQuickActionsResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.processResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.ProcessResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.queryAllResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.queryMoreResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.queryResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.QueryResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.QuickActionTemplateResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.renderEmailTemplateResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.RenderEmailTemplateResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.resetPasswordResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.ResetPasswordResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.retrieveQuickActionTemplatesResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.retrieveResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.SaveResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.searchResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.SearchResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.sendEmailMessageResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.sendEmailResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.SendEmailResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.setPasswordResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.SetPasswordResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.sObject.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.undeleteResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.UndeleteResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.updateResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.upsertResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\sforce\sforce.UpsertResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Tool\WebServiceExtension.vb.back" />
+    <Compile Include="vindicia\SoapTrace.vb" />
+    <Compile Include="vindicia\Vindicia.vb" />
+    <None Include="My Project\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.vb</LastGenOutput>
+    </None>
+    <None Include="Service References\Vindicia_OLD.Account\Account1.wsdl" />
+    <None Include="Service References\Vindicia_OLD.Account\Vindicia1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Vindicia_OLD.AllDataTypes\Vindicia1.wsdl" />
+    <None Include="Service References\Vindicia_OLD.AutoBill\AutoBill1.wsdl" />
+    <None Include="Service References\Vindicia_OLD.AutoBill\Vindicia1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Vindicia_OLD.BillingPlan\BillingPlan1.wsdl" />
+    <None Include="Service References\Vindicia_OLD.BillingPlan\Vindicia1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Vindicia_OLD.Entitlement\Entitlement1.wsdl" />
+    <None Include="Service References\Vindicia_OLD.Entitlement\Vindicia1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Vindicia_OLD.Product\Product1.wsdl" />
+    <None Include="Service References\Vindicia_OLD.Product\Vindicia1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Vindicia_OLD.Transaction\Transaction1.wsdl" />
+    <None Include="Service References\Vindicia_OLD.Transaction\Vindicia1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Service References\Vindicia_OLD.Account\Vindicia_OLD.Account.Account.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Vindicia_OLD.Account\Vindicia_OLD.Account.CreditEventLog.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Vindicia_OLD.Account\Vindicia_OLD.Account.GiftCard.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Vindicia_OLD.Account\Vindicia_OLD.Account.Return.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Vindicia_OLD.Account\Vindicia_OLD.Account.TokenAmount.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Vindicia_OLD.Account\Vindicia_OLD.Account.Transaction.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Vindicia_OLD.Account\Vindicia_OLD.Account.TransactionAttemptSummary.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Vindicia_OLD.AutoBill\Vindicia_OLD.AutoBill.AutoBill.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Vindicia_OLD.AutoBill\Vindicia_OLD.AutoBill.AutoBillUpgradeHistoryStep.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Vindicia_OLD.AutoBill\Vindicia_OLD.AutoBill.CreditEventLog.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Vindicia_OLD.AutoBill\Vindicia_OLD.AutoBill.GiftCard.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Vindicia_OLD.AutoBill\Vindicia_OLD.AutoBill.PaymentDetails.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Vindicia_OLD.AutoBill\Vindicia_OLD.AutoBill.Refund.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Vindicia_OLD.AutoBill\Vindicia_OLD.AutoBill.Return.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Vindicia_OLD.AutoBill\Vindicia_OLD.AutoBill.ScoreCode.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Vindicia_OLD.AutoBill\Vindicia_OLD.AutoBill.Transaction.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Vindicia_OLD.AutoBill\Vindicia_OLD.AutoBill.TransactionAttemptSummary.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Vindicia_OLD.AutoBill\Vindicia_OLD.AutoBill.TransactionStatus.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Vindicia_OLD.BillingPlan\Vindicia_OLD.BillingPlan.BillingPlan.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Vindicia_OLD.BillingPlan\Vindicia_OLD.BillingPlan.Return.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Vindicia_OLD.Entitlement\Vindicia_OLD.Entitlement.Entitlement.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Vindicia_OLD.Entitlement\Vindicia_OLD.Entitlement.Return.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Vindicia_OLD.Product\Vindicia_OLD.Product.Product.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Vindicia_OLD.Product\Vindicia_OLD.Product.Return.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Vindicia_OLD.Transaction\Vindicia_OLD.Transaction.Address.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Vindicia_OLD.Transaction\Vindicia_OLD.Transaction.AddressType.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Vindicia_OLD.Transaction\Vindicia_OLD.Transaction.CancelResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Vindicia_OLD.Transaction\Vindicia_OLD.Transaction.CaptureResult.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Vindicia_OLD.Transaction\Vindicia_OLD.Transaction.Return.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Vindicia_OLD.Transaction\Vindicia_OLD.Transaction.SalesTax.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Vindicia_OLD.Transaction\Vindicia_OLD.Transaction.ScoreCode.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Vindicia_OLD.Transaction\Vindicia_OLD.Transaction.Transaction.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Service References\Vindicia_OLD.Transaction\Vindicia_OLD.Transaction.TransactionValidationResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="vindicia\wsdl\Account.wsdl">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="vindicia\wsdl\Address.wsdl" />
+    <None Include="vindicia\wsdl\AllDataTypes.wsdl" />
+    <None Include="vindicia\wsdl\Chargeback.wsdl" />
+    <None Include="vindicia\wsdl\ElectronicSignature.wsdl" />
+    <None Include="vindicia\wsdl\PaymentMethod.wsdl" />
+    <None Include="vindicia\wsdl\PaymentProvider.wsdl" />
+    <None Include="vindicia\wsdl\Product.wsdl" />
+    <None Include="vindicia\wsdl\Symantec.xsd" />
+    <None Include="vindicia\wsdl\Transaction.wsdl" />
+    <None Include="vindicia\wsdl\Vindicia.xsd" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="My Project\Resources.resx">
+      <CustomToolNamespace>My.Resources</CustomToolNamespace>
+      <Generator>VbMyResourcesResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.vb</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="My Project\Application.myapp">
+      <Generator>MyApplicationCodeGenerator</Generator>
+      <LastGenOutput>Application.Designer.vb</LastGenOutput>
+    </Content>
+    <Content Include="references\FredCK.FCKeditorV2.dll" />
+    <Content Include="references\Highlighter.Net.dll" />
+    <Content Include="references\Highlighter.Net.xml" />
+    <Content Include="references\library.dll" />
+    <Content Include="references\log4net.dll" />
+    <Content Include="references\Lucene.Net.dll" />
+    <Content Include="references\nStuff.UpdateControls.dll" />
+    <Content Include="references\SpellChecker.Net.dll" />
+    <Content Include="references\SpellChecker.Net.xml" />
+    <Content Include="references\Vindicia.dll" />
+    <Content Include="search\bin\Highlighter.Net.dll" />
+    <Content Include="search\bin\Highlighter.Net.xml" />
+    <Content Include="search\bin\library.dll" />
+    <Content Include="search\bin\Lucene.Net.dll" />
+    <Content Include="search\bin\SpellChecker.Net.dll" />
+    <Content Include="search\bin\SpellChecker.Net.xml" />
+    <None Include="Service References\sforce\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Service References\sforce\configuration.svcinfo" />
+    <None Include="Service References\sforce\configuration91.svcinfo" />
+    <None Include="Service References\Vindicia_OLD.Entitlement\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Service References\Vindicia_OLD.Entitlement\configuration.svcinfo" />
+    <None Include="Service References\Vindicia_OLD.Entitlement\configuration91.svcinfo" />
+    <None Include="Service References\Vindicia_OLD.Product\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Service References\Vindicia_OLD.Product\configuration.svcinfo" />
+    <None Include="Service References\Vindicia_OLD.Product\configuration91.svcinfo" />
+    <None Include="Service References\Vindicia_OLD.AutoBill\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Service References\Vindicia_OLD.AutoBill\configuration.svcinfo" />
+    <None Include="Service References\Vindicia_OLD.AutoBill\configuration91.svcinfo" />
+    <None Include="Service References\Vindicia_OLD.BillingPlan\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Service References\Vindicia_OLD.BillingPlan\configuration.svcinfo" />
+    <None Include="Service References\Vindicia_OLD.BillingPlan\configuration91.svcinfo" />
+    <None Include="Service References\Vindicia_OLD.Transaction\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Service References\Vindicia_OLD.Transaction\configuration.svcinfo" />
+    <None Include="Service References\Vindicia_OLD.Transaction\configuration91.svcinfo" />
+    <None Include="Service References\Vindicia_OLD.Account\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Service References\Vindicia_OLD.Account\configuration.svcinfo" />
+    <None Include="Service References\Vindicia_OLD.Account\configuration91.svcinfo" />
+    <None Include="Service References\Vindicia_OLD.AllDataTypes\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.vb</LastGenOutput>
+    </None>
+    <None Include="Service References\Vindicia_OLD.AllDataTypes\configuration.svcinfo" />
+    <None Include="Service References\Vindicia_OLD.AllDataTypes\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WebReferences Include="Web References\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Service References\sforce\" />
+    <WCFMetadataStorage Include="Service References\Vindicia_OLD.Account\" />
+    <WCFMetadataStorage Include="Service References\Vindicia_OLD.AllDataTypes\" />
+    <WCFMetadataStorage Include="Service References\Vindicia_OLD.AutoBill\" />
+    <WCFMetadataStorage Include="Service References\Vindicia_OLD.BillingPlan\" />
+    <WCFMetadataStorage Include="Service References\Vindicia_OLD.Entitlement\" />
+    <WCFMetadataStorage Include="Service References\Vindicia_OLD.Product\" />
+    <WCFMetadataStorage Include="Service References\Vindicia_OLD.Transaction\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Extensions\" />
+    <Folder Include="Resources\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.VisualBasic.targets" />
+  <PropertyGroup>
+    <PreBuildEvent>
+    </PreBuildEvent>
+    <PostBuildEvent>
+    </PostBuildEvent>
+  </PropertyGroup>
+</Project>

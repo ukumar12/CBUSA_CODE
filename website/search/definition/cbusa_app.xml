@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<definition>
+	<field Name="ProductID" Type="String" FieldType="Keyword" PrimaryKey="True" Boost="1" />
+	<field Name="ProductIDTemp" Type="String" FieldType="Keyword" />
+	<field Name="ProductName" Type="String" FieldType="Keyword" Boost="2" />
+	<field Name="ProductText" Type="String" FieldType="Text" Boost="2" />
+	<field Name="SKU" Type="String" FieldType="Keyword" />
+	<field Name="Description" Type="String" FieldType="Text" StripHTML="True" />
+	<field Name="Manufacturer" Type="String" FieldType="Keyword" />
+	<field Name="ManufacturerText" Type="String" FieldType="Text" />
+	<field Name="SizeUnitOfMeasure" Type="String" FieldType="Keyword" />
+	<field Name="SizeUnitOfMeasureText" Type="String" FieldType="Text" />
+	<field Name="Length" Type="String" FieldType="Keyword" />
+	<field Name="Width" Type="String" FieldType="Keyword" />
+	<field Name="Thickness" Type="String" FieldType="Keyword" />
+	<field Name="Grade" Type="String" FieldType="Keyword" />
+	<field Name="GradeText" Type="String" FieldType="Text" />
+	<field Name="ProductType" Type="String" FieldType="Keyword" />
+	<field Name="ProductTypeText" Type="String" FieldType="Text" />
+	<field Name="SupplyPhaseID" Type="String" FieldType="Keyword" />
+	<field Name="SupplyPhase" Type="String" FieldType="Keyword" />
+	<field Name="SupplyPhaseText" Type="String" FieldType="Text" />
+	<dictionary Name="Dictionary" Fields="Product,SKU,Description,Manufacturer,SizeUnitOfMeasure,Grade,ProductType,SupplyPhase" />
+	<settings CacheSize="5000" MergeFactor="1000" ClearIndex="true" Path="\\CL-CBUSA-7WB01\wwwroot\app.custombuilders-usa.com\search\"/>
+</definition>

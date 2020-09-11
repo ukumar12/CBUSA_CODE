@@ -1,0 +1,30 @@
+html {
+	font-family: 'AvenirNextLTPro-Regular', sans-serif;
+	line-height: 14px;
+	font-weight: normal;
+}
+body {
+ --font-family-AvenirNextLTPro-Regular: -apple-system, "AvenirNextLTPro-Regular";
+ --font-family-monospace: "AvenirNextLTPro-Regular", monospace;
+	font-family: 'AvenirNextLTPro-Regular', sans-serif;
+	font-size: 13px;
+	font-weight: normal;
+	line-height: 14px;
+	color: #333;
+	margin: 0px;
+	padding: 0px;
+}
+@font-face {
+	font-family: 'AvenirNextLTPro-Regular';
+	src: url('../webfonts/AvenirNextLTPro-Regular.eot');
+	src: url('../webfonts/AvenirNextLTPro-Regular.eot?#iefix') format('embedded-opentype'), url('../webfonts/AvenirNextLTPro-Regular.ttf') format('truetype'), url('../webfonts/AvenirNextLTPro-Regular.svg#AvenirNextLTPro-Regular') format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+@font-face {
+	font-family: 'AvenirNextLTPro-Bold';
+	src: url('../webfonts/AvenirNextLTPro-Bold.eot');
+	src: url('../webfonts/AvenirNextLTPro-Bold.eot?#iefix') format('embedded-opentype'), url('../webfonts/AvenirNextLTPro-Bold.ttf') format('truetype'), url('../webfonts/AvenirNextLTPro-Bold.svg#AvenirNextLTPro-Bold') format('svg');
+	font-weight: bold;
+	font-style: normal;
+}

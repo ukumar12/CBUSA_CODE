@@ -1,0 +1,1 @@
+<%@ Page Language="VB" AutoEventWireup="false" CodeFile="ratingpost.aspx.vb" Inherits="_default" %>

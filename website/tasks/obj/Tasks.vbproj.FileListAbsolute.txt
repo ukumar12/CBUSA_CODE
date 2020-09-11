@@ -1,0 +1,15 @@
+C:\Inetpub\wwwroot\StoreStartup.net\tasks\bin\Debug\Tasks.exe.config
+C:\Inetpub\wwwroot\StoreStartup.net\tasks\bin\Debug\Tasks.exe
+C:\Inetpub\wwwroot\StoreStartup.net\tasks\bin\Debug\Tasks.pdb
+C:\Inetpub\wwwroot\StoreStartup.net\tasks\bin\Debug\Tasks.xml
+C:\Inetpub\wwwroot\StoreStartup.net\tasks\bin\Debug\Common.dll
+C:\Inetpub\wwwroot\StoreStartup.net\tasks\bin\Debug\log4net.dll
+C:\Inetpub\wwwroot\StoreStartup.net\tasks\bin\Debug\FredCK.FCKeditorV2.dll
+C:\Inetpub\wwwroot\StoreStartup.net\tasks\bin\Debug\Common.pdb
+C:\Inetpub\wwwroot\StoreStartup.net\tasks\bin\Debug\Common.xml
+C:\Inetpub\wwwroot\StoreStartup.net\tasks\obj\Debug\ResolveAssemblyReference.cache
+C:\Inetpub\wwwroot\StoreStartup.net\tasks\obj\Debug\Tasks.Resources.resources
+C:\Inetpub\wwwroot\StoreStartup.net\tasks\obj\Debug\Tasks.vbproj.GenerateResource.Cache
+C:\Inetpub\wwwroot\StoreStartup.net\tasks\obj\Debug\Tasks.exe
+C:\Inetpub\wwwroot\StoreStartup.net\tasks\obj\Debug\Tasks.xml
+C:\Inetpub\wwwroot\StoreStartup.net\tasks\obj\Debug\Tasks.pdb

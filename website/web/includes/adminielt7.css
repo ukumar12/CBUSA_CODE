@@ -1,0 +1,8 @@
+div#djVeil {
+	background: none;
+	filter:progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/images/transGry50.png',sizingMethod='scale');
+}
+
+iframe#ieFixVeil {
+	display: none;
+}

@@ -1,0 +1,11 @@
+html,body
+{
+	display:inline;
+}
+
+html
+{
+	/* #3658: [IE6] Editor document has horizontal scrollbar on long lines
+	To prevent this misbehavior, we show the scrollbar always */
+	_overflow-y: scroll
+}

@@ -1,0 +1,142 @@
+<definitions name="Search" targetNamespace="http://soap.vindicia.com/Search" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:enc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://soap.vindicia.com/Search" xmlns:vin="http://soap.vindicia.com/Vindicia" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsdl="http://soap.vindicia.com/Search" >
+  <documentation>WSDL Specification for Search</documentation>
+  <types>
+    <xsd:schema targetNamespace="http://soap.vindicia.com/Search">
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+      <xsd:import namespace="http://soap.vindicia.com/Vindicia" schemaLocation="./Vindicia.xsd" />
+    </xsd:schema>
+  </types>
+  <message name="searchRefresh_in">
+    <part name="auth" type="vin:Authentication" />
+    <part name="VID" type="xsd:string" />
+  </message>
+  <message name="searchRefresh_out">
+    <part name="return" type="vin:Return" />
+    <part name="search" type="vin:ArrayOfSearches" />
+  </message>
+  <message name="searchBegin_in">
+    <part name="auth" type="vin:Authentication" />
+    <part name="select" type="vin:SearchSelect" />
+    <part name="where" type="xsd:string" />
+  </message>
+  <message name="searchBegin_out">
+    <part name="return" type="vin:Return" />
+    <part name="VID" type="xsd:string" />
+  </message>
+  <message name="searchStatus_in">
+    <part name="auth" type="vin:Authentication" />
+    <part name="VID" type="xsd:string" />
+  </message>
+  <message name="searchStatus_out">
+    <part name="return" type="vin:Return" />
+    <part name="status" type="vin:SearchStatus" />
+  </message>
+  <message name="searchList_in">
+    <part name="auth" type="vin:Authentication" />
+    <part name="includeExpired" type="xsd:boolean" />
+  </message>
+  <message name="searchList_out">
+    <part name="return" type="vin:Return" />
+    <part name="searchStatus" type="vin:ArrayOfSearchStatuses" />
+  </message>
+  <message name="searchCancel_in">
+    <part name="auth" type="vin:Authentication" />
+    <part name="VID" type="xsd:string" />
+  </message>
+  <message name="searchCancel_out">
+    <part name="return" type="vin:Return" />
+    <part name="status" type="vin:ArrayOfSearchStatuses" />
+  </message>
+  <portType name="SearchPortType">
+    <operation name="searchRefresh" parameterOrder="auth VID">
+      <input message="tns:searchRefresh_in" />
+      <output message="tns:searchRefresh_out" />
+    </operation>
+    <operation name="searchBegin" parameterOrder="auth select where">
+      <input message="tns:searchBegin_in" />
+      <output message="tns:searchBegin_out" />
+    </operation>
+    <operation name="searchStatus" parameterOrder="auth VID">
+      <input message="tns:searchStatus_in" />
+      <output message="tns:searchStatus_out" />
+    </operation>
+    <operation name="searchList" parameterOrder="auth includeExpired">
+      <input message="tns:searchList_in" />
+      <output message="tns:searchList_out" />
+    </operation>
+    <operation name="searchCancel" parameterOrder="auth VID">
+      <input message="tns:searchCancel_in" />
+      <output message="tns:searchCancel_out" />
+    </operation>
+  </portType>
+  <binding name="SearchBinding" type="tns:SearchPortType">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="searchRefresh">
+      <soap:operation soapAction="http://soap.vindicia.com/Search#searchRefresh" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Search" use="encoded" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Search" use="encoded" />
+      </output>
+    </operation>
+    <operation name="searchBegin">
+      <soap:operation soapAction="http://soap.vindicia.com/Search#searchBegin" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Search" use="encoded" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Search" use="encoded" />
+      </output>
+    </operation>
+    <operation name="searchStatus">
+      <soap:operation soapAction="http://soap.vindicia.com/Search#searchStatus" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Search" use="encoded" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Search" use="encoded" />
+      </output>
+    </operation>
+    <operation name="searchList">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Lists the merchant's searches in the system. This is not yet implemented.<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>includeExpired</b></dt>
+<dd>If true, will include expired queries in the results.</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>searchStatus</b></dt>
+<dd>The searches that are in the system, their counts and statuses</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/Search#searchList" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Search" use="encoded" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Search" use="encoded" />
+      </output>
+    </operation>
+    <operation name="searchCancel">
+      <soap:operation soapAction="http://soap.vindicia.com/Search#searchCancel" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Search" use="encoded" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Search" use="encoded" />
+      </output>
+    </operation>
+  </binding>
+  <service name="Search">
+    <port binding="tns:SearchBinding" name="SearchPort">
+      <soap:address location="https://soap.vindicia.com/v3.1/soap.pl" />
+    </port>
+  </service>
+</definitions>

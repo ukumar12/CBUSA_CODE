@@ -1,0 +1,274 @@
+<definitions name="Account" targetNamespace="http://soap.vindicia.com/Account" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:enc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://soap.vindicia.com/Account" xmlns:vin="http://soap.vindicia.com/Vindicia" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsdl="http://soap.vindicia.com/Account" >
+  <documentation>WSDL Specification for Account</documentation>
+  <types>
+    <xsd:schema targetNamespace="http://soap.vindicia.com/Account">
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+      <xsd:import namespace="http://soap.vindicia.com/Vindicia" schemaLocation="./Vindicia.xsd" />
+    </xsd:schema>
+  </types>
+  <message name="update_in">
+    <part name="auth" type="vin:Authentication" />
+    <part name="account" type="vin:Account" />
+  </message>
+  <message name="update_out">
+    <part name="return" type="vin:Return" />
+    <part name="account" type="vin:Account" />
+    <part name="created" type="xsd:boolean" />
+  </message>
+  <message name="stopAutoBilling_in">
+    <part name="auth" type="vin:Authentication" />
+    <part name="account" type="vin:Account" />
+    <part name="autobills" type="vin:ArrayOfAutoBills" />
+    <part name="disentitle" type="xsd:boolean" />
+    <part name="force" type="xsd:boolean" />
+  </message>
+  <message name="stopAutoBilling_out">
+    <part name="return" type="vin:Return" />
+    <part name="account" type="vin:Account" />
+  </message>
+  <message name="updatePaymentMethod_in">
+    <part name="auth" type="vin:Authentication" />
+    <part name="account" type="vin:Account" />
+    <part name="paymentMethod" type="vin:PaymentMethod" />
+    <part name="replaceOnAllAutoBills" type="xsd:boolean" />
+    <part name="updateBehavior" type="vin:PaymentUpdateBehavior" />
+    <part name="numCycles" type="xsd:int" />
+  </message>
+  <message name="updatePaymentMethod_out">
+    <part name="return" type="vin:Return" />
+    <part name="account" type="vin:Account" />
+    <part name="validated" type="xsd:boolean" />
+  </message>
+  <message name="fetchByMerchantAccountId_in">
+    <part name="auth" type="vin:Authentication" />
+    <part name="merchantAccountId" type="xsd:string" />
+  </message>
+  <message name="fetchByMerchantAccountId_out">
+    <part name="return" type="vin:Return" />
+    <part name="account" type="vin:Account" />
+  </message>
+  <message name="fetchByVid_in">
+    <part name="auth" type="vin:Authentication" />
+    <part name="vid" type="xsd:string" />
+  </message>
+  <message name="fetchByVid_out">
+    <part name="return" type="vin:Return" />
+    <part name="account" type="vin:Account" />
+  </message>
+  <message name="fetchByEmail_in">
+    <part name="auth" type="vin:Authentication" />
+    <part name="emailAddress" type="xsd:string" />
+  </message>
+  <message name="fetchByEmail_out">
+    <part name="return" type="vin:Return" />
+    <part name="accounts" type="vin:ArrayOfAccounts" />
+  </message>
+  <portType name="AccountPortType">
+    <operation name="update" parameterOrder="auth account">
+      <input message="tns:update_in" />
+      <output message="tns:update_out" />
+    </operation>
+    <operation name="stopAutoBilling" parameterOrder="auth account autobills disentitle force">
+      <input message="tns:stopAutoBilling_in" />
+      <output message="tns:stopAutoBilling_out" />
+    </operation>
+    <operation name="updatePaymentMethod" parameterOrder="auth account paymentMethod replaceOnAllAutoBills updateBehavior numCycles">
+      <input message="tns:updatePaymentMethod_in" />
+      <output message="tns:updatePaymentMethod_out" />
+    </operation>
+    <operation name="fetchByMerchantAccountId" parameterOrder="auth merchantAccountId">
+      <input message="tns:fetchByMerchantAccountId_in" />
+      <output message="tns:fetchByMerchantAccountId_out" />
+    </operation>
+    <operation name="fetchByVid" parameterOrder="auth vid">
+      <input message="tns:fetchByVid_in" />
+      <output message="tns:fetchByVid_out" />
+    </operation>
+    <operation name="fetchByEmail" parameterOrder="auth emailAddress">
+      <input message="tns:fetchByEmail_in" />
+      <output message="tns:fetchByEmail_out" />
+    </operation>
+  </portType>
+  <binding name="AccountBinding" type="tns:AccountPortType">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="update">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Creates a new Account object or updates an existing one. You can't update Payment Methods using this call, Please see updatePaymentMethod<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>account</b></dt>
+<dd>The <a href="#data_type.Account">Account</a> class object</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>account</b></dt>
+<dd>The <a href="#data_type.Account">Account</a> class object</dd>
+<dt><b>created</b></dt>
+<dd>True if the object was created new</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/Account#update" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Account" use="encoded" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Account" use="encoded" />
+      </output>
+    </operation>
+    <operation name="stopAutoBilling">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Cancels and optionally dis-entitles a specified or all AutoBill objects for an Account<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>account</b></dt>
+<dd>The account object</dd>
+<dt><b>autobills</b></dt>
+<dd>The autobills to be cancelled. If none specified, cancels all AutoBills.</dd>
+<dt><b>disentitle</b></dt>
+<dd>If true, also immediately disentitles the Account for relevant Products.</dd>
+<dt><b>force</b></dt>
+<dd>If true, allows cancelling even if within a defined commitment period.</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>account</b></dt>
+<dd>The account object</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/Account#stopAutoBilling" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Account" use="encoded" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Account" use="encoded" />
+      </output>
+    </operation>
+    <operation name="updatePaymentMethod">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Creates a new payment method if necessary, and, if so specified, sets this payment method to replace all others on all of an account's autobills.<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>account</b></dt>
+<dd>The account object</dd>
+<dt><b>paymentMethod</b></dt>
+<dd>Method to add</dd>
+<dt><b>replaceOnAllAutoBills</b></dt>
+<dd>If true, replaces the autobilling on all this Account's AutoBills</dd>
+<dt><b>updateBehavior</b></dt>
+<dd>Whether to just update, validate first, or catch up billing first</dd>
+<dt><b>numCycles</b></dt>
+<dd>Number of cycles to catch up if updateBehavior is set to CatchUp. If numCycles is <= 0 then all outstanding billings are charged.</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>account</b></dt>
+<dd>The account object</dd>
+<dt><b>validated</b></dt>
+<dd>True if the payment method was successfully validated</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/Account#updatePaymentMethod" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Account" use="encoded" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Account" use="encoded" />
+      </output>
+    </operation>
+    <operation name="fetchByMerchantAccountId">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Loads an account by the merchant's unique customer ID<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>merchantAccountId</b></dt>
+<dd>Merchant ID for the customer</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>account</b></dt>
+<dd>The account object</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/Account#fetchByMerchantAccountId" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Account" use="encoded" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Account" use="encoded" />
+      </output>
+    </operation>
+    <operation name="fetchByVid">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Loads an account by Vindicia's unique ID for the account<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>vid</b></dt>
+<dd>Vindicia ID for the customer</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>account</b></dt>
+<dd>The account object</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/Account#fetchByVid" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Account" use="encoded" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Account" use="encoded" />
+      </output>
+    </operation>
+    <operation name="fetchByEmail">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Loads an account by an email address<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>emailAddress</b></dt>
+<dd>Address to load by</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>accounts</b></dt>
+<dd>The account objects</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/Account#fetchByEmail" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Account" use="encoded" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Account" use="encoded" />
+      </output>
+    </operation>
+  </binding>
+  <service name="Account">
+    <port binding="tns:AccountBinding" name="AccountPort">
+      <soap:address location="https://soap.prodtest.sj.vindicia.com/v3.0/soap.pl" />
+    </port>
+  </service>
+</definitions>

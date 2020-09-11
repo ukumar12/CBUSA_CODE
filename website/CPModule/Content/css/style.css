@@ -1,0 +1,453 @@
+c.alart-area {
+    float:left;
+    width:100%;
+    margin:10px 0px 0;
+}
+label.margin-btm{
+    margin-bottom:10px !important;
+}
+.evnt-management h2 {
+    margin: 0px;
+    padding: 0px;
+}
+.evnt-management label {
+    margin:0px;
+    padding:0px;
+}
+.evnt-management .heading {
+    font-family: Arial, Helvetica, Verdana, sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 20px;
+    float: left;
+    padding-right: 15%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.evnt-management .sub-heading {
+    font-family: Arial, Helvetica, Verdana, sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+    line-height: 18px;
+    float: right;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.auto-flex-height table.k-editor {
+    height: calc(100vh - 245px) !important;
+}
+.invitation-editor table.k-editor {
+    height: calc(100vh - 298px) !important;
+}
+.tab-toparea {
+    float: left;
+    width: 100%;
+    margin: 10px 0 0 0;
+    border: 1px solid #000000;
+    padding: 6px;
+}
+.evnt-management .tab-toparea .sub-heading {
+    float: left;
+}
+.tab-toparea label {
+    margin: 0px;
+    padding: 0px;
+}
+.tab-toparea-right {
+    float: right;
+    margin-top: 4px;
+}
+.tab-toparea-right ul{
+    float:left;
+    width:100%;
+    margin:0px;
+    padding:0px;
+    list-style:none;
+}
+.tab-toparea-right ul li{
+    float:left;
+    font-size:12px;
+    line-height:12px;
+    margin:0 0 0 5px;
+    padding:0 0 0 5px;
+    border-left:1px solid #808080;
+    font-weight:normal;
+}
+.tab-toparea-right ul li:first-child{
+    border:none;
+    margin:0px;
+    padding:0px;
+}
+
+.management-tab {
+    float:left;
+    width:100%;
+    margin:10px 0 0 0;
+    padding:0px;
+}
+.tab-menu {
+    width: auto;
+    border: 1px solid #000;
+    float: left;
+}
+.management-tab .nav-tabs {
+    /*border-bottom: 1px solid #dee2e6;*/
+    border-bottom: 1px solid transparent;
+}
+
+.management-tab .nav-tabs .nav-link {
+    border: 1px solid transparent;
+    border-left:1px solid #000;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    color:#000;
+}
+
+.management-tab .nav-tabs .nav-link:first-child{
+    border-left:1px solid transparent;
+}
+.management-tab .nav-tabs .nav-item.show .nav-link, .management-tab .nav-tabs .nav-link.active {
+    background-color:#B8CDE7;
+}
+.management-tab .tab-content {
+    float: left;
+    width: 100%;
+}
+.management-tab .tab-content-body {
+    float: left;
+    margin: 10px 0 0 0;
+    width:100%;
+}
+.reset-save {
+    float: left;
+    width: 100%;
+    margin-top: 10px;
+}
+.reset-save ul{
+    display:inline-block;
+    margin:0px;
+    padding:0px;
+    list-style:none;
+    text-align:right;
+    width:100%;
+}
+.reset-save ul li{
+    display:inline-block;
+    margin:0 0 0 10px;
+}
+.reset-save ul li a{
+    color:#000;
+}
+.reset-save ul li .btn{
+    border:1px solid #000;
+    width:80px;
+    
+}
+.reset-save ul li .btn {
+    border: 1px solid #000;
+    width: 80px;
+    background: no-repeat;
+    font-size: 12px;
+    border-radius: 0px;
+}
+.reset-save ul li .btn:hover{
+    background-color:#B8CDE7;
+}
+
+.date-calender-bottom {
+    margin:15px 0px;
+}
+.date-calender-bottom label{
+    font-size:12px;
+    line-height:14px;
+    margin-bottom:10px;
+}
+.date-calender-bottom select{
+    float:left;
+    width:150px;
+    border:1px solid #808080;
+    padding:2px;
+    height:auto;
+}
+
+.date-calender-bottom .k-picker-wrap.k-state-default {
+    border-color:transparent !important;
+    background-color:transparent !important;
+    background:none !important;
+}
+.date-calender-bottom .k-input {
+    border-radius:0px !important;
+    box-shadow: none !important;
+    padding:2px !important;
+    border:1px solid #808080 !important;
+    line-height:14px !important;
+}
+.date-calender-bottom .k-state-default > .k-select {
+    border-color: transparent !important;
+}
+.date-calender-bottom .k-select {
+    line-height:18px !important;
+    border-radius:0px !important;
+}
+
+.invitation .tab-toparea {
+    padding: 0px;
+    border-color: #808080;
+    margin-top: 4px;
+}
+.invitation input.style-box{
+    float: left;
+    width: 100%;
+    border: none;
+    box-shadow: none !important;
+    padding: 4px;
+}
+.invitation-editor {
+    float:left;
+    width:100%;
+    margin:10px 0px;
+}
+
+.invitation .heading {
+    font-size:12px;
+}
+
+/*Reminder-tab*/
+.management-tab .tab-content-body.Reminder-1 {
+    margin:0px;
+   
+}
+.reminder-body {
+    padding: 0 0 0 15px;
+}
+.reminder-body label {
+    float: left;
+    width: 100%;
+    margin: 10px 0 10px 0;
+}
+
+.reminder-body ul.style-modify {
+    float:left;
+    width:100%;
+    list-style-type:none;
+    margin:0px;
+    padding:0px;
+}
+.reminder-body ul.style-modify li{
+    float:left;
+    margin:0 0 0 10px;
+}
+.reminder-body ul.style-modify li:first-child {
+   margin:0px;
+}
+    .reminder-body ul.style-modify li select {
+        float: left;
+        height: 21px !important;
+    }
+.reminder-text-area {
+    float:left;
+    margin:4px 0 0 0;
+}
+.reminder-body ul.style-modify li .k-timepicker.k-header {
+    float:left;
+    margin:0px 10px 0 0;
+}
+.reminder-body .k-picker-wrap.k-state-default {
+    border-color: transparent !important;
+    background-color: transparent !important;
+    background: none !important;
+}
+
+.reminder-body ul.style-modify .k-input {
+    border-radius: 0px !important;
+    box-shadow: none !important;
+    padding: 2px !important;
+    border: 1px solid #a9a9a9 !important;
+    line-height: 14px !important;
+}
+
+.reminder-body ul.style-modify .k-state-default > .k-select {
+    border-color: transparent !important;
+    border: 1px solid #848484 !important;
+    line-height: 16px !important;
+    padding: 0px !important;
+    height: 18px !important;
+    border-left: none !important;
+}
+
+.reminder-body ul.style-modify .k-select {
+    line-height: 18px !important;
+    border-radius: 0px !important;
+    height: 18px !important;
+}
+select.width-60 {
+    width:60px;
+}
+.distribution-tab {
+    width:100% !important;
+}
+.distribution-tab tr {
+    padding-top: 10px;
+    display: block;
+}
+.distribution-tab tr input[type="radio"]{
+    float:left;
+    margin-right:6px;
+}
+.distribution-tab .style-modify {
+    float:left;
+    width:100%;
+    margin:10px 0 0 0;
+    padding:0px;
+    list-style-type:none;
+}
+.distribution-tab .style-modify li{
+    float:left;
+    margin:0px 5px 0 0;
+    padding:0px;
+}
+.distribution-tab .style-modify li span{
+    float:left;
+}
+.distribution-tab select {
+    float: left;
+    width: 150px;
+    border: 1px solid #808080;
+    padding: 2px;
+    height: auto;
+}
+.distribution-tab .style-modify li:last-child {
+    margin:0px;
+}
+
+.distribution-tab .k-picker-wrap.k-state-default {
+    border-color: transparent !important;
+    background-color: transparent !important;
+    background: none !important;
+}
+
+.distribution-tab .k-input {
+    border-radius: 0px !important;
+    box-shadow: none !important;
+    padding: 2px !important;
+    border: 1px solid #808080 !important;
+    line-height: 14px !important;
+}
+
+.distribution-tab .k-state-default > .k-select {
+    border-color: transparent !important;
+}
+
+.distribution-tab .k-select {
+    line-height: 18px !important;
+    border-radius: 0px !important;
+}
+    .distribution-tab .k-icon.k-i-calendar, .k-icon.k-i-clock {
+        float: left;
+        margin: 1px 0 0 8px;
+        /*margin: 3px 0 0 6px;*/
+    }
+.at {
+    float: left;
+    margin: 3px 0 0 0;
+}
+.distribution-tab #dvbutton {
+    float: right;
+    width: auto;
+    margin-top: 15px;
+    font-style: 14px;
+    font-weight: 400;
+    padding-right: 39px;
+    padding-top: 10px;
+}
+.distribution-tab #dvbutton span{
+    font-size:12px;
+    line-height:14px;
+    padding: 8px;
+}
+#dvbutton .btn {
+    border: 1px solid #000;
+    width: auto;
+    background: no-repeat;
+    font-size: 12px;
+    border-radius: 0px;
+    background: none;
+    margin-left:10px;
+}
+a.icon-text {
+    padding: 2px 0px 0px 7px;
+    float: left;
+    font-size: 18px;
+    line-height: 18px;
+    color: #3995a7;
+}
+.option-area {
+    float:left;
+    width:100%;
+    margin:15px 0 0 0;
+}
+.option-area .option-heading{
+    float:left;
+    width:100%;
+    margin-bottom:10px;
+}
+.option-area input[type="checkbox"]{
+    float:left;
+}
+.alart-area {
+    position: relative;
+    width: 100%;
+    left: 0;
+    top: 26px;
+    right: 0;
+}
+.alart-area .alert {
+    position:absolute;
+    width:100%;
+}
+.reset-save ul li .btn.reminderbtn {
+    width: auto;
+}
+.reminder-body ul.style-modify li.rem-alert .alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+    padding: 3px 16px;
+    font-size: 11px;
+    border-radius: 0px;
+}
+.reminder-body ul.style-modify li.rem-alert {
+    float: right;
+}
+.txtNotify .k-input {
+    /*width: 100% !important;*/
+    border: none !important;
+    min-height: 20px !important;
+    height:20px !important;
+    max-height: 100px !important;
+    overflow-y: auto !important;
+}
+
+.txtNotify .k-multiselect-wrap.k-floatwrap {
+    padding-right: 0px !important;
+    max-height: 60px;
+    overflow-y: auto;
+}
+
+
+.txtNotify .k-select {
+    position: absolute;
+    top: 2px !important;
+    bottom: 0;
+    right: 0;
+    padding: .03em .2em;
+}
+
+
+
+
+
+
+

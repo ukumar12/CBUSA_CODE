@@ -1,0 +1,95 @@
+<definitions name="PaymentProvider" targetNamespace="http://soap.vindicia.com/PaymentProvider" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:enc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://soap.vindicia.com/PaymentProvider" xmlns:vin="http://soap.vindicia.com/Vindicia" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsdl="http://soap.vindicia.com/PaymentProvider" >
+  <documentation>WSDL Specification for PaymentProvider</documentation>
+  <types>
+    <xsd:schema targetNamespace="http://soap.vindicia.com/PaymentProvider">
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+      <xsd:import namespace="http://soap.vindicia.com/Vindicia" schemaLocation="./Vindicia.xsd" />
+    </xsd:schema>
+  </types>
+  <message name="update_in">
+    <part name="auth" type="vin:Authentication" />
+    <part name="paymentProvider" type="vin:PaymentProvider" />
+  </message>
+  <message name="update_out">
+    <part name="return" type="vin:Return" />
+    <part name="paymentProvider" type="vin:PaymentProvider" />
+  </message>
+  <message name="fetchByVid_in">
+    <part name="auth" type="vin:Authentication" />
+    <part name="vid" type="xsd:string" />
+  </message>
+  <message name="fetchByVid_out">
+    <part name="return" type="vin:Return" />
+    <part name="paymentProvider" type="vin:PaymentProvider" />
+  </message>
+  <portType name="PaymentProviderPortType">
+    <operation name="update" parameterOrder="auth paymentProvider">
+      <input message="tns:update_in" />
+      <output message="tns:update_out" />
+    </operation>
+    <operation name="fetchByVid" parameterOrder="auth vid">
+      <input message="tns:fetchByVid_in" />
+      <output message="tns:fetchByVid_out" />
+    </operation>
+  </portType>
+  <binding name="PaymentProviderBinding" type="tns:PaymentProviderPortType">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="update">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Creates a new PaymentProvider object or updates an existing one.<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>paymentProvider</b></dt>
+<dd>Object to update</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>paymentProvider</b></dt>
+<dd>The resultant object</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/PaymentProvider#update" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/PaymentProvider" use="encoded" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/PaymentProvider" use="encoded" />
+      </output>
+    </operation>
+    <operation name="fetchByVid">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Loads a paymentProvider by Vindicia's unique ID<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>vid</b></dt>
+<dd>Vindicia ID for the object</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>paymentProvider</b></dt>
+<dd>The resultant object</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/PaymentProvider#fetchByVid" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/PaymentProvider" use="encoded" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/PaymentProvider" use="encoded" />
+      </output>
+    </operation>
+  </binding>
+  <service name="PaymentProvider">
+    <port binding="tns:PaymentProviderBinding" name="PaymentProviderPort">
+      <soap:address location="https://soap.prodtest.sj.vindicia.com/v3.0/soap.pl" />
+    </port>
+  </service>
+</definitions>

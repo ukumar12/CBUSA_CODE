@@ -1,0 +1,461 @@
+﻿Imports Components
+Imports DataLayer
+Imports System.IO
+Imports System.Linq
+Imports System.Data
+Imports InfoSoftGlobal
+
+Partial Class catalog_default
+    Inherits SitePage
+
+    Protected ReadOnly Property VendorId() As Integer
+        Get
+            If Session("VendorId") IsNot Nothing Then
+                Return Session("VendorId")
+            Else
+                Dim header As Controls.IHeaderControl = Page.FindControl("CTMain").FindControl("ctrlHeader")
+                If header.ReturnValue <> String.Empty AndAlso header.ReturnValue <> "0" Then
+                    Return header.ReturnValue
+                Else
+                    If slPreferredVendor2.Value <> String.Empty AndAlso slPreferredVendor2.Value <> "0" Then
+                        Return slPreferredVendor2.Value
+                    Else
+                        Return Nothing
+                    End If
+                End If
+            End If
+        End Get
+    End Property
+
+    Private DownloadLink As String
+
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        If Session("BuilderId") Is Nothing And Session("VendorId") Is Nothing And (Not TypeOf Page.User Is AdminPrincipal OrElse CType(Page.User, AdminPrincipal).Username = Nothing) Then
+            Response.Redirect("/default.aspx")
+        End If
+
+        Dim header As Controls.IHeaderControl = Page.FindControl("CTMain").FindControl("ctrlHeader")
+        ScriptManager.GetCurrent(Page).RegisterAsyncPostBackControl(CType(header, Control).FindControl("slPreferredVendor"))
+        AddHandler header.ControlEvent, AddressOf UpdateVendor
+
+        If Session("BuilderId") IsNot Nothing Then
+            slPreferredVendor2.WhereClause = " VendorID in (select VendorID from LLCVendor l inner join Builder b on l.LLCID=b.LLCID where exists (select * from VendorProductPrice where VendorId=l.VendorId) and b.BuilderID=" & DB.Number(Session("BuilderID")) & ")"
+            pnlPreferredVendor.Visible = True
+            AddHandler slPreferredVendor2.ValueChanged, AddressOf UpdateVendor
+        End If
+
+        If VendorId <> Nothing Then
+            ctlSearch.FilterListCallback = AddressOf FilterCallback
+            ctlSearch.FilterCacheKey = VendorId
+            thPrice.Visible = True
+            thHistory.Visible = True
+            thVendorSku.Visible = True
+        Else
+            ctlSearch.FilterListCallback = Nothing
+            ctlSearch.FilterCacheKey = Nothing
+            thPrice.Visible = False
+            thHistory.Visible = False
+            thVendorSku.Visible = False
+        End If
+
+        If Not IsPostBack Then
+            If Session("BuilderId") IsNot Nothing Then
+                Dim dbBuilder As BuilderRow = BuilderRow.GetRow(DB, Session("BuilderId"))
+                ctlSearch.FilterLLCID = dbBuilder.LLCID
+            End If
+            ctlSearch.Search()
+        End If
+    End Sub
+
+    Protected Sub UpdateVendor(ByVal sender As Object, ByVal e As System.EventArgs)
+        If VendorId = Nothing Then
+            ctlSearch.FilterListCallback = Nothing
+            ctlSearch.FilterCacheKey = Nothing
+        Else
+            ctlSearch.FilterListCallback = AddressOf FilterCallback
+            ctlSearch.FilterCacheKey = VendorId
+        End If
+        ctlSearch.Search(True)
+        upResults.Update()
+    End Sub
+
+    Private Sub RegisterQuoteScript()
+        Dim s As String = _
+              "function OpenQuoteForm(productId) {" _
+            & " var frm = $get('<%=frmQuote.ClientID %>').control;" _
+            & " frm.get_input('hdnProductID').value = productId;" _
+            & " var drp = frm.get_input('drpQuoteVendor');" _
+            & " for(var i = 0; i < drp.options.length; i++) {" _
+            & "     if(drp.options[i].value == " & VendorId & ") {" _
+            & "         drp.options[i].selected = true;" _
+            & "         break;" _
+            & "     }" _
+            & " }" _
+            & " frm._doMoveToCenter();" _
+            & " frm.Open();" _
+            & "}"
+
+        ScriptManager.RegisterClientScriptBlock(Page, Me.GetType, "QuoteScript", s, True)
+    End Sub
+
+    Private Sub BindData()
+        If VendorId <> Nothing Then
+            Dim dtPrices As DataTable = VendorProductPriceRow.GetAllVendorPrices(DB, VendorId)
+            rptProducts.DataSource = _
+                From r As DataRow In ctlSearch.SearchResults.ds.Tables(0).AsEnumerable _
+                Group Join p As DataRow In dtPrices.Rows On Core.GetInt(r("ProductID")) Equals Core.GetInt(p("ProductID")) _
+                Into grp = Group _
+                From item In grp.Select(Of String())(Function(dr, idx) New String() {Core.GetString(dr("VendorPrice")), Core.GetString(dr("VendorSku")), Core.GetString(dr("SubstitutePrice")), Core.GetString(dr("SubstituteSku")), Core.GetInt(dr("SubstituteQuantityMultiplier")), Core.GetBoolean(dr("IsSubstitution")), Core.GetString(dr("SubstituteProduct"))}) _
+                Select New With { _
+                    .ProductID = r("ProductID"), _
+                    .ProductName = r("ProductName"), _
+                    .Sku = r("Sku"), _
+                    .VendorPrice = item(0), _
+                    .VendorSku = item(1), _
+                    .SubstitutePrice = item(2), _
+                    .SubstituteSku = item(3), _
+                    .SubstituteQuantityMultiplier = item(4), _
+                    .IsSubstitution = item(5), _
+                    .SubstituteProduct = item(6) _
+                }
+            rptProducts.DataBind()
+        Else
+            rptProducts.DataSource = ctlSearch.SearchResults.ds.Tables(0)
+            rptProducts.DataBind()
+        End If
+        ctlNavigator.NofRecords = ctlSearch.SearchResults.Count
+        ctlNavigator.DataBind()
+        'rptProducts.DataSource = ctlSearch.SearchResults.ds.Tables(0)
+        rptProducts.DataBind()
+    End Sub
+
+    Protected Sub ctlSearch_ResultsUpdated(ByVal sender As Object, ByVal e As System.EventArgs) Handles ctlSearch.ResultsUpdated
+        If ctlSearch.SearchResults.Count > 0 Then
+            ltlNoResults.Visible = False
+            ctlNavigator.Visible = True
+        Else
+            ctlNavigator.Visible = False
+            ltlNoResults.Visible = True
+        End If
+        BindData()
+        ltlBreadcrumbs.Text = ctlSearch.Breadcrumbs
+        upResults.Update()
+    End Sub
+
+    Protected Sub btnSearch_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnSearch.Click
+        ctlSearch.Search(True)
+    End Sub
+
+    Protected Sub btnExport_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnExport.Click
+        ExportList()
+    End Sub
+
+    Protected Function FilterCallback() As Generic.List(Of String)
+        Dim dt As DataTable = VendorProductPriceRow.GetAllVendorPrices(DB, VendorId)
+        Return New Generic.List(Of String)(From dr As DataRow In dt.AsEnumerable Select Convert.ToString(dr("ProductID")))
+    End Function
+
+    Private Sub ExportList()
+        'If ctlSearch.SearchResults Is Nothing Then
+        '    ctlSearch.Search()
+        'End If
+
+        'ctlSearch.MaxDocs = 32000
+        ctlSearch.PageSize = 32000
+        ctlSearch.PageNumber = 1
+        ctlSearch.Search()
+
+        'Dim res As DataTable = ctlSearch.SearchResults.ds.Tables(0)
+        Dim res As Object
+        If VendorId <> Nothing Then
+            Dim dtPrices As DataTable = VendorProductPriceRow.GetAllVendorPrices(DB, VendorId)
+            res = _
+                From r As DataRow In ctlSearch.SearchResults.ds.Tables(0).AsEnumerable _
+                Group Join p As DataRow In dtPrices.Rows On Core.GetInt(r("ProductID")) Equals Core.GetInt(p("ProductID")) _
+                Into grp = Group _
+                From item In grp.Select(Of String())(Function(dr, idx) New String() {Core.GetString(dr("VendorPrice")), Core.GetString(dr("VendorSku")), Core.GetString(dr("SubstitutePrice")), Core.GetString(dr("SubstituteSku")), Core.GetInt(dr("SubstituteQuantityMultiplier")), Core.GetBoolean(dr("IsSubstitution")), Core.GetString(dr("SubstituteProduct"))}) _
+                Select New With { _
+                    .ProductID = r("ProductID"), _
+                    .ProductName = r("ProductName"), _
+                    .Sku = r("Sku"), _
+                    .VendorPrice = item(0), _
+                    .VendorSku = item(1), _
+                    .SubstitutePrice = item(2), _
+                    .SubstituteSku = item(3), _
+                    .SubstituteQuantityMultiplier = item(4), _
+                    .IsSubstitution = item(5), _
+                    .SubstituteProduct = item(6) _
+                }
+            rptProducts.DataBind()
+        Else
+            res = ctlSearch.SearchResults.ds.Tables(0).DefaultView
+        End If
+
+        Dim Folder As String = "/assets/catalogs/"
+        Dim i As Integer = 0
+        Dim FileName As String = Core.GenerateFileID & ".csv"
+
+        Dim sw As StreamWriter = New StreamWriter(Server.MapPath(Folder & FileName), False)
+        sw.WriteLine("CBUSA Catalog")
+        sw.WriteLine("Report generated on " & DateTime.Now.ToString("d"))
+        sw.WriteLine(String.Empty)
+
+        If VendorId = Nothing Then
+            sw.WriteLine("SKU,Name")
+        Else
+            Dim dbVendor As VendorRow = VendorRow.GetRow(DB, VendorId)
+            sw.WriteLine("Vendor:," & dbVendor.CompanyName & vbCrLf)
+            sw.WriteLine("SKU,Name,Substitute Product,Substitute Product SKU,Price")
+        End If
+
+        For Each dr As Object In res
+            'Dim SupplyPhase As String = (IIf(IsDBNull(dr("SupplyPhaseText")), String.Empty, dr("SupplyPhaseText"))).Replace("|", vbCrLf)
+            If VendorId = Nothing Then
+                Dim SKU As String = Core.GetString(dr("SKU"))
+                Dim ProductName As String = Core.GetString(dr("ProductName"))
+
+                sw.WriteLine(Core.QuoteCSV(SKU) & _
+                             "," & Core.QuoteCSV(ProductName))
+            Else
+                Dim SKU As String = dr.SKU
+                Dim ProductName As String = dr.ProductName
+                Dim SubProduct As String = dr.SubstituteProduct
+                Dim SubSku As String = dr.SubstituteSku
+                Dim Price As Double = IIf(dr.IsSubstitution, dr.SubstitutePrice, dr.VendorPrice)
+
+                sw.WriteLine(Core.QuoteCSV(SKU) & _
+                             "," & Core.QuoteCSV(ProductName) & "," & Core.QuoteCSV(SubProduct) & _
+                             "," & Core.QuoteCSV(SubSku) & "," & Core.QuoteCSV(Price))
+            End If
+            'Dim Description As String = IIf(IsDBNull(dr("Description")), String.Empty, dr("Description"))
+            'Dim Unit As String = IIf(IsDBNull(dr("SizeUnitOfMeasureText")), String.Empty, dr("SizeUnitOfMeasureText"))
+
+            'Dim Grade As String = IIf(IsDBNull(dr("Grade")), String.Empty, dr("Grade"))
+            'Dim Manufacturer As String = IIf(IsDBNull(dr("ManufacturerText")), String.Empty, dr("ManufacturerText"))
+        Next
+        sw.Flush()
+        sw.Close()
+
+        'lnkDownload.Visible = True
+        'lnkDownload.NavigateUrl = Folder & FileName
+        DownloadLink = Folder & FileName
+
+        'ctlSearch.MaxDocs = 1000
+        ctlSearch.PageSize = 25
+        ctlSearch.PageNumber = ctlNavigator.PageNumber
+        ctlSearch.Search()
+        upResults.Update()
+    End Sub
+
+    Protected Sub Page_PreRender(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.PreRender
+        If DownloadLink <> Nothing Then
+            lnkDownload.NavigateUrl = DownloadLink
+            lnkDownload.Visible = True
+
+            Dim s As String = _
+                  " window.setTimeout(function() {" _
+                & "var frm = $get('" & frmDownload.ClientID & "').control;" _
+                & " frm._doMoveToCenter();" _
+                & " frm.Open();" _
+                & "},500);"
+
+            ScriptManager.RegisterStartupScript(Me, Me.GetType, "ShowLink", s, True)
+        End If
+        RegisterQuoteScript()
+    End Sub
+
+    Protected Sub ctlNavigator_NavigatorEvent(ByVal sender As Object, ByVal e As Controls.NavigatorEventArgs) Handles ctlNavigator.NavigatorEvent
+        ctlNavigator.PageNumber = e.PageNumber
+        ctlSearch.PageNumber = ctlNavigator.PageNumber
+        ctlSearch.Search()
+        upResults.Update()
+    End Sub
+
+    Protected Sub rptProducts_ItemCreated(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.RepeaterItemEventArgs) Handles rptProducts.ItemCreated
+        If e.Item.ItemType <> ListItemType.Item And e.Item.ItemType <> ListItemType.AlternatingItem Then
+            Exit Sub
+        End If
+
+        Dim btnHistory As Button = e.Item.FindControl("btnHistory")
+        Dim btnIndicator As Button = e.Item.FindControl("btnIndicator")
+        Dim btnPricing As Button = e.Item.FindControl("btnPricing")
+
+        ScriptManager.GetCurrent(Page).RegisterAsyncPostBackControl(btnHistory)
+        AddHandler btnHistory.Command, AddressOf btnHistory_Click
+
+        If Session("VendorId") IsNot Nothing Then
+            btnIndicator.Visible = False
+            btnPricing.Visible = False
+        Else
+            ScriptManager.GetCurrent(Page).RegisterAsyncPostBackControl(btnIndicator)
+            ScriptManager.GetCurrent(Page).RegisterAsyncPostBackControl(btnPricing)
+            AddHandler btnIndicator.Command, AddressOf btnIndicator_Click
+            AddHandler btnPricing.Command, AddressOf btnPricing_Click
+        End If
+    End Sub
+
+    Protected Sub rptProducts_ItemDataBound(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.RepeaterItemEventArgs) Handles rptProducts.ItemDataBound
+        If e.Item.ItemType <> ListItemType.AlternatingItem And e.Item.ItemType <> ListItemType.Item Then
+            Exit Sub
+        End If
+
+        Dim tdPrice As HtmlTableCell = e.Item.FindControl("tdPrice")
+        Dim tdHistory As HtmlTableCell = e.Item.FindControl("tdHistory")
+        Dim tdVendorSku As HtmlTableCell = e.Item.FindControl("tdVendorSku")
+        Dim ltlProductName As Literal = e.Item.FindControl("ltlProductName")
+        If VendorId = Nothing Then
+            tdPrice.Visible = False
+            tdHistory.Visible = False
+            tdVendorSku.Visible = False
+        Else
+            tdPrice.Visible = True
+            tdVendorSku.Visible = True
+            tdHistory.Visible = True
+
+            If e.Item.DataItem.IsSubstitution Then
+                tdPrice.InnerHtml = FormatCurrency(e.Item.DataItem.SubstitutePrice)
+                tdVendorSku.InnerHtml = e.Item.DataItem.SubstituteSku
+                ltlProductName.Text = e.Item.DataItem.ProductName & "<br/><span class=""bold smaller"">Substitute Product: " & e.Item.DataItem.SubstituteProduct & "</span>"
+            Else
+                tdPrice.InnerHtml = FormatCurrency(e.Item.DataItem.VendorPrice)
+                tdVendorSku.InnerHtml = e.Item.DataItem.VendorSku
+            End If
+        End If
+    End Sub
+
+    Protected Sub btnHistory_Click(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.CommandEventArgs)
+        Dim dbVendor As VendorRow = VendorRow.GetRow(DB, VendorId)
+        ltlVendor.Text = dbVendor.CompanyName
+
+        Dim dbProduct As ProductRow = ProductRow.GetRow(DB, e.CommandArgument)
+        ltlProduct.Text = dbProduct.Product
+
+        ltlChart.Text = FusionCharts.RenderChartHTML("../../FusionCharts/FCF_Line.swf", "", GetChartXML(dbVendor, dbProduct.ProductID), "HistoryChart", "500", "500", True)
+        ScriptManager.RegisterStartupScript(Page, Me.GetType, "OpenPopup", "Sys.Application.add_load(OpenHistory);", True)
+        upHistory.Update()
+    End Sub
+
+    Protected Sub btnIndicator_Click(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.CommandEventArgs)
+        Dim dbProduct As BuilderIndicatorProductRow = BuilderIndicatorProductRow.GetRow(DB, Session("BuilderId"), e.CommandArgument)
+        If dbProduct.BuilderIndicatorProductID = Nothing Then
+            dbProduct.BuilderID = Session("BuilderId")
+            dbProduct.ProductID = e.CommandArgument
+            dbProduct.Insert()
+        End If
+        ScriptManager.RegisterStartupScript(Page, Me.GetType, "IndicatorConfirm", "Sys.Application.add_load(OpenIndicatorConfirm);", True)
+    End Sub
+
+    Protected Sub btnPricing_Click(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.CommandEventArgs)
+        Dim dbProduct As ProductRow = ProductRow.GetRow(DB, e.CommandArgument)
+        Dim dbBuilder As BuilderRow = BuilderRow.GetRow(DB, Session("BuilderId"))
+        Dim dtPricing As DataTable
+        If dbBuilder.BuilderID <> Nothing Then
+            dtPricing = VendorProductPriceRow.GetAllProductPrices(DB, dbProduct.ProductID, dbBuilder.LLCID)
+        Else
+            dtPricing = VendorProductPriceRow.GetAllProductPrices(DB, dbProduct.ProductID)
+        End If
+
+        frmPricing.EnsureChildrenCreated()
+
+        ltlPricingCBUSASKU.Text = dbProduct.SKU
+        ltlPricingDescription.Text = dbProduct.Description
+        ltlPricingHeaderProduct.Text = dbProduct.Product
+        ltlPricingProduct.Text = dbProduct.Product
+        ltlPricingPriceLockDate.Text = ProductRow.GetPriceLockDate(DB, dbProduct.ProductID)
+
+
+        If dtPricing.Rows.Count > 0 Then
+            rptPricing.Visible = True
+            rptPricing.DataSource = dtPricing
+            rptPricing.DataBind()
+            ltlNoPrices.Text = String.Empty
+        Else
+            rptPricing.Visible = False
+            ltlNoPrices.Text = "<b>No vendors have supplied pricing for this product</b>"
+        End If
+        upPricing.Update()
+        ScriptManager.RegisterStartupScript(Page, Me.GetType, "OpenPricingForm", "Sys.Application.add_load(OpenPricingForm);", True)
+    End Sub
+
+    Private Function GetChartXML(ByVal Vendor As VendorRow, ByVal ProductID As Integer) As String
+        Dim dt As DataTable = VendorProductPriceHistoryRow.GetPriceHistory(DB, Vendor.VendorID, ProductID)
+        Dim out As New StringBuilder
+        Dim sw As New StringWriter(out)
+        Dim xml As New System.Xml.XmlTextWriter(sw)
+        xml.QuoteChar = "'"
+        xml.WriteStartElement("graph")
+        xml.WriteAttributeString("caption", "Price History")
+        xml.WriteAttributeString("subcaption", Vendor.CompanyName)
+        xml.WriteAttributeString("xAxisName", "Date")
+        xml.WriteAttributeString("yAxisName", "Price")
+        xml.WriteAttributeString("numberPrefix", "$")
+
+        For Each row As DataRow In dt.Rows
+            xml.WriteStartElement("set")
+            xml.WriteAttributeString("value", row("VendorPrice"))
+            xml.WriteAttributeString("name", Core.GetDate(row("Submitted")).ToString("MM, yyyy"))
+            xml.WriteAttributeString("hoverText", Core.GetString(row("VendorSku")))
+            xml.WriteEndElement()
+        Next
+        xml.WriteEndElement()
+        xml.Close()
+        sw.Close()
+        Return out.ToString
+    End Function
+
+    Protected Sub frmQuote_Postback(ByVal sender As Object, ByVal e As System.EventArgs) Handles frmQuote.Postback
+        If dtHistoryDate.Value = Nothing OrElse DateDiff(DateInterval.Day, dtHistoryDate.Value, Now) < 0 Then
+            ltlQuotePrice.Text = "<b class=""red smaller"">Please select a valid date</b>"
+        Else
+            Dim dbHistory As VendorProductPriceHistoryRow = VendorProductPriceHistoryRow.GetRowByDate(DB, drpQuoteVendor.SelectedValue, hdnProductID.Value, dtHistoryDate.Value)
+            If dbHistory.Submitted = Nothing Then
+                ltlQuotePrice.Text = "<b class=""smaller"">No Matching Pricese Found</b>"
+            Else
+                ltlQuotePrice.Text = "<b><span class=""smaller"">Price Was:</span><br/>" & FormatCurrency(dbHistory.VendorPrice) & "<br/><span class=""smaller"">On " & FormatDateTime(dtHistoryDate.Value, DateFormat.ShortDate) & "</span></b>"
+            End If
+        End If
+
+        ScriptManager.RegisterStartupScript(Page, Me.GetType, "OpenQuoteForm", "Sys.Application.add_load(OpenQuoteForm);", True)
+    End Sub
+
+    Protected Sub frmQuote_TemplateLoaded(ByVal sender As Object, ByVal e As System.EventArgs) Handles frmQuote.TemplateLoaded
+        Dim dbBuilder As BuilderRow = BuilderRow.GetRow(DB, Session("BuilderId"))
+        drpQuoteVendor.DataSource = VendorRow.GetListByLLC(DB, dbBuilder.LLCID, "CompanyName")
+        drpQuoteVendor.DataTextField = "CompanyName"
+        drpQuoteVendor.DataValueField = "VendorID"
+        drpQuoteVendor.DataBind()
+    End Sub
+
+    Protected Sub rptPricing_ItemDataBound(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.RepeaterItemEventArgs) Handles rptPricing.ItemDataBound
+        If e.Item.ItemType <> ListItemType.Item And e.Item.ItemType <> ListItemType.AlternatingItem Then
+            Exit Sub
+        End If
+
+        Dim ltlPricingSku As Literal = e.Item.FindControl("ltlPricingSku")
+        Dim ltlPricingPrice As Literal = e.Item.FindControl("ltlPricingPrice")
+        Dim ltlLastUpdate As Literal = e.Item.FindControl("ltlLastUpdate")
+        Dim ltlSubstituteNotes As Literal = e.Item.FindControl("ltlSubstituteNotes")
+
+        If IsDBNull(e.Item.DataItem("SubstitutePrice")) Then
+            ltlPricingSku.Text = Core.GetString(e.Item.DataItem("VendorSku"))
+            ltlPricingPrice.Text = FormatCurrency(Core.GetDouble(e.Item.DataItem("VendorPrice")))
+            If Not IsDBNull(e.Item.DataItem("LastUpdate")) Then
+                ltlLastUpdate.Text = FormatDateTime(e.Item.DataItem("LastUpdate"), DateFormat.ShortDate)
+            End If
+            ltlSubstituteNotes.Text = String.Empty
+        Else
+            ltlPricingSku.Text = Core.GetString(e.Item.DataItem("SubstituteSku"))
+            ltlPricingPrice.Text = FormatCurrency(Core.GetDouble(e.Item.DataItem("SubstitutePrice")))
+            If Not IsDBNull(e.Item.DataItem("LastUpdate")) Then
+                ltlLastUpdate.Text = FormatDateTime(e.Item.DataItem("LastUpdate"), DateFormat.ShortDate)
+            End If
+            If Not IsDBNull(e.Item.DataItem("SubstituteProduct")) Then
+                ltlSubstituteNotes.Text = "<b class=""smaller"">* Substitute Product: " & e.Item.DataItem("SubstituteProduct") & "</b>"
+            End If
+        End If
+    End Sub
+
+    Protected Sub slPreferredVendor2_ValueChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles slPreferredVendor2.ValueChanged
+        Session("CurrentPreferredVendor") = slPreferredVendor2.Value
+    End Sub
+End Class

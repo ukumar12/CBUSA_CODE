@@ -1,0 +1,5 @@
+C:\Medullus\CBUSA - Code Review and Migration\website\DataAccessLayer\bin\Debug\DataAccessLayer.dll
+C:\Medullus\CBUSA - Code Review and Migration\website\DataAccessLayer\bin\Debug\DataAccessLayer.pdb
+C:\Medullus\CBUSA - Code Review and Migration\website\DataAccessLayer\obj\Debug\DataAccessLayer.dll
+C:\Medullus\CBUSA - Code Review and Migration\website\DataAccessLayer\obj\Debug\DataAccessLayer.pdb
+C:\Medullus\CBUSA - Code Review and Migration\website\DataAccessLayer\obj\Debug\DataAccessLayer.csprojResolveAssemblyReference.cache

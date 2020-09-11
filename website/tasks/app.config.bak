@@ -1,0 +1,70 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<configuration>
+  <configSections>
+    <section name="log4net" type="log4net.Config.Log4NetConfigurationSectionHandler, log4net" />
+  </configSections>
+  <log4net>
+    <appender name="SmtpAppender" type="log4net.Appender.SmtpAppender">
+      <to value="ali.raissouni@americaneagle.com" />
+      <from value="ali.raissouni@americaneagle.com" />
+      <subject value="CBUSA Tasks" />
+      <smtpHost value="smtprelay-01.americaneagle.com" />
+      <bufferSize value="50" />
+      <lossy value="true" />
+      <evaluator type="log4net.Core.LevelEvaluator">
+        <threshold value="ERROR" />
+      </evaluator>
+      <layout type="log4net.Layout.PatternLayout">
+        <conversionPattern value="---------------------%newline[%logger] {%date}%newline---------------------%newline%message%newline%newline" />
+      </layout>
+    </appender>
+    <root>
+      <appender-ref ref="SmtpAppender" />
+    </root>
+  </log4net>
+  <appSettings>
+    <add key="GlobalWebsiteKey" value="cbusa2" />
+    <add key="GlobalWebsitePassword" value="ae9322i#!" />
+    <add key="GlobalWebsitePasswordEx" value="22i#!ae93" />
+    <!--<add key="ConnectionString" value="Persist Security Info=True;Initial Catalog=cbusa2;Data Source=PR-DEV-4SQ001;User ID={0};Password={1};" />-->
+    <add key="ConnectionString" value="Persist Security Info=True;Initial Catalog=cbusa_app_20090218;Data Source=PR-DEV-4SQ001;User ID={0};Password={1};"/>
+	<add key="ConnectionStringUsername" value="tkR6zr1AUrHhsCB8GrQVoh8FAsgP6z7aaIM0xHcfEVWI1HiAFyjAsA=="/>
+	<add key="ConnectionStringPassword" value="IcnNA/c38xYvDlQ3KLqMiZ5ftQKv1BgSSUp/i+YfPJ8="/>
+
+	  <!-- Default is 1000 -->
+    <add key="PurgeViewedItemsNumOfRecords" value="5000" />
+    <!-- Settings for SendMemberReminders task -->
+    <add key="ReminderEmailSubject" value="Idev Reminder" />
+    <add key="ReminderEmailFrom" value="reminder@idev.com" />
+    <add key="ReminderEmailFromName" value="IDEV Store Reminder" />
+    <add key="ReminderEmailSignedName" value="IDEV Store Customer Service" />
+    <add key="baseUrl" value="http://www.idev.com" />
+    <add key="MailServer" value="smtprelay-01.americaneagle.com" />
+    <add key="MailServerBackup" value="smtprelay-02.americaneagle.com" />
+    <add key="MailServerTimeout" value="10000" />
+	<!-- Settings for ProcessExportQueue task -->
+	<add key="GlobalRefererName" value="http://cbusa-staging.design.americaneagle.com"/>
+	<add key="AssetFolder" value="/assets/" />
+	<add key="AssetFolderPath" value="F:\Inetpub\wwwroot\cbusa-staging\web\assets\" />
+	<add key="ExportEmailSubject" value="custombuilders-usa.com - Export Completed" />
+	<add key="ExportEmailFrom" value="noreply@cbusa.us" />
+	<add key="ExportEmailFromName" value="CBUSA Notification" />
+    <!-- IdevSearch -->
+    <add key="SearchIndexDirectory" value="\\pr-aesrh-1wb001\search\"/>
+    <!--<add key="SearchIndexDirectory" value="c:\temp\" />-->
+    <add key="SearchIndexname" value="cbusa_app" />
+    <add key="ClientSettingsProvider.ServiceUri" value="" />
+  </appSettings>
+  <system.web>
+    <membership defaultProvider="ClientAuthenticationMembershipProvider">
+      <providers>
+        <add name="ClientAuthenticationMembershipProvider" type="System.Web.ClientServices.Providers.ClientFormsAuthenticationMembershipProvider, System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" serviceUri="" />
+      </providers>
+    </membership>
+    <roleManager defaultProvider="ClientRoleProvider" enabled="true">
+      <providers>
+        <add name="ClientRoleProvider" type="System.Web.ClientServices.Providers.ClientRoleProvider, System.Web.Extensions, Version=3.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35" serviceUri="" cacheTimeout="86400" />
+      </providers>
+    </roleManager>
+  </system.web>
+</configuration>

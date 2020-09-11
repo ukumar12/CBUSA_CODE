@@ -1,0 +1,495 @@
+﻿Imports Components
+Imports DataLayer
+Imports System.Linq
+Imports System.Data
+
+Partial Class modules_PriceRequests
+    Inherits ModuleControl
+
+    Private Property EditIndex() As Integer
+        Get
+            Return ViewState("EditIndex") - 1
+        End Get
+        Set(ByVal value As Integer)
+            ViewState("EditIndex") = value + 1
+        End Set
+    End Property
+
+    Private ReadOnly Property Keys() As Generic.List(Of String)
+        Get
+            If ViewState("Keys") Is Nothing Then
+                ViewState("Keys") = New Generic.List(Of String)
+            End If
+            Return ViewState("Keys")
+        End Get
+    End Property
+
+    'Protected Sub Page_Init1(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Init
+    '    If Not IsPostBack Then
+    '        ctlSearch.FilterListCallback = AddressOf FilterListCallback
+    '        ctlSearch.FilterCacheKey = Session("VendorId")
+    '    End If
+    'End Sub
+
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        ScriptManager.GetCurrent(Page).RegisterAsyncPostBackControl(ctlNavigator)
+        ScriptManager.GetCurrent(Page).RegisterAsyncPostBackControl(rblPricedOnly)
+
+        If Not IsPostBack Then
+            BindData()
+        Else
+            If rblPricedOnly.SelectedValue = True Then
+                ctlSearch.FilterListCallback = AddressOf FilterListCallback
+                ctlSearch.FilterCacheKey = Session("VendorId")
+            Else
+                ctlSearch.FilterListCallback = Nothing
+                ctlSearch.FilterCacheKey = Nothing
+            End If
+            If hdnRequestId.Value <> Nothing Then
+                Dim dbRequest As VendorProductPriceRequestRow = VendorProductPriceRequestRow.GetRow(DB, hdnRequestId.Value)
+                If dbRequest.ProductID <> Nothing Then
+                    Dim Requested As ProductRow = ProductRow.GetRow(DB, dbRequest.ProductID)
+                    spanSubHeaderProduct.InnerHtml = Requested.Product
+                ElseIf dbRequest.SpecialOrderProductID <> Nothing Then
+                    Dim Requested As SpecialOrderProductRow = SpecialOrderProductRow.GetRow(DB, dbRequest.SpecialOrderProductID)
+                    spanSubHeaderProduct.InnerHtml = Requested.SpecialOrderProduct
+                End If
+            End If
+        End If
+    End Sub
+
+    Private Sub BindData()
+        Dim res As DataTable = VendorProductPriceRequestRow.GetPriceRequests(DB, Session("VendorId"), "Created", "Asc")
+        If res.Rows.Count = 0 Then
+            ltlNone.Text = "There are no pending builder price requests"
+        Else
+            ltlNone.Text = Nothing
+        End If
+        Keys.Clear()
+        rptRequests.DataSource = res.DefaultView
+        rptRequests.DataBind()
+
+        ctlSearch.FilterListCallback = AddressOf FilterListCallback
+        ctlSearch.FilterCacheKey = Session("VendorId")
+
+        ctlSearch.Search()
+    End Sub
+
+    Protected Sub frmSelect_TemplateLoaded(ByVal sender As Object, ByVal e As System.EventArgs)
+        Dim form As PopupForm.PopupForm = sender
+        Dim item As RepeaterItem = form.NamingContainer
+        If item.DataItem Is Nothing Then Exit Sub
+
+        CType(form.FindControl("ltlProductName"), Literal).Text = item.DataItem.ProductName
+    End Sub
+
+    Protected Sub frmSelect_Postback(ByVal sender As Object, ByVal e As System.EventArgs) Handles frmSelect.Postback
+        Dim form As PopupForm.PopupForm = CType(sender, Control).NamingContainer
+
+        Dim dbRequest As VendorProductPriceRequestRow = VendorProductPriceRequestRow.GetRow(DB, hdnRequestId.Value)
+        Dim bAlways As Boolean = CType(form.FindControl("rbAppliesAlways"), RadioButton).Checked
+        Dim bConfirm As Boolean = False
+        If dbRequest.SpecialOrderProductID <> Nothing Then
+            DB.BeginTransaction()
+            Try
+                Dim dbPrice As VendorSpecialOrderProductPriceRow = VendorSpecialOrderProductPriceRow.GetRow(DB, Session("VendorId"), dbRequest.SpecialOrderProductID)
+                Dim dbSubstitute As VendorTakeOffProductSubstituteRow = VendorTakeOffProductSubstituteRow.GetRow(DB, Session("VendorId"), dbRequest.TakeoffProductID)
+                dbSubstitute.CreatorVendorAccountID = Session("VendorAccountId")
+                dbSubstitute.RecommendedQuantity = txtQuantity.Text
+                dbSubstitute.SubstituteProductID = hdnSubstituteID.Value
+                dbSubstitute.TakeOffProductID = dbRequest.TakeoffProductID
+                dbSubstitute.VendorID = Session("VendorId")
+
+                If dbSubstitute.Created = Nothing Then
+                    dbSubstitute.Insert()
+                Else
+                    dbSubstitute.Update()
+                End If
+
+                dbPrice.IsSubstitution = True
+                dbPrice.SpecialOrderProductID = dbRequest.SpecialOrderProductID
+                dbPrice.SubmitterVendorAccountID = Session("VendorId")
+                dbPrice.VendorID = Session("VendorId")
+                If dbPrice.Submitted = Nothing Then
+                    dbPrice.Insert()
+                Else
+                    dbPrice.Update()
+                End If
+
+                dbRequest.Remove()
+                DB.CommitTransaction()
+                bConfirm = True
+            Catch ex As SqlClient.SqlException
+                If DB IsNot Nothing AndAlso DB.Transaction IsNot Nothing Then DB.RollbackTransaction()
+                AddError("There was an error processing this substitution.  Please try again.")
+            End Try
+        ElseIf bAlways Then
+            DB.BeginTransaction()
+            Try
+                Dim dbPrice As VendorProductPriceRow = VendorProductPriceRow.GetRow(DB, Session("VendorId"), dbRequest.ProductID)
+                Dim dbSubstitute As VendorProductSubstituteRow = VendorProductSubstituteRow.GetRow(DB, Session("VendorId"), dbRequest.ProductID)
+                dbPrice.IsSubstitution = True
+                dbPrice.IsUpload = False
+                dbPrice.ProductID = dbRequest.ProductID
+                dbPrice.SubmitterVendorAccountID = Session("VendorAccountId")
+                dbPrice.UpdaterVendorAccountID = Session("VendorAccountId")
+                dbPrice.VendorID = Session("VendorId")
+                If dbPrice.Submitted = Nothing Then
+                    dbPrice.Insert()
+                Else
+                    dbPrice.Update()
+                End If
+
+                dbSubstitute.CreatorVendorAccountID = Session("VendorAccountId")
+                dbSubstitute.ProductID = dbRequest.ProductID
+                dbSubstitute.QuantityMultiplier = CType(form.FindControl("txtQuantity"), TextBox).Text
+                dbSubstitute.SubstituteProductID = hdnSubstituteID.Value
+                dbSubstitute.VendorID = Session("VendorId")
+                If dbSubstitute.Created = Nothing Then
+                    dbSubstitute.Insert()
+                Else
+                    dbSubstitute.Update()
+                End If
+                dbRequest.Remove()
+
+                Dim dbSubstitutePrice As VendorProductPriceRow = VendorProductPriceRow.GetRow(DB, Session("VendorId"), dbSubstitute.SubstituteProductID)
+                Dim dbHistory As New VendorProductPriceHistoryRow(DB)
+                dbHistory.IsSubstitution = True
+                dbHistory.IsUpload = False
+                dbHistory.ProductID = dbPrice.ProductID
+                dbHistory.SubmitterVendorAccountID = Session("VendorAccountId")
+                dbHistory.VendorID = Session("VendorId")
+                dbHistory.VendorSKU = dbSubstitutePrice.VendorSKU
+                dbHistory.VendorPrice = dbSubstitutePrice.VendorPrice
+                dbHistory.Insert()
+
+                DB.CommitTransaction()
+                bConfirm = True
+            Catch ex As SqlClient.SqlException
+                If DB IsNot Nothing AndAlso DB.Transaction IsNot Nothing Then DB.RollbackTransaction()
+                AddError("There was an error processing this substitution.  Please try again.")
+            End Try
+        Else
+            DB.BeginTransaction()
+            Try
+                Dim dbPrice As VendorTakeOffProductSubstituteRow = VendorTakeOffProductSubstituteRow.GetRow(DB, Session("VendorID"), dbRequest.TakeoffProductID)
+                Dim dbTakeoffProduct As TakeOffProductRow = TakeOffProductRow.GetRow(DB, dbRequest.TakeoffProductID)
+                dbPrice.CreatorVendorAccountID = Session("VendorAccountId")
+                dbPrice.RecommendedQuantity = Convert.ToInt32(txtQuantity.Text) * dbTakeoffProduct.Quantity
+                dbPrice.SubstituteProductID = hdnSubstituteID.Value
+                dbPrice.TakeOffProductID = dbTakeoffProduct.TakeOffProductID
+                dbPrice.VendorID = Session("VendorId")
+                If dbPrice.Created = Nothing Then
+                    dbPrice.Insert()
+                Else
+                    dbPrice.Update()
+                End If
+                dbRequest.Remove()
+                DB.CommitTransaction()
+                bConfirm = True
+            Catch ex As SqlClient.SqlException
+                If DB IsNot Nothing AndAlso DB.Transaction IsNot Nothing Then DB.RollbackTransaction()
+                AddError("There was an error processing this substitution.  Please try again.")
+            End Try
+        End If
+        BindData()
+        ScriptManager.RegisterStartupScript(Page, Me.GetType, "CloseForm", "Sys.Application.add_load(CloseSubForm);", True)
+        upRequests.Update()
+
+        If bConfirm Then
+            Dim dbMsg As AutomaticMessagesRow = AutomaticMessagesRow.GetRowByTitle(DB, "PriceUpdate")
+            If bAlways Then
+                Dim dtRequests As DataTable = VendorProductPriceRequestRow.GetRequestsByProduct(DB, Session("VendorId"), dbRequest.ProductID)
+                For Each row As DataRow In dtRequests.Rows
+                    dbMsg.Send(BuilderRow.GetRow(DB, row("BuilderID")))
+                    VendorProductPriceRequestRow.RemoveRow(DB, row("VendorProductPriceRequestID"))
+                Next
+            Else
+                Dim dbBuilder As BuilderRow = BuilderRow.GetRow(DB, dbRequest.BuilderID)
+                dbMsg.Send(dbBuilder)
+
+            End If
+        End If
+    End Sub
+
+    Protected Sub rptRequests_ItemCommand(ByVal source As Object, ByVal e As System.Web.UI.WebControls.RepeaterCommandEventArgs) Handles rptRequests.ItemCommand
+        Select Case e.CommandName
+            Case "Update"
+                EditIndex = e.Item.ItemIndex
+            Case "Cancel"
+                EditIndex = -1
+            Case "Save"
+                DB.BeginTransaction()
+                Try
+                    Dim price As String = Regex.Replace(CType(e.Item.FindControl("txtPrice"), TextBox).Text, "[^\d.]", "")
+                    If price = String.Empty Then
+                        ctlError.AddError("Entered price is invalid.")
+                        ctlError.Visible = True
+                        Exit Sub
+                    End If
+                    Dim dbRequest As VendorProductPriceRequestRow = VendorProductPriceRequestRow.GetRow(DB, Keys(e.Item.ItemIndex))
+                    If dbRequest.ProductID <> Nothing Then
+                        Dim dbPrice As VendorProductPriceRow = VendorProductPriceRow.GetRow(DB, Session("VendorId"), dbRequest.ProductID)
+                        dbPrice.IsSubstitution = False
+                        dbPrice.IsUpload = False
+                        dbPrice.ProductID = dbRequest.ProductID
+                        dbPrice.SubmitterVendorAccountID = Session("VendorAccountId")
+                        dbPrice.UpdaterVendorAccountID = Session("VendorAccountId")
+                        dbPrice.VendorID = Session("VendorId")
+                        dbPrice.VendorPrice = Math.Round(Double.Parse(CType(e.Item.FindControl("txtPrice"), TextBox).Text), 2)
+                        dbPrice.VendorSKU = CType(e.Item.FindControl("txtVendorSku"), TextBox).Text
+                        If dbPrice.Submitted = Nothing Then
+                            dbPrice.Insert()
+                        Else
+                            dbPrice.Update()
+                        End If
+                        dbRequest.Remove()
+
+                        Dim dbHistory As New VendorProductPriceHistoryRow(DB)
+                        dbHistory.IsSubstitution = False
+                        dbHistory.IsUpload = False
+                        dbHistory.ProductID = dbPrice.ProductID
+                        dbHistory.SubmitterVendorAccountID = Session("VendorAccountId")
+                        dbHistory.VendorID = Session("VendorId")
+                        dbHistory.VendorPrice = dbPrice.VendorPrice
+                        dbHistory.VendorSKU = dbPrice.VendorSKU
+                        dbHistory.Insert()
+                    Else
+                        Dim dbPrice As VendorSpecialOrderProductPriceRow = VendorSpecialOrderProductPriceRow.GetRow(DB, Session("VendorId"), dbRequest.SpecialOrderProductID)
+                        dbPrice.IsSubstitution = False
+                        dbPrice.SubmitterVendorAccountID = Session("VendorAccountId")
+                        dbPrice.VendorID = Session("VendorId")
+                        dbPrice.VendorPrice = Math.Round(Double.Parse(CType(e.Item.FindControl("txtPrice"), TextBox).Text), 2)
+                        dbPrice.VendorSKU = CType(e.Item.FindControl("txtVendorSku"), TextBox).Text
+                        If dbPrice.Submitted = Nothing Then
+                            dbPrice.Insert()
+                        Else
+                            dbPrice.Update()
+                        End If
+                    End If
+                    DB.CommitTransaction()
+
+                    Dim dbMsg As AutomaticMessagesRow = AutomaticMessagesRow.GetRowByTitle(DB, "PriceUpdate")
+                    Dim dtRequests As DataTable = VendorProductPriceRequestRow.GetRequestsByProduct(DB, Session("VendorId"), dbRequest.ProductID)
+                    For Each row As DataRow In dtRequests.Rows
+                        dbMsg.Send(BuilderRow.GetRow(DB, row("BuilderID")))
+                        VendorProductPriceRequestRow.RemoveRow(DB, row("VendorProductPriceRequestID"))
+                    Next
+                Catch ex As SqlClient.SqlException
+                    If DB IsNot Nothing AndAlso DB.Transaction IsNot Nothing Then DB.RollbackTransaction()
+                    Logger.Error(Logger.GetErrorMessage(ex))
+                    AddError("An error was encountered while saving.  Please try again.")
+                End Try
+                EditIndex = -1
+        End Select
+        BindData()
+    End Sub
+
+    Private Sub SendMessage(ByVal req As VendorProductPriceRequestRow)
+        'auto message here
+    End Sub
+
+    Protected Sub rptResults_ItemCreated(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.RepeaterItemEventArgs) Handles rptResults.ItemCreated
+        If e.Item.ItemType <> ListItemType.AlternatingItem And e.Item.ItemType <> ListItemType.Item Then
+            Exit Sub
+        End If
+
+        'Dim form As PopupForm.PopupForm = e.Item.FindControl("frmSelect")
+        'AddHandler form.TemplateLoaded, AddressOf frmSelect_TemplateLoaded
+        'AddHandler form.Postback, AddressOf frmSelect_Postback
+        Dim btnSelect As Button = e.Item.FindControl("btnSelect")
+        AddHandler btnSelect.Click, AddressOf btnSelect_Click
+        ScriptManager.GetCurrent(Page).RegisterAsyncPostBackControl(btnSelect)
+    End Sub
+
+    Protected Sub btnSelect_Click(ByVal sender As Object, ByVal e As System.EventArgs)
+        Dim ProductID As Integer = CType(sender, Button).CommandArgument
+        Dim dbRequest As VendorProductPriceRequestRow = VendorProductPriceRequestRow.GetRow(DB, hdnRequestId.Value)
+        Dim dbTakeoffProduct As TakeOffProductRow = TakeOffProductRow.GetRow(DB, dbRequest.TakeoffProductID)
+        Dim dbSubstitute As ProductRow = ProductRow.GetRow(DB, ProductID)
+
+        If dbTakeoffProduct.SpecialOrderProductID <> Nothing Then
+            Dim dbRequested As SpecialOrderProductRow = SpecialOrderProductRow.GetRow(DB, dbTakeoffProduct.SpecialOrderProductID)
+            ltlProductName.Text = dbSubstitute.Product
+            ltlRequestedProduct.Text = dbRequested.SpecialOrderProduct
+            spanQuantity.InnerHtml = dbTakeoffProduct.Quantity
+            txtQuantity.Text = dbTakeoffProduct.Quantity
+            trApplies.Visible = False
+            trRecommendedQty.Visible = False
+            hdnSubstituteID.Value = dbSubstitute.ProductID
+        Else
+            Dim dbRequested As ProductRow = ProductRow.GetRow(DB, dbRequest.ProductID)
+            ltlProductName.Text = dbSubstitute.Product
+            ltlRequestedProduct.Text = dbRequested.Product
+            spanQuantity.InnerHtml = dbTakeoffProduct.Quantity
+            txtQuantity.Text = 1
+            txtQuantity.Attributes.Add("onchange", "UpdateTotal(event);")
+            spanRecommendedQty.InnerHtml = spanQuantity.InnerHtml
+            trRecommendedQty.Visible = True
+            trApplies.Visible = True
+            hdnSubstituteID.Value = dbSubstitute.ProductID
+        End If
+        ScriptManager.RegisterStartupScript(Page, Me.GetType, "OpenSelectForm", "Sys.Application.add_load(SwapForms)", True)
+        upSelect.Update()
+    End Sub
+
+    Protected Sub rptRequests_ItemDataBound(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.RepeaterItemEventArgs) Handles rptRequests.ItemDataBound
+        If e.Item.ItemType <> ListItemType.AlternatingItem And e.Item.ItemType <> ListItemType.Item Then
+            Exit Sub
+        End If
+
+        Keys.Add(e.Item.DataItem("VendorProductPriceRequestId"))
+
+        Dim btnUpdate As Button = e.Item.FindControl("btnUpdate")
+        Dim btnSubsitute As Button = e.Item.FindControl("btnSubstitute")
+        Dim trInfo As HtmlTableRow = e.Item.FindControl("trInfo")
+        Dim trForm As HtmlTableRow = e.Item.FindControl("trForm")
+        If e.Item.ItemIndex = EditIndex Then
+            trForm.Visible = True
+            btnUpdate.Visible = False
+            btnSubsitute.Visible = False
+        Else
+            trForm.Visible = False
+            btnUpdate.Visible = True
+            btnSubsitute.Visible = True
+        End If
+    End Sub
+
+    Private m_VendorProducts As DataView
+    Private ReadOnly Property VendorProducts() As DataView
+        Get
+            If m_VendorProducts Is Nothing Then
+                m_VendorProducts = VendorProductPriceRow.GetAllVendorPrices(DB, Session("VendorId")).DefaultView
+                m_VendorProducts.Sort = "ProductId"
+            End If
+            Return m_VendorProducts
+        End Get
+    End Property
+
+    Private Function GetValue(ByVal drv As DataRowView, ByVal field As String) As Object
+        If drv Is Nothing Then
+            Return Nothing
+        Else
+            Return drv(field)
+        End If
+    End Function
+
+    Private Sub BindSearchData(ByVal tbl As DataTable, ByVal count As Integer)
+        If rblPricedOnly.SelectedValue = True Then
+            Dim q = From sr As DataRow In tbl.AsEnumerable Join vp As DataRowView In VendorProducts On Convert.ToInt32(sr("ProductId")) Equals Convert.ToInt32(vp("ProductId")) Select New With {.ProductID = sr("ProductId"), .VendorSku = vp("VendorSku"), .ProductSku = sr("SKU"), .ProductName = sr("ProductName"), .Description = sr("Description"), .UnitOfMeasure = sr("SizeUnitOfMeasureText")}
+            rptResults.DataSource = q
+            ctlNavigator.NofRecords = q.Count
+        Else
+            Dim q = From sr As DataRow In tbl.AsEnumerable Group Join vp As DataRowView In VendorProducts On Convert.ToInt32(sr("ProductId")) Equals Convert.ToInt32(vp("ProductId")) Into grp = Group _
+                    From vp As DataRowView In grp.DefaultIfEmpty Select New With {.ProductID = sr("ProductId"), .VendorSku = GetValue(vp, "VendorSku"), .ProductSku = sr("SKU"), .ProductName = sr("ProductName"), .Description = sr("Description"), .UnitOfMeasure = sr("SizeUnitOfMeasureText")}
+            rptResults.DataSource = q
+            ctlNavigator.NofRecords = count
+        End If
+        ctlNavigator.DataBind()
+        rptResults.DataBind()
+    End Sub
+
+    Protected Sub ctlSearch_ResultsUpdated(ByVal sender As Object, ByVal e As System.EventArgs) Handles ctlSearch.ResultsUpdated
+        BindSearchData(ctlSearch.SearchResults.ds.Tables(0), ctlSearch.SearchResults.Count)
+        ltlBreadcrumbs.Text = ctlSearch.Breadcrumbs
+        upResults.Update()
+    End Sub
+
+    Protected Sub btnSearch_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnSearch.Click
+        ctlSearch.Search()
+    End Sub
+
+    Protected Function FilterListCallback() As Generic.List(Of String)
+        Dim out As New Generic.List(Of String)(From vp As DataRowView In VendorProducts Select Convert.ToString(vp.Item("ProductId")))
+        Return out
+    End Function
+
+    Protected Sub rblPricedOnly_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles rblPricedOnly.SelectedIndexChanged
+        If rblPricedOnly.SelectedValue = False Then
+            ctlSearch.FilterListCallback = Nothing
+        Else
+            ctlSearch.FilterListCallback = AddressOf FilterListCallback
+        End If
+        ctlSearch.Search()
+    End Sub
+
+    Protected Sub ctlNavigator_NavigatorEvent(ByVal sender As Object, ByVal e As Controls.NavigatorEventArgs) Handles ctlNavigator.NavigatorEvent
+        ctlNavigator.PageNumber = e.PageNumber
+        ctlSearch.PageNumber = e.PageNumber
+        ctlSearch.Search()
+    End Sub
+
+    'Protected Sub frmSelect_Postback1(ByVal sender As Object, ByVal e As System.EventArgs)
+    '    Dim ProductID As Integer = hdnSubstituteID.Value
+    '    Dim dbRequest As VendorProductPriceRequestRow = VendorProductPriceRequestRow.GetRow(DB, hdnRequestId.Value)
+    '    Dim dbTakeoffProduct As TakeOffProductRow = TakeOffProductRow.GetRow(DB, dbRequest.TakeoffProductID)
+    '    Dim dbSubstitute As ProductRow = ProductRow.GetRow(DB, ProductID)
+    '    Dim dbRequestPrice As VendorProductPriceRow = VendorProductPriceRow.GetRow(DB, dbRequest.VendorID, dbRequest.ProductID)
+    '    Dim delete As Boolean = False
+
+    '    If dbRequest.SpecialOrderProductID <> Nothing Then
+    '        Dim dbPrice As VendorSpecialOrderProductPriceRow = VendorSpecialOrderProductPriceRow.GetRow(DB, Session("VendorId"), dbRequest.SpecialOrderProductID)
+    '        dbPrice.IsSubstitution = True
+    '        dbPrice.SpecialOrderProductID = dbRequest.SpecialOrderProductID
+    '        dbPrice.SubmitterVendorAccountID = Session("VendorAccountId")
+    '        dbPrice.VendorID = Session("VendorId")
+    '        dbPrice.VendorPrice = Nothing
+    '        dbPrice.VendorSKU = Nothing
+    '        If dbPrice.Submitted = Nothing Then
+    '            dbPrice.SubmitterVendorAccountID = Session("VendorAccountId")
+    '            dbPrice.Insert()
+    '        Else
+    '            dbPrice.Update()
+    '        End If
+    '        delete = True
+    '    Else
+    '        If rbAppliesOnce.Checked Then
+    '            Dim dbPrice As VendorTakeOffProductSubstituteRow = VendorTakeOffProductSubstituteRow.GetRow(DB, Session("VendorId"), dbTakeoffProduct.TakeOffProductID)
+    '            dbPrice.RecommendedQuantity = spanRecommendedQty.InnerHtml
+    '            dbPrice.SubstituteProductID = dbSubstitute.ProductID
+    '            dbPrice.TakeOffProductID = dbTakeoffProduct.TakeOffProductID
+    '            dbPrice.VendorID = Session("VendorId")
+    '            If dbPrice.Created = Nothing Then
+    '                dbPrice.CreatorVendorAccountID = Session("VendorAccountId")
+    '                dbPrice.Insert()
+    '            Else
+    '                dbPrice.Update()
+    '            End If
+    '            delete = True
+    '        Else
+    '            Dim dbPrice As VendorProductSubstituteRow = VendorProductSubstituteRow.GetRow(DB, Session("VendorId"), dbRequest.ProductID)
+    '            dbPrice.ProductID = dbRequest.ProductID
+    '            dbPrice.QuantityMultiplier = txtQuantity.Text
+    '            dbPrice.SubstituteProductID = dbSubstitute.ProductID
+    '            dbPrice.VendorID = Session("VendorId")
+    '            If dbPrice.Created = Nothing Then
+    '                dbPrice.CreatorVendorAccountID = Session("VendorAccountId")
+    '                dbPrice.Insert()
+    '            Else
+    '                dbPrice.Update()
+    '            End If
+    '            delete = True
+    '        End If
+
+    '        dbRequestPrice.IsSubstitution = True
+    '        dbRequestPrice.ProductID = dbRequest.ProductID
+    '        dbRequestPrice.SubstituteQuantityMultiplier = txtQuantity.Text
+    '        dbRequestPrice.VendorID = dbRequest.VendorID
+    '        dbRequestPrice.VendorPrice = Nothing
+    '        dbRequestPrice.VendorSKU = Nothing
+    '        dbRequestPrice.UpdaterVendorAccountID = Session("VendorAccountId")
+    '        If dbRequestPrice.Submitted <> Nothing Then
+    '            dbRequestPrice.Update()
+    '        Else
+    '            dbRequestPrice.SubmitterVendorAccountID = Session("VendorAccountId")
+    '            dbRequestPrice.Insert()
+    '        End If
+    '    End If
+    '    If delete Then
+    '        dbRequest.Remove()
+    '    End If
+    '    ScriptManager.RegisterStartupScript(Page, Me.GetType, "CloseSelect", "Sys.Application.add_load(CloseSelectForm)", True)
+    '    BindData()
+    '    upRequests.Update()
+    'End Sub
+End Class

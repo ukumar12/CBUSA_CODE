@@ -1,0 +1,99 @@
+﻿Imports Components
+Imports DataLayer
+
+Partial Class vendor_price_requests
+    Inherits ModuleControl
+
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        'EnsureVendorAccess()
+
+        If Not IsPostBack Then
+            gvRequests.SortBy = Core.ProtectParam(Request("F_SortBy"))
+            gvRequests.SortOrder = Core.ProtectParam(Request("F_SortOrder"))
+            If gvRequests.SortBy = String.Empty Then gvRequests.SortBy = "Created"
+
+            BindData()
+        End If
+    End Sub
+
+    Private Sub BindData()
+        ViewState("F_SortBy") = gvRequests.SortBy
+        ViewState("F_SortOrder") = gvRequests.SortOrder
+
+        Dim res As DataTable = VendorProductPriceRequestRow.GetPriceRequests(DB, Session("VendorId"), gvRequests.SortBy, gvRequests.SortOrder, gvRequests.PageIndex)
+        If res.Rows.Count = 0 Then
+            ltlNone.Text = "There are no pending builder price requests"
+        Else
+            ltlNone.Text = Nothing
+        End If
+        gvRequests.DataSource = res.DefaultView
+        gvRequests.DataBind()
+    End Sub
+
+    Protected Sub frmRequest_TemplateLoaded(ByVal sender As Object, ByVal e As System.EventArgs)
+        Dim form As PopupForm.PopupForm = sender
+        Dim row As GridViewRow = CType(form.NamingContainer, GridViewRow)
+        If row Is Nothing OrElse row.DataItem Is Nothing Then Exit Sub
+        CType(form.FindControl("ltlBuilder"), Literal).Text = row.DataItem("CompanyName")
+        CType(form.FindControl("ltlProduct"), Literal).Text = row.DataItem("Product")
+        CType(form.FindControl("hdnRequestId"), HiddenField).Value = row.DataItem("VendorProductPriceRequestId")
+    End Sub
+
+    Protected Sub frmRequest_Postback(ByVal sender As Object, ByVal e As System.EventArgs)
+        Dim form As PopupForm.PopupForm = CType(sender, Control).NamingContainer
+
+        Dim RequestId As Integer = CType(form.FindControl("hdnRequestId"), HiddenField).Value
+        Dim dbRequest As VendorProductPriceRequestRow = VendorProductPriceRequestRow.GetRow(DB, RequestId)
+        Dim cbIsSub As CheckBox = form.FindControl("cbIsSubYes")
+        Dim txtMultiplier As TextBox = form.FindControl("txtMultiplier")
+        Dim txtPrice As TextBox = form.FindControl("txtPrice")
+        Dim txtSku As TextBox = form.FindControl("txtSku")
+        If cbIsSub IsNot Nothing Then
+            'Dim dbPrice As VendorProductPriceRow = VendorProductPriceRow.GetRow(DB, Session("VendorId"), dbRequest.ProductID, Now)
+            Dim dbPrice As VendorProductPriceRow = VendorProductPriceRow.GetRow(DB, Session("VendorId"), dbRequest.ProductID)
+            If cbIsSub.Checked Then
+                Dim dbSub As New VendorProductSubstituteRow(DB, Session("VendorId"), dbRequest.ProductID)
+                dbSub.CreatorVendorAccountID = Session("VendorAccountId")
+                dbSub.QuantityMultiplier = IIf(txtMultiplier IsNot Nothing, txtMultiplier.Text, 1)
+                dbSub.SubstituteProductID = VendorProductPriceRow.GetRowByVendorSku(DB, Session("VendorId"), Now, txtSku.Text).ProductID
+                dbSub.Insert()
+
+                dbPrice.IsSubstitution = True
+                dbPrice.SubstituteQuantityMultiplier = dbSub.QuantityMultiplier
+                dbPrice.UpdaterVendorAccountID = Session("VendorAccountId")
+            Else
+                If txtPrice.Text <> String.Empty Then
+                    dbPrice.IsSubstitution = False
+                    dbPrice.ProductID = dbRequest.ProductID
+                    dbPrice.SubmitterVendorAccountID = Session("VendorAccountId")
+                    dbPrice.SubstituteQuantityMultiplier = 1
+                    dbPrice.UpdaterVendorAccountID = Session("VendorAccountId")
+                    dbPrice.VendorPrice = txtPrice.Text
+                    dbPrice.VendorSKU = txtSku.Text
+                End If
+            End If
+            If dbPrice.Submitted = Nothing Then
+                dbPrice.SubmitterVendorAccountID = Session("VendorAccountId")
+                dbPrice.Insert()
+            Else
+                dbPrice.Update()
+            End If
+        Else
+            Dim dbSpecial As New VendorSpecialOrderProductPriceRow(DB, Session("VendorId"), dbRequest.SpecialOrderProductID)
+            dbSpecial.SubmitterVendorAccountID = Session("VendorAccountId")
+            dbSpecial.VendorPrice = IIf(txtPrice.Text <> String.Empty, txtPrice.Text, Nothing)
+            dbSpecial.VendorSKU = txtSku.Text
+            dbSpecial.Insert()
+        End If
+        dbRequest.Remove()
+        BindData()
+    End Sub
+
+    Protected Sub gvRequests_RowCreated(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.GridViewRowEventArgs) Handles gvRequests.RowCreated
+        If e.Row.RowType <> DataControlRowType.DataRow Then Exit Sub
+
+        Dim form As PopupForm.PopupForm = e.Row.FindControl("frmRequest")
+        AddHandler form.TemplateLoaded, AddressOf frmRequest_TemplateLoaded
+        AddHandler form.Postback, AddressOf frmRequest_Postback
+    End Sub
+End Class

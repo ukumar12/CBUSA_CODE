@@ -1,0 +1,9 @@
+C:\Inetpub\wwwroot\cbusa\common\obj\Debug\ResolveAssemblyReference.cache
+C:\Inetpub\wwwroot\cbusa\common\obj\Debug\Resources.resources
+C:\Inetpub\wwwroot\cbusa\common\obj\Debug\Common.vbproj.GenerateResource.Cache
+C:\Inetpub\wwwroot\cbusa\common\bin\Common.dll
+C:\Inetpub\wwwroot\cbusa\common\bin\Common.pdb
+C:\Inetpub\wwwroot\cbusa\common\bin\Common.xml
+C:\Inetpub\wwwroot\cbusa\common\obj\Debug\Common.dll
+C:\Inetpub\wwwroot\cbusa\common\obj\Debug\Common.xml
+C:\Inetpub\wwwroot\cbusa\common\obj\Debug\Common.pdb

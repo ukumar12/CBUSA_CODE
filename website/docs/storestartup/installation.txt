@@ -1,0 +1,42 @@
+1.	Extract all folders to your site directory
+2.	Run script: storestartup.sql
+3.	Setup following global variables (web.config file)
+
+	GlobalWebsiteKey
+	GlobalWebsitePassword
+	GlobalWebsitePasswordEx
+	ConnectionString
+	ConnectionStringUsername
+	ConnectionStringPassword
+	SiteInMaintenanceMode
+	LDAPQuery
+	DomainGroupNames
+	LyrisConnectionString
+	LyrisQueueConnectionString
+	LyrisConnectionStringUsername
+	LyrisConnectionStringPassword
+
+	GlobalGoogleTrackingNo
+
+	LyrisListName
+	LyrisDatabaseLocation
+	LyrisBrowserLinkHTML
+	LyrisBrowserLinkText
+	LyrisTableOwner
+	
+	UPSLicenseNo
+	UPSUsername
+	UPSPassword
+	
+	FedExAccountNo
+	FedExMeterNo
+	
+	MailServer
+	MailServerBackup
+	MailServerTimeout
+	ErrorMapFile
+	GlobalRefererName
+	GlobalSecureName
+	GlobalWebsiteName
+	
+4.	You can login to the admin section with your domain username and password

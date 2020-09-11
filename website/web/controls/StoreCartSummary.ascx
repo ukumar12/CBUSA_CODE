@@ -1,0 +1,2 @@
+<%@ Control Language="VB" EnableViewState="False" AutoEventWireup="false" CodeFile="StoreCartSummary.ascx.vb" Inherits="StoreCartSummary" %>
+<span id="spanCartQuantity"><%=Summary.Quantity%></span> items, <span id="spanCartSubTotal"><%=FormatCurrency(Summary.SubTotal)%></span>

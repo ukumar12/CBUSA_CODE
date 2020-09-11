@@ -1,0 +1,183 @@
+﻿Imports Components
+Imports DataLayer
+Imports IDevSearch
+Imports System.Configuration.ConfigurationManager
+Imports System.Linq
+Imports System.Data
+
+Partial Class supply_phase
+    Inherits SitePage
+
+    Protected VendorId As Integer
+    Protected dbVendor As VendorRow
+
+    Private EventArgsToRegister As New Collections.Specialized.StringDictionary
+
+    Protected Property qString() As URLParameters
+        Get
+            If Session("SearchQueryString") Is Nothing Then
+                Session("SearchQueryString") = New URLParameters(Request.QueryString)
+            End If
+            Return Session("SearchQueryString")
+        End Get
+        Set(ByVal value As URLParameters)
+            Session("SearchQueryString") = value
+        End Set
+    End Property
+
+
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        
+        VendorId = CType(Session("VendorId"), Integer)
+        dbVendor = VendorRow.GetRow(Me.DB, VendorId)
+
+        If VendorId = 0 Then
+            Response.Redirect("/default.aspx")
+        End If
+
+        If Not IsPostBack Then
+            'If True Then
+
+            '    tvSupplyPhases.DataSource = SupplyPhaseRow.GetList(DB)
+            '    tvSupplyPhases.DataTextField = "SupplyPhase"
+            '    tvSupplyPhases.DataValueField = "SupplyPhaseId"
+            '    tvSupplyPhases.DataKeyField = "SupplyPhaseId"
+            '    tvSupplyPhases.DataParentField = "ParentSupplyPhaseId"
+            '    tvSupplyPhases.UseFilter = False
+            '    tvSupplyPhases.DataBind()
+
+            'End If
+            BindSupplyPhases()
+        End If
+        
+    End Sub
+
+    Protected Sub BindSupplyPhases()
+        Dim dt As DataTable
+        Dim SQL As String = "Select vsp.VendorSupplyPhaseID, sp.SupplyPhaseID, sp.SupplyPhase From SupplyPhase sp, VendorSupplyPhase vsp Where sp.SupplyPhaseID = vsp.SupplyPhaseID And vsp.VendorId = " & DB.Number(VendorId) & " order by sp.SupplyPhase"
+
+        dt = DB.GetDataTable(SQL)
+
+        If dt.Rows.Count > 0 Then
+            btnSKUMatching.Visible = True
+        Else
+            btnSKUMatching.Visible = False
+        End If
+        Me.rptSupplyPhases.DataSource = dt
+        Me.rptSupplyPhases.DataBind()
+
+        SQL = "WITH Parents(ParentSupplyPhaseId,SupplyPhaseId,SupplyPhase,Depth) AS"
+        SQL &= "("
+        SQL &= "SELECT ParentSupplyPhaseId, SupplyPhaseId, SupplyPhase, 0 AS Depth FROM SupplyPhase WHERE SupplyPhaseId in (select SupplyPhaseId From VendorSupplyPhase Where VendorId = " & DB.Number(VendorId) & ")"
+        SQL &= " UNION ALL "
+        SQL &= "SELECT sp.ParentSupplyPhaseId, sp.SupplyPhaseId, sp.SupplyPhase, (Parents.Depth + 1) AS Depth FROM SupplyPhase sp INNER JOIN Parents ON sp.SupplyPhaseId=Parents.ParentSupplyPhaseId"
+        SQL &= ")"
+        SQL &= " SELECT distinct SupplyPhaseId, ParentSupplyPhaseId, SupplyPhase from Parents"
+
+        tvVendorSupplyPhases.DataSource = DB.GetDataTable(SQL)
+        tvVendorSupplyPhases.DataTextField = "SupplyPhase"
+        tvVendorSupplyPhases.DataValueField = "SupplyPhaseId"
+        tvVendorSupplyPhases.DataKeyField = "SupplyPhaseId"
+        tvVendorSupplyPhases.DataParentField = "ParentSupplyPhaseId"
+        tvVendorSupplyPhases.UseFilter = False
+        tvVendorSupplyPhases.DataBind()
+    End Sub
+
+    Protected Sub tvSupplyPhases_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles tvSupplyPhases.SelectedIndexChanged
+
+        Dim qs As New URLParameters(qString.Items, "supplyphase;f;pg;guid;s")
+        Dim f As String = qString("f")
+        qs.Add("f", SearchIndex.ReplaceFacet(f, "supplyphase"))
+        qs.Add("supplyphase", tvSupplyPhases.CurrentNode.Value & "|" & tvSupplyPhases.CurrentNode.Name)
+        qString = qs
+        upFacets.Update()
+
+        Try
+            DB.BeginTransaction()
+            AddSupplyPhase(tvSupplyPhases.CurrentNode.Value)
+            DB.CommitTransaction()
+        Catch ex As Exception
+            If DB IsNot Nothing AndAlso DB.Transaction IsNot Nothing Then DB.RollbackTransaction()
+            AddError(ErrHandler.ErrorText(ex))
+        End Try
+
+        BindSupplyPhases()
+        upSupplyPhases.Update()
+
+    End Sub
+
+    Protected Sub tvVendorSupplyPhases_SelectedIndexChanged(ByVal sender As Object, ByVal e As System.EventArgs) Handles tvVendorSupplyPhases.SelectedIndexChanged
+
+        Dim qs As New URLParameters(qString.Items, "supplyphase;f;pg;guid;s")
+        Dim f As String = qString("f")
+        qs.Add("f", SearchIndex.ReplaceFacet(f, "supplyphase"))
+        qs.Add("supplyphase", tvVendorSupplyPhases.CurrentNode.Value & "|" & tvVendorSupplyPhases.CurrentNode.Name)
+        qString = qs
+        upFacets.Update()
+
+        BindSupplyPhases()
+        upSupplyPhases.Update()
+
+    End Sub
+
+    Protected Sub rptSupplyPhases_ItemDataBound(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.RepeaterItemEventArgs) Handles rptSupplyPhases.ItemDataBound
+
+        If Not e.Item.ItemType = ListItemType.Item And Not e.Item.ItemType = ListItemType.AlternatingItem Then
+            Exit Sub
+        End If
+
+        Dim btnDelete As ImageButton = CType(e.Item.FindControl("btnDeleteSupplyPhase"), ImageButton)
+        btnDelete.CommandArgument = e.Item.DataItem("VendorSupplyPhaseID")
+
+    End Sub
+
+    Protected Sub rptSupplyPhases_ItemCommand(ByVal Sender As Object, ByVal e As RepeaterCommandEventArgs) Handles rptSupplyPhases.ItemCommand
+        Try
+            DB.BeginTransaction()
+            DB.ExecuteSQL("Delete From VendorSupplyPhase Where VendorSupplyPhaseID = " & DB.Number(e.CommandArgument))
+            DB.CommitTransaction()
+            ltlErrMsg.Visible = False
+            BindSupplyPhases()
+            upSupplyPhases.Update()
+        Catch ex As Exception
+            If DB IsNot Nothing AndAlso DB.Transaction IsNot Nothing Then DB.RollbackTransaction()
+            AddError(ErrHandler.ErrorText(ex))
+        End Try
+    End Sub
+
+    Protected Sub AddSupplyPhase(ByVal SupplyPhaseId As Integer)
+        Dim dt As DataTable
+        Dim SQL As String = "Select * From VendorSupplyPhase Where SupplyPhaseID = " & DB.Number(SupplyPhaseId) & " And VendorId = " & DB.Number(VendorId)
+
+        dt = DB.GetDataTable(SQL)
+
+        If dt.Rows.Count > 0 Then
+            ltlErrMsg.Visible = True
+            ltlErrMsg.Text = "The supply phase you selected is already on your list."
+        Else
+            ltlErrMsg.Visible = False
+            SQL = "Insert Into VendorSupplyPhase (VendorId, SupplyPhaseID) Values (" & DB.Number(VendorId) & ", " & DB.Number(SupplyPhaseId) & ")"
+            DB.ExecuteSQL(SQL)
+        End If
+
+    End Sub
+
+
+    Private Function ParamsFromString(ByVal queryString As String) As URLParameters
+        Dim out As New URLParameters
+        If queryString.Length > 0 Then
+            For Each item As String In queryString.Split("&")
+                Dim pair As String() = item.Split("=")
+                If pair(0)(0) = "?" Then
+                    pair(0) = Server.UrlDecode(pair(0).Substring(1, pair(0).Length - 1))
+                End If
+                out.Add(pair(0), Server.UrlDecode(pair(1)))
+            Next
+        End If
+        Return out
+    End Function
+
+    Protected Sub btnSKUMatching_Click(ByVal sender As Object, ByVal e As System.EventArgs) Handles btnSKUMatching.Click
+        Response.Redirect("sku.aspx")
+    End Sub
+End Class

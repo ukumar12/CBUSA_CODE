@@ -1,0 +1,248 @@
+C:\Inetpub\wwwroot\cbusa-extbranch\tasks\bin\Debug\Tasks.exe.config
+C:\Inetpub\wwwroot\cbusa-extbranch\tasks\bin\Debug\Tasks.exe
+C:\Inetpub\wwwroot\cbusa-extbranch\tasks\bin\Debug\Tasks.pdb
+C:\Inetpub\wwwroot\cbusa-extbranch\tasks\bin\Debug\Tasks.xml
+C:\Inetpub\wwwroot\cbusa-extbranch\tasks\bin\Debug\Common.dll
+C:\Inetpub\wwwroot\cbusa-extbranch\tasks\bin\Debug\TwoPrice.dll
+C:\Inetpub\wwwroot\cbusa-extbranch\tasks\bin\Debug\Vindicia.dll
+C:\Inetpub\wwwroot\cbusa-extbranch\tasks\bin\Debug\CKEditor.NET.dll
+C:\Inetpub\wwwroot\cbusa-extbranch\tasks\bin\Debug\UltimateSpell.dll
+C:\Inetpub\wwwroot\cbusa-extbranch\tasks\bin\Debug\FredCK.FCKeditorV2.dll
+C:\Inetpub\wwwroot\cbusa-extbranch\tasks\bin\Debug\log4net.dll
+C:\Inetpub\wwwroot\cbusa-extbranch\tasks\bin\Debug\Lucene.Net.dll
+C:\Inetpub\wwwroot\cbusa-extbranch\tasks\bin\Debug\library.dll
+C:\Inetpub\wwwroot\cbusa-extbranch\tasks\bin\Debug\Highlighter.Net.dll
+C:\Inetpub\wwwroot\cbusa-extbranch\tasks\bin\Debug\SpellChecker.Net.dll
+C:\Inetpub\wwwroot\cbusa-extbranch\tasks\bin\Debug\Common.pdb
+C:\Inetpub\wwwroot\cbusa-extbranch\tasks\bin\Debug\Common.xml
+C:\Inetpub\wwwroot\cbusa-extbranch\tasks\bin\Debug\TwoPrice.pdb
+C:\Inetpub\wwwroot\cbusa-extbranch\tasks\bin\Debug\TwoPrice.xml
+C:\Inetpub\wwwroot\cbusa-extbranch\tasks\bin\Debug\Highlighter.Net.xml
+C:\Inetpub\wwwroot\cbusa-extbranch\tasks\bin\Debug\SpellChecker.Net.xml
+C:\Inetpub\wwwroot\cbusa-extbranch\tasks\obj\Debug\Tasks.vbprojResolveAssemblyReference.cache
+C:\Inetpub\wwwroot\cbusa-extbranch\tasks\obj\Debug\Tasks.Resources.resources
+C:\Inetpub\wwwroot\cbusa-extbranch\tasks\obj\Debug\Tasks.vbproj.GenerateResource.Cache
+C:\Inetpub\wwwroot\cbusa-extbranch\tasks\obj\Debug\Tasks.exe
+C:\Inetpub\wwwroot\cbusa-extbranch\tasks\obj\Debug\Tasks.xml
+C:\Inetpub\wwwroot\cbusa-extbranch\tasks\obj\Debug\Tasks.pdb
+C:\Users\rmandal\Desktop\CBUSA_NEw\cbusa120916\website\tasks\obj\Debug\Tasks.vbprojResolveAssemblyReference.cache
+C:\Users\rmandal\Desktop\CBUSA_NEw\cbusa120916\website\tasks\obj\Debug\Tasks.Resources.resources
+C:\Users\rmandal\Desktop\CBUSA_NEw\cbusa120916\website\tasks\obj\Debug\Tasks.vbproj.GenerateResource.Cache
+C:\Users\rmandal\Desktop\CBUSA_NEw\cbusa120916\website\tasks\obj\Debug\Tasks.exe
+C:\Users\rmandal\Desktop\CBUSA_NEw\cbusa120916\website\tasks\obj\Debug\Tasks.xml
+C:\Users\rmandal\Desktop\CBUSA_NEw\cbusa120916\website\tasks\obj\Debug\Tasks.pdb
+C:\Users\rmandal\Desktop\CBUSA_NEw\cbusa120916\website\tasks\bin\Debug\Tasks.exe.config
+C:\Users\rmandal\Desktop\CBUSA_NEw\cbusa120916\website\tasks\bin\Debug\Tasks.exe
+C:\Users\rmandal\Desktop\CBUSA_NEw\cbusa120916\website\tasks\bin\Debug\Tasks.pdb
+C:\Users\rmandal\Desktop\CBUSA_NEw\cbusa120916\website\tasks\bin\Debug\Tasks.xml
+C:\Users\rmandal\Desktop\CBUSA_NEw\cbusa120916\website\tasks\bin\Debug\Common.dll
+C:\Users\rmandal\Desktop\CBUSA_NEw\cbusa120916\website\tasks\bin\Debug\TwoPrice.dll
+C:\Users\rmandal\Desktop\CBUSA_NEw\cbusa120916\website\tasks\bin\Debug\Vindicia.dll
+C:\Users\rmandal\Desktop\CBUSA_NEw\cbusa120916\website\tasks\bin\Debug\CKEditor.NET.dll
+C:\Users\rmandal\Desktop\CBUSA_NEw\cbusa120916\website\tasks\bin\Debug\UltimateSpell.dll
+C:\Users\rmandal\Desktop\CBUSA_NEw\cbusa120916\website\tasks\bin\Debug\FredCK.FCKeditorV2.dll
+C:\Users\rmandal\Desktop\CBUSA_NEw\cbusa120916\website\tasks\bin\Debug\log4net.dll
+C:\Users\rmandal\Desktop\CBUSA_NEw\cbusa120916\website\tasks\bin\Debug\Lucene.Net.dll
+C:\Users\rmandal\Desktop\CBUSA_NEw\cbusa120916\website\tasks\bin\Debug\library.dll
+C:\Users\rmandal\Desktop\CBUSA_NEw\cbusa120916\website\tasks\bin\Debug\Highlighter.Net.dll
+C:\Users\rmandal\Desktop\CBUSA_NEw\cbusa120916\website\tasks\bin\Debug\SpellChecker.Net.dll
+C:\Users\rmandal\Desktop\CBUSA_NEw\cbusa120916\website\tasks\bin\Debug\Common.pdb
+C:\Users\rmandal\Desktop\CBUSA_NEw\cbusa120916\website\tasks\bin\Debug\Common.xml
+C:\Users\rmandal\Desktop\CBUSA_NEw\cbusa120916\website\tasks\bin\Debug\TwoPrice.pdb
+C:\Users\rmandal\Desktop\CBUSA_NEw\cbusa120916\website\tasks\bin\Debug\TwoPrice.xml
+C:\Users\rmandal\Desktop\CBUSA_NEw\cbusa120916\website\tasks\bin\Debug\Highlighter.Net.xml
+C:\Users\rmandal\Desktop\CBUSA_NEw\cbusa120916\website\tasks\bin\Debug\SpellChecker.Net.xml
+C:\Users\rmandal\Desktop\CBUSA_NEw\cbusa120916\website\tasks\bin\Debug\Common.XmlSerializers.dll
+E:\Project\CBUSA_AE\CBUSA_AE\website\tasks\bin\Debug\Tasks.exe.config
+E:\Project\CBUSA_AE\CBUSA_AE\website\tasks\bin\Debug\Tasks.exe
+E:\Project\CBUSA_AE\CBUSA_AE\website\tasks\bin\Debug\Tasks.pdb
+E:\Project\CBUSA_AE\CBUSA_AE\website\tasks\bin\Debug\Tasks.xml
+E:\Project\CBUSA_AE\CBUSA_AE\website\tasks\bin\Debug\Common.dll
+E:\Project\CBUSA_AE\CBUSA_AE\website\tasks\bin\Debug\TwoPrice.dll
+E:\Project\CBUSA_AE\CBUSA_AE\website\tasks\bin\Debug\Vindicia.dll
+E:\Project\CBUSA_AE\CBUSA_AE\website\tasks\bin\Debug\log4net.dll
+E:\Project\CBUSA_AE\CBUSA_AE\website\tasks\bin\Debug\CKEditor.NET.dll
+E:\Project\CBUSA_AE\CBUSA_AE\website\tasks\bin\Debug\UltimateSpell.dll
+E:\Project\CBUSA_AE\CBUSA_AE\website\tasks\bin\Debug\FredCK.FCKeditorV2.dll
+E:\Project\CBUSA_AE\CBUSA_AE\website\tasks\bin\Debug\Lucene.Net.dll
+E:\Project\CBUSA_AE\CBUSA_AE\website\tasks\bin\Debug\Highlighter.Net.dll
+E:\Project\CBUSA_AE\CBUSA_AE\website\tasks\bin\Debug\library.dll
+E:\Project\CBUSA_AE\CBUSA_AE\website\tasks\bin\Debug\SpellChecker.Net.dll
+E:\Project\CBUSA_AE\CBUSA_AE\website\tasks\bin\Debug\Common.pdb
+E:\Project\CBUSA_AE\CBUSA_AE\website\tasks\bin\Debug\Common.xml
+E:\Project\CBUSA_AE\CBUSA_AE\website\tasks\bin\Debug\TwoPrice.pdb
+E:\Project\CBUSA_AE\CBUSA_AE\website\tasks\bin\Debug\TwoPrice.xml
+E:\Project\CBUSA_AE\CBUSA_AE\website\tasks\bin\Debug\Highlighter.Net.xml
+E:\Project\CBUSA_AE\CBUSA_AE\website\tasks\bin\Debug\SpellChecker.Net.xml
+E:\Project\CBUSA_AE\CBUSA_AE\website\tasks\bin\Debug\Common.XmlSerializers.dll
+E:\Project\CBUSA_AE\CBUSA_AE\website\tasks\obj\Debug\Tasks.vbprojResolveAssemblyReference.cache
+E:\Project\CBUSA_AE\CBUSA_AE\website\tasks\obj\Debug\Tasks.Resources.resources
+E:\Project\CBUSA_AE\CBUSA_AE\website\tasks\obj\Debug\Tasks.vbproj.GenerateResource.Cache
+E:\Project\CBUSA_AE\CBUSA_AE\website\tasks\obj\Debug\Tasks.exe
+E:\Project\CBUSA_AE\CBUSA_AE\website\tasks\obj\Debug\Tasks.xml
+E:\Project\CBUSA_AE\CBUSA_AE\website\tasks\obj\Debug\Tasks.pdb
+E:\Project\CBUSA_AE_Current\CBUSA - Code Review\website\tasks\bin\Debug\Tasks.exe.config
+E:\Project\CBUSA_AE_Current\CBUSA - Code Review\website\tasks\bin\Debug\Tasks.exe
+E:\Project\CBUSA_AE_Current\CBUSA - Code Review\website\tasks\bin\Debug\Tasks.pdb
+E:\Project\CBUSA_AE_Current\CBUSA - Code Review\website\tasks\bin\Debug\Tasks.xml
+E:\Project\CBUSA_AE_Current\CBUSA - Code Review\website\tasks\bin\Debug\Common.dll
+E:\Project\CBUSA_AE_Current\CBUSA - Code Review\website\tasks\bin\Debug\TwoPrice.dll
+E:\Project\CBUSA_AE_Current\CBUSA - Code Review\website\tasks\bin\Debug\Vindicia.dll
+E:\Project\CBUSA_AE_Current\CBUSA - Code Review\website\tasks\bin\Debug\log4net.dll
+E:\Project\CBUSA_AE_Current\CBUSA - Code Review\website\tasks\bin\Debug\CKEditor.NET.dll
+E:\Project\CBUSA_AE_Current\CBUSA - Code Review\website\tasks\bin\Debug\UltimateSpell.dll
+E:\Project\CBUSA_AE_Current\CBUSA - Code Review\website\tasks\bin\Debug\FredCK.FCKeditorV2.dll
+E:\Project\CBUSA_AE_Current\CBUSA - Code Review\website\tasks\bin\Debug\Lucene.Net.dll
+E:\Project\CBUSA_AE_Current\CBUSA - Code Review\website\tasks\bin\Debug\Highlighter.Net.dll
+E:\Project\CBUSA_AE_Current\CBUSA - Code Review\website\tasks\bin\Debug\library.dll
+E:\Project\CBUSA_AE_Current\CBUSA - Code Review\website\tasks\bin\Debug\SpellChecker.Net.dll
+E:\Project\CBUSA_AE_Current\CBUSA - Code Review\website\tasks\bin\Debug\Common.pdb
+E:\Project\CBUSA_AE_Current\CBUSA - Code Review\website\tasks\bin\Debug\Common.xml
+E:\Project\CBUSA_AE_Current\CBUSA - Code Review\website\tasks\bin\Debug\TwoPrice.pdb
+E:\Project\CBUSA_AE_Current\CBUSA - Code Review\website\tasks\bin\Debug\TwoPrice.xml
+E:\Project\CBUSA_AE_Current\CBUSA - Code Review\website\tasks\bin\Debug\Highlighter.Net.xml
+E:\Project\CBUSA_AE_Current\CBUSA - Code Review\website\tasks\bin\Debug\SpellChecker.Net.xml
+E:\Project\CBUSA_AE_Current\CBUSA - Code Review\website\tasks\bin\Debug\Common.XmlSerializers.dll
+E:\Project\CBUSA_AE_Current\CBUSA - Code Review\website\tasks\obj\Debug\Tasks.vbprojResolveAssemblyReference.cache
+E:\Project\CBUSA_AE_Current\CBUSA - Code Review\website\tasks\obj\Debug\Tasks.Resources.resources
+E:\Project\CBUSA_AE_Current\CBUSA - Code Review\website\tasks\obj\Debug\Tasks.vbproj.GenerateResource.Cache
+E:\Project\CBUSA_AE_Current\CBUSA - Code Review\website\tasks\obj\Debug\Tasks.exe
+E:\Project\CBUSA_AE_Current\CBUSA - Code Review\website\tasks\obj\Debug\Tasks.xml
+E:\Project\CBUSA_AE_Current\CBUSA - Code Review\website\tasks\obj\Debug\Tasks.pdb
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\tasks\bin\Debug\Tasks.exe.config
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\tasks\bin\Debug\Tasks.exe.manifest
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\tasks\bin\Debug\Tasks.application
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\tasks\bin\Debug\Tasks.exe
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\tasks\bin\Debug\Tasks.pdb
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\tasks\bin\Debug\Tasks.xml
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\tasks\bin\Debug\Common.dll
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\tasks\bin\Debug\TwoPrice.dll
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\tasks\bin\Debug\Vindicia.dll
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\tasks\bin\Debug\log4net.dll
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\tasks\bin\Debug\CKEditor.NET.dll
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\tasks\bin\Debug\UltimateSpell.dll
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\tasks\bin\Debug\FredCK.FCKeditorV2.dll
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\tasks\bin\Debug\Lucene.Net.dll
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\tasks\bin\Debug\Highlighter.Net.dll
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\tasks\bin\Debug\library.dll
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\tasks\bin\Debug\SpellChecker.Net.dll
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\tasks\bin\Debug\Common.pdb
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\tasks\bin\Debug\Common.xml
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\tasks\bin\Debug\Common.dll.config
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\tasks\bin\Debug\TwoPrice.pdb
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\tasks\bin\Debug\TwoPrice.xml
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\tasks\bin\Debug\Highlighter.Net.xml
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\tasks\bin\Debug\SpellChecker.Net.xml
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\tasks\bin\Debug\Common.XmlSerializers.dll
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\tasks\obj\Debug\Tasks.vbprojResolveAssemblyReference.cache
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\tasks\obj\Debug\Tasks.Resources.resources
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\tasks\obj\Debug\Tasks.vbproj.GenerateResource.Cache
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\tasks\obj\Debug\Tasks.exe.manifest
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\tasks\obj\Debug\Tasks.application
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\tasks\obj\Debug\Tasks.exe
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\tasks\obj\Debug\Tasks.xml
+C:\Users\Medullus 23\Source\Workspaces\CBUSA - Code Review and Migration\website\tasks\obj\Debug\Tasks.pdb
+C:\1DEBASHIS\Project\CBUSA\website\tasks\bin\Debug\Tasks.exe.config
+C:\1DEBASHIS\Project\CBUSA\website\tasks\bin\Debug\Tasks.exe.manifest
+C:\1DEBASHIS\Project\CBUSA\website\tasks\bin\Debug\Tasks.application
+C:\1DEBASHIS\Project\CBUSA\website\tasks\bin\Debug\Tasks.exe
+C:\1DEBASHIS\Project\CBUSA\website\tasks\bin\Debug\Tasks.pdb
+C:\1DEBASHIS\Project\CBUSA\website\tasks\bin\Debug\Tasks.xml
+C:\1DEBASHIS\Project\CBUSA\website\tasks\bin\Debug\Common.dll
+C:\1DEBASHIS\Project\CBUSA\website\tasks\bin\Debug\TwoPrice.dll
+C:\1DEBASHIS\Project\CBUSA\website\tasks\bin\Debug\Vindicia.dll
+C:\1DEBASHIS\Project\CBUSA\website\tasks\bin\Debug\log4net.dll
+C:\1DEBASHIS\Project\CBUSA\website\tasks\bin\Debug\CKEditor.NET.dll
+C:\1DEBASHIS\Project\CBUSA\website\tasks\bin\Debug\UltimateSpell.dll
+C:\1DEBASHIS\Project\CBUSA\website\tasks\bin\Debug\FredCK.FCKeditorV2.dll
+C:\1DEBASHIS\Project\CBUSA\website\tasks\bin\Debug\Lucene.Net.dll
+C:\1DEBASHIS\Project\CBUSA\website\tasks\bin\Debug\Highlighter.Net.dll
+C:\1DEBASHIS\Project\CBUSA\website\tasks\bin\Debug\library.dll
+C:\1DEBASHIS\Project\CBUSA\website\tasks\bin\Debug\SpellChecker.Net.dll
+C:\1DEBASHIS\Project\CBUSA\website\tasks\bin\Debug\Common.pdb
+C:\1DEBASHIS\Project\CBUSA\website\tasks\bin\Debug\Common.xml
+C:\1DEBASHIS\Project\CBUSA\website\tasks\bin\Debug\TwoPrice.pdb
+C:\1DEBASHIS\Project\CBUSA\website\tasks\bin\Debug\Highlighter.Net.xml
+C:\1DEBASHIS\Project\CBUSA\website\tasks\bin\Debug\SpellChecker.Net.xml
+C:\1DEBASHIS\Project\CBUSA\website\tasks\bin\Debug\Common.XmlSerializers.dll
+C:\1DEBASHIS\Project\CBUSA\website\tasks\obj\Debug\Tasks.vbprojAssemblyReference.cache
+C:\1DEBASHIS\Project\CBUSA\website\tasks\obj\Debug\Tasks.Resources.resources
+C:\1DEBASHIS\Project\CBUSA\website\tasks\obj\Debug\Tasks.vbproj.GenerateResource.cache
+C:\1DEBASHIS\Project\CBUSA\website\tasks\obj\Debug\Tasks.vbproj.CoreCompileInputs.cache
+C:\1DEBASHIS\Project\CBUSA\website\tasks\obj\Debug\Tasks.exe.manifest
+C:\1DEBASHIS\Project\CBUSA\website\tasks\obj\Debug\Tasks.application
+C:\1DEBASHIS\Project\CBUSA\website\tasks\obj\Debug\Tasks.vbproj.CopyComplete
+C:\1DEBASHIS\Project\CBUSA\website\tasks\obj\Debug\Tasks.exe
+C:\1DEBASHIS\Project\CBUSA\website\tasks\obj\Debug\Tasks.xml
+C:\1DEBASHIS\Project\CBUSA\website\tasks\obj\Debug\Tasks.pdb
+C:\1DEBASHIS\Project\CBUSA\website\tasks\bin\Debug\Common.dll.config
+C:\1DEBASHIS\Project\CBUSA\website\tasks\bin\Debug\Newtonsoft.Json.dll
+C:\1DEBASHIS\Project\CBUSA\website\tasks\bin\Debug\MedullusSendGridEmailLib.dll
+C:\1DEBASHIS\Project\CBUSA\website\tasks\bin\Debug\Azure_TableStorage.dll
+C:\1DEBASHIS\Project\CBUSA\website\tasks\bin\Debug\TwoPrice.xml
+D:\CBUSA\LOB_TFS\tasks\bin\Debug\Tasks.exe.config
+D:\CBUSA\LOB_TFS\tasks\bin\Debug\Tasks.exe.manifest
+D:\CBUSA\LOB_TFS\tasks\bin\Debug\Tasks.application
+D:\CBUSA\LOB_TFS\tasks\bin\Debug\Tasks.exe
+D:\CBUSA\LOB_TFS\tasks\bin\Debug\Tasks.pdb
+D:\CBUSA\LOB_TFS\tasks\bin\Debug\Tasks.xml
+D:\CBUSA\LOB_TFS\tasks\bin\Debug\Common.dll
+D:\CBUSA\LOB_TFS\tasks\bin\Debug\TwoPrice.dll
+D:\CBUSA\LOB_TFS\tasks\bin\Debug\Vindicia.dll
+D:\CBUSA\LOB_TFS\tasks\bin\Debug\Newtonsoft.Json.dll
+D:\CBUSA\LOB_TFS\tasks\bin\Debug\MedullusSendGridEmailLib.dll
+D:\CBUSA\LOB_TFS\tasks\bin\Debug\log4net.dll
+D:\CBUSA\LOB_TFS\tasks\bin\Debug\CKEditor.NET.dll
+D:\CBUSA\LOB_TFS\tasks\bin\Debug\UltimateSpell.dll
+D:\CBUSA\LOB_TFS\tasks\bin\Debug\FredCK.FCKeditorV2.dll
+D:\CBUSA\LOB_TFS\tasks\bin\Debug\Lucene.Net.dll
+D:\CBUSA\LOB_TFS\tasks\bin\Debug\Highlighter.Net.dll
+D:\CBUSA\LOB_TFS\tasks\bin\Debug\library.dll
+D:\CBUSA\LOB_TFS\tasks\bin\Debug\SpellChecker.Net.dll
+D:\CBUSA\LOB_TFS\tasks\bin\Debug\Common.pdb
+D:\CBUSA\LOB_TFS\tasks\bin\Debug\Common.dll.config
+D:\CBUSA\LOB_TFS\tasks\bin\Debug\TwoPrice.pdb
+D:\CBUSA\LOB_TFS\tasks\bin\Debug\Highlighter.Net.xml
+D:\CBUSA\LOB_TFS\tasks\bin\Debug\SpellChecker.Net.xml
+D:\CBUSA\LOB_TFS\tasks\obj\Debug\Tasks.Resources.resources
+D:\CBUSA\LOB_TFS\tasks\obj\Debug\Tasks.vbproj.GenerateResource.Cache
+D:\CBUSA\LOB_TFS\tasks\obj\Debug\Tasks.exe.manifest
+D:\CBUSA\LOB_TFS\tasks\obj\Debug\Tasks.application
+D:\CBUSA\LOB_TFS\tasks\obj\Debug\Tasks.exe
+D:\CBUSA\LOB_TFS\tasks\obj\Debug\Tasks.xml
+D:\CBUSA\LOB_TFS\tasks\obj\Debug\Tasks.pdb
+D:\CBUSA\LOB_TFS\tasks\obj\Debug\Tasks.vbprojAssemblyReference.cache
+D:\CBUSA\LOB_TFS\tasks\obj\Debug\Tasks.vbproj.CoreCompileInputs.cache
+D:\CBUSA\LOB_TFS\tasks\obj\Debug\Tasks.vbproj.CopyComplete
+D:\CBUSA\LOB_TFS\tasks\bin\Debug\Common.xml
+D:\CBUSA\LOB_TFS\tasks\bin\Debug\TwoPrice.xml
+C:\Medullus\CBUSA - Code Review and Migration\website\tasks\obj\Debug\Tasks.vbprojResolveAssemblyReference.cache
+C:\Medullus\CBUSA - Code Review and Migration\website\tasks\obj\Debug\Tasks.Resources.resources
+C:\Medullus\CBUSA - Code Review and Migration\website\tasks\obj\Debug\Tasks.vbproj.GenerateResource.Cache
+C:\Medullus\CBUSA - Code Review and Migration\website\tasks\bin\Debug\Tasks.exe.config
+C:\Medullus\CBUSA - Code Review and Migration\website\tasks\bin\Debug\Tasks.exe
+C:\Medullus\CBUSA - Code Review and Migration\website\tasks\bin\Debug\Tasks.pdb
+C:\Medullus\CBUSA - Code Review and Migration\website\tasks\bin\Debug\Tasks.xml
+C:\Medullus\CBUSA - Code Review and Migration\website\tasks\bin\Debug\Common.dll
+C:\Medullus\CBUSA - Code Review and Migration\website\tasks\bin\Debug\TwoPrice.dll
+C:\Medullus\CBUSA - Code Review and Migration\website\tasks\bin\Debug\Vindicia.dll
+C:\Medullus\CBUSA - Code Review and Migration\website\tasks\bin\Debug\Newtonsoft.Json.dll
+C:\Medullus\CBUSA - Code Review and Migration\website\tasks\bin\Debug\MedullusSendGridEmailLib.dll
+C:\Medullus\CBUSA - Code Review and Migration\website\tasks\bin\Debug\Azure_TableStorage.dll
+C:\Medullus\CBUSA - Code Review and Migration\website\tasks\bin\Debug\log4net.dll
+C:\Medullus\CBUSA - Code Review and Migration\website\tasks\bin\Debug\CKEditor.NET.dll
+C:\Medullus\CBUSA - Code Review and Migration\website\tasks\bin\Debug\UltimateSpell.dll
+C:\Medullus\CBUSA - Code Review and Migration\website\tasks\bin\Debug\FredCK.FCKeditorV2.dll
+C:\Medullus\CBUSA - Code Review and Migration\website\tasks\bin\Debug\Lucene.Net.dll
+C:\Medullus\CBUSA - Code Review and Migration\website\tasks\bin\Debug\Highlighter.Net.dll
+C:\Medullus\CBUSA - Code Review and Migration\website\tasks\bin\Debug\library.dll
+C:\Medullus\CBUSA - Code Review and Migration\website\tasks\bin\Debug\SpellChecker.Net.dll
+C:\Medullus\CBUSA - Code Review and Migration\website\tasks\bin\Debug\Common.pdb
+C:\Medullus\CBUSA - Code Review and Migration\website\tasks\bin\Debug\Common.xml
+C:\Medullus\CBUSA - Code Review and Migration\website\tasks\bin\Debug\TwoPrice.pdb
+C:\Medullus\CBUSA - Code Review and Migration\website\tasks\bin\Debug\TwoPrice.xml
+C:\Medullus\CBUSA - Code Review and Migration\website\tasks\bin\Debug\Highlighter.Net.xml
+C:\Medullus\CBUSA - Code Review and Migration\website\tasks\bin\Debug\SpellChecker.Net.xml
+C:\Medullus\CBUSA - Code Review and Migration\website\tasks\obj\Debug\Tasks.exe
+C:\Medullus\CBUSA - Code Review and Migration\website\tasks\obj\Debug\Tasks.xml
+C:\Medullus\CBUSA - Code Review and Migration\website\tasks\obj\Debug\Tasks.pdb

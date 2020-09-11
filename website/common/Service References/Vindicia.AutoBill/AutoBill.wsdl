@@ -1,0 +1,507 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:enc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://soap.vindicia.com/AutoBill" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:vin="http://soap.vindicia.com/Vindicia" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:xsdl="http://soap.vindicia.com/AutoBill" name="AutoBill" targetNamespace="http://soap.vindicia.com/AutoBill" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <documentation>WSDL Specification for AutoBill</documentation>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://soap.vindicia.com/AutoBill">
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+      <xsd:import schemaLocation="./Vindicia.xsd" namespace="http://soap.vindicia.com/Vindicia" />
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="update_in">
+    <wsdl:part name="auth" type="vin:Authentication" />
+    <wsdl:part name="autobill" type="vin:AutoBill" />
+    <wsdl:part name="duplicateBehavior" type="vin:DuplicateBehavior" />
+    <wsdl:part name="validatePaymentMethod" type="xsd:boolean" />
+    <wsdl:part name="minChargebackProbability" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="update_out">
+    <wsdl:part name="return" type="vin:Return" />
+    <wsdl:part name="autobill" type="vin:AutoBill" />
+    <wsdl:part name="created" type="xsd:boolean" />
+    <wsdl:part name="firstBillDate" type="xsd:string" />
+    <wsdl:part name="firstBillAmount" type="xsd:decimal" />
+    <wsdl:part name="firstBillingCurrency" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="cancel_in">
+    <wsdl:part name="auth" type="vin:Authentication" />
+    <wsdl:part name="autobill" type="vin:AutoBill" />
+    <wsdl:part name="disentitle" type="xsd:boolean" />
+    <wsdl:part name="force" type="xsd:boolean" />
+  </wsdl:message>
+  <wsdl:message name="cancel_out">
+    <wsdl:part name="return" type="vin:Return" />
+    <wsdl:part name="autobill" type="vin:AutoBill" />
+  </wsdl:message>
+  <wsdl:message name="delayBillingToDate_in">
+    <wsdl:part name="auth" type="vin:Authentication" />
+    <wsdl:part name="autobill" type="vin:AutoBill" />
+    <wsdl:part name="newBillingDate" type="xsd:date" />
+  </wsdl:message>
+  <wsdl:message name="delayBillingToDate_out">
+    <wsdl:part name="return" type="vin:Return" />
+    <wsdl:part name="autobill" type="vin:AutoBill" />
+    <wsdl:part name="nextBillingDate" type="xsd:date" />
+    <wsdl:part name="nextBillingAmount" type="xsd:decimal" />
+    <wsdl:part name="nextBillingCurrency" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="delayBillingByDays_in">
+    <wsdl:part name="auth" type="vin:Authentication" />
+    <wsdl:part name="autobill" type="vin:AutoBill" />
+    <wsdl:part name="delayDays" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="delayBillingByDays_out">
+    <wsdl:part name="return" type="vin:Return" />
+    <wsdl:part name="autobill" type="vin:AutoBill" />
+    <wsdl:part name="nextBillingDate" type="xsd:date" />
+    <wsdl:part name="nextBillingAmount" type="xsd:decimal" />
+    <wsdl:part name="nextBillingCurrency" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="changeBillingDayOfMonth_in">
+    <wsdl:part name="auth" type="vin:Authentication" />
+    <wsdl:part name="autobill" type="vin:AutoBill" />
+    <wsdl:part name="dayOfMonth" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="changeBillingDayOfMonth_out">
+    <wsdl:part name="return" type="vin:Return" />
+    <wsdl:part name="autobill" type="vin:AutoBill" />
+    <wsdl:part name="nextBillingDate" type="xsd:date" />
+    <wsdl:part name="nextBillingAmount" type="xsd:decimal" />
+    <wsdl:part name="nextBillingCurrency" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="fetchByAccountAndProduct_in">
+    <wsdl:part name="auth" type="vin:Authentication" />
+    <wsdl:part name="account" type="vin:Account" />
+    <wsdl:part name="product" type="vin:Product" />
+  </wsdl:message>
+  <wsdl:message name="fetchByAccountAndProduct_out">
+    <wsdl:part name="return" type="vin:Return" />
+    <wsdl:part name="autobills" type="vin:ArrayOfAutoBills" />
+  </wsdl:message>
+  <wsdl:message name="fetchByMerchantAutoBillId_in">
+    <wsdl:part name="auth" type="vin:Authentication" />
+    <wsdl:part name="merchantAutoBillId" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="fetchByMerchantAutoBillId_out">
+    <wsdl:part name="return" type="vin:Return" />
+    <wsdl:part name="autobill" type="vin:AutoBill" />
+  </wsdl:message>
+  <wsdl:message name="fetchByVid_in">
+    <wsdl:part name="auth" type="vin:Authentication" />
+    <wsdl:part name="vid" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="fetchByVid_out">
+    <wsdl:part name="return" type="vin:Return" />
+    <wsdl:part name="autobill" type="vin:AutoBill" />
+  </wsdl:message>
+  <wsdl:message name="fetchByEmail_in">
+    <wsdl:part name="auth" type="vin:Authentication" />
+    <wsdl:part name="email" type="xsd:string" />
+  </wsdl:message>
+  <wsdl:message name="fetchByEmail_out">
+    <wsdl:part name="return" type="vin:Return" />
+    <wsdl:part name="autobills" type="vin:ArrayOfAutoBills" />
+  </wsdl:message>
+  <wsdl:message name="fetchByAccount_in">
+    <wsdl:part name="auth" type="vin:Authentication" />
+    <wsdl:part name="account" type="vin:Account" />
+  </wsdl:message>
+  <wsdl:message name="fetchByAccount_out">
+    <wsdl:part name="return" type="vin:Return" />
+    <wsdl:part name="autobills" type="vin:ArrayOfAutoBills" />
+  </wsdl:message>
+  <wsdl:message name="futureRebills_in">
+    <wsdl:part name="auth" type="vin:Authentication" />
+    <wsdl:part name="autobill" type="vin:AutoBill" />
+    <wsdl:part name="quantity" type="xsd:int" />
+  </wsdl:message>
+  <wsdl:message name="futureRebills_out">
+    <wsdl:part name="return" type="vin:Return" />
+    <wsdl:part name="transactions" type="vin:ArrayOfTransactions" />
+  </wsdl:message>
+  <wsdl:portType name="AutoBillPortType">
+    <wsdl:operation name="update" parameterOrder="auth autobill duplicateBehavior validatePaymentMethod minChargebackProbability">
+      <wsdl:input message="xsdl:update_in" />
+      <wsdl:output message="xsdl:update_out" />
+    </wsdl:operation>
+    <wsdl:operation name="cancel" parameterOrder="auth autobill disentitle force">
+      <wsdl:input message="xsdl:cancel_in" />
+      <wsdl:output message="xsdl:cancel_out" />
+    </wsdl:operation>
+    <wsdl:operation name="delayBillingToDate" parameterOrder="auth autobill newBillingDate">
+      <wsdl:input message="xsdl:delayBillingToDate_in" />
+      <wsdl:output message="xsdl:delayBillingToDate_out" />
+    </wsdl:operation>
+    <wsdl:operation name="delayBillingByDays" parameterOrder="auth autobill delayDays">
+      <wsdl:input message="xsdl:delayBillingByDays_in" />
+      <wsdl:output message="xsdl:delayBillingByDays_out" />
+    </wsdl:operation>
+    <wsdl:operation name="changeBillingDayOfMonth" parameterOrder="auth autobill dayOfMonth">
+      <wsdl:input message="xsdl:changeBillingDayOfMonth_in" />
+      <wsdl:output message="xsdl:changeBillingDayOfMonth_out" />
+    </wsdl:operation>
+    <wsdl:operation name="fetchByAccountAndProduct" parameterOrder="auth account product">
+      <wsdl:input message="xsdl:fetchByAccountAndProduct_in" />
+      <wsdl:output message="xsdl:fetchByAccountAndProduct_out" />
+    </wsdl:operation>
+    <wsdl:operation name="fetchByMerchantAutoBillId" parameterOrder="auth merchantAutoBillId">
+      <wsdl:input message="xsdl:fetchByMerchantAutoBillId_in" />
+      <wsdl:output message="xsdl:fetchByMerchantAutoBillId_out" />
+    </wsdl:operation>
+    <wsdl:operation name="fetchByVid" parameterOrder="auth vid">
+      <wsdl:input message="xsdl:fetchByVid_in" />
+      <wsdl:output message="xsdl:fetchByVid_out" />
+    </wsdl:operation>
+    <wsdl:operation name="fetchByEmail" parameterOrder="auth email">
+      <wsdl:input message="xsdl:fetchByEmail_in" />
+      <wsdl:output message="xsdl:fetchByEmail_out" />
+    </wsdl:operation>
+    <wsdl:operation name="fetchByAccount" parameterOrder="auth account">
+      <wsdl:input message="xsdl:fetchByAccount_in" />
+      <wsdl:output message="xsdl:fetchByAccount_out" />
+    </wsdl:operation>
+    <wsdl:operation name="futureRebills" parameterOrder="auth autobill quantity">
+      <wsdl:input message="xsdl:futureRebills_in" />
+      <wsdl:output message="xsdl:futureRebills_out" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="AutoBillBinding" type="xsdl:AutoBillPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" style="rpc" />
+    <wsdl:operation name="update">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Creates a new AutoBill object or updates an existing one.<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>autobill</b></dt>
+<dd>Object to create</dd>
+<dt><b>duplicateBehavior</b></dt>
+<dd>What to do if a duplicate AutoBill is submitted. The fields used to determine this are: account, product, billingPlan, merchantAutoBillId</dd>
+<dt><b>validatePaymentMethod</b></dt>
+<dd>Validate the payment method before saving. AutoBill will not be saved if validation is requested and fails.</dd>
+<dt><b>minChargebackProbability</b></dt>
+<dd>If Chargeback Probability from risk scoring is greater than this, the transaction will fail. Default is 100 (all payment methods are applied).</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>autobill</b></dt>
+<dd>The resultant object</dd>
+<dt><b>created</b></dt>
+<dd>True if the object was created new</dd>
+<dt><b>firstBillDate</b></dt>
+<dd>Date of first billing on this object</dd>
+<dt><b>firstBillAmount</b></dt>
+<dd>Amount of first billing on this object</dd>
+<dt><b>firstBillingCurrency</b></dt>
+<dd>Currency of first billing on this object</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/AutoBill#update" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://soap.vindicia.com/AutoBill" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://soap.vindicia.com/AutoBill" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="cancel">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Cancels an AutoBill. Use the force flag to allow cancelling within a commitment period.<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>autobill</b></dt>
+<dd>Object to create</dd>
+<dt><b>disentitle</b></dt>
+<dd>If true, also immediately disentitles the Account associated with this AutoBill for relevant Products.</dd>
+<dt><b>force</b></dt>
+<dd>If true, allows cancelling even if within a defined commitment period.</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>autobill</b></dt>
+<dd>The resultant object</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/AutoBill#cancel" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://soap.vindicia.com/AutoBill" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://soap.vindicia.com/AutoBill" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="delayBillingToDate">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Delays billing on a given autobill until a particular date<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>autobill</b></dt>
+<dd>The AutoBill object</dd>
+<dt><b>newBillingDate</b></dt>
+<dd>Date to delay billing until</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>autobill</b></dt>
+<dd>The resultant object</dd>
+<dt><b>nextBillingDate</b></dt>
+<dd>Date of next billing after the delay</dd>
+<dt><b>nextBillingAmount</b></dt>
+<dd>Amount of next billing after the delay</dd>
+<dt><b>nextBillingCurrency</b></dt>
+<dd>Currency of next billing</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/AutoBill#delayBillingToDate" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://soap.vindicia.com/AutoBill" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://soap.vindicia.com/AutoBill" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="delayBillingByDays">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Delays billing a given number of days<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>autobill</b></dt>
+<dd>The AutoBill object</dd>
+<dt><b>delayDays</b></dt>
+<dd>Number of days to delay billing by</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>autobill</b></dt>
+<dd>The resultant object</dd>
+<dt><b>nextBillingDate</b></dt>
+<dd>Date of next billing after the delay</dd>
+<dt><b>nextBillingAmount</b></dt>
+<dd>Amount of next billing after the delay</dd>
+<dt><b>nextBillingCurrency</b></dt>
+<dd>Currency of next billing</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/AutoBill#delayBillingByDays" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://soap.vindicia.com/AutoBill" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://soap.vindicia.com/AutoBill" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="changeBillingDayOfMonth">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Delays a billing to a given day of the month. Note: You can also change the day in the AutoBill and call update but this function returns useful information.<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>autobill</b></dt>
+<dd>The AutoBill object</dd>
+<dt><b>dayOfMonth</b></dt>
+<dd>Day of month to delay to, between 1 and 31, inclusive</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>autobill</b></dt>
+<dd>The resultant object</dd>
+<dt><b>nextBillingDate</b></dt>
+<dd>Date of next billing after the delay</dd>
+<dt><b>nextBillingAmount</b></dt>
+<dd>Amount of next billing after the delay</dd>
+<dt><b>nextBillingCurrency</b></dt>
+<dd>Currency of next billing</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/AutoBill#changeBillingDayOfMonth" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://soap.vindicia.com/AutoBill" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://soap.vindicia.com/AutoBill" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="fetchByAccountAndProduct">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Loads an array of autobills by an Account and Product<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>account</b></dt>
+<dd>Account to load AutoBill for</dd>
+<dt><b>product</b></dt>
+<dd>Product to load AutoBill for</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>autobills</b></dt>
+<dd>The resultant object</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/AutoBill#fetchByAccountAndProduct" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://soap.vindicia.com/AutoBill" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://soap.vindicia.com/AutoBill" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="fetchByMerchantAutoBillId">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Loads an autobill by merchants's unique id of subscribed item<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>merchantAutoBillId</b></dt>
+<dd>Merchant's unique id for subscription</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>autobill</b></dt>
+<dd>The resultant object</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/AutoBill#fetchByMerchantAutoBillId" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://soap.vindicia.com/AutoBill" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://soap.vindicia.com/AutoBill" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="fetchByVid">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Loads an autobill by Vindicia's unique ID<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>vid</b></dt>
+<dd>Vindicia ID for the object</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>autobill</b></dt>
+<dd>The resultant object</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/AutoBill#fetchByVid" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://soap.vindicia.com/AutoBill" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://soap.vindicia.com/AutoBill" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="fetchByEmail">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Loads an array of autobills by customer email<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>email</b></dt>
+<dd>Email address to load by</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>autobills</b></dt>
+<dd>The resultant object</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/AutoBill#fetchByEmail" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://soap.vindicia.com/AutoBill" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://soap.vindicia.com/AutoBill" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="fetchByAccount">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Loads an array of autobills by Account object<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>account</b></dt>
+<dd>Account to load by</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>autobills</b></dt>
+<dd>The resultant object</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/AutoBill#fetchByAccount" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://soap.vindicia.com/AutoBill" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://soap.vindicia.com/AutoBill" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="futureRebills">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Returns projected future <a href="#data_type.Transaction">Transaction</a> objects for a given autobill object<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>autobill</b></dt>
+<dd>Object to create</dd>
+<dt><b>quantity</b></dt>
+<dd>Number of period to project forward</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>transactions</b></dt>
+<dd>The projected, future transactions</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/AutoBill#futureRebills" />
+      <wsdl:input>
+        <soap:body use="encoded" namespace="http://soap.vindicia.com/AutoBill" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="encoded" namespace="http://soap.vindicia.com/AutoBill" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="AutoBill">
+    <wsdl:port name="AutoBillPort" binding="xsdl:AutoBillBinding">
+      <soap:address location="https://soap.vindicia.com/v3.0/soap.pl" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

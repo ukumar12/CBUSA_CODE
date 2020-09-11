@@ -1,0 +1,115 @@
+Imports Components
+Imports DataLayer
+
+Partial Class rebates_discrepancy_response
+    Inherits SitePage
+
+    Private ReadOnly Property Now() As DateTime
+        Get
+            Dim param As String = SysParam.GetValue(DB, "DemoReportingDate")
+            If param = Nothing OrElse param = "0" Then
+                Return DateTime.Now
+            Else
+                Return param
+            End If
+        End Get
+    End Property
+
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        EnsureVendorAccess()
+
+        If Not IsPostBack And Not ScriptManager.GetCurrent(Page).IsInAsyncPostBack Then
+            BindReport()
+        End If
+    End Sub
+
+    Private Sub BindReport()
+        rptReport.DataSource = SalesReportDisputeRow.GetListByVendor(DB, Session("VendorID"), False)
+        rptReport.DataBind()
+    End Sub
+
+    Protected Sub frmResponse_TemplateLoaded(ByVal sender As Object, ByVal args As System.EventArgs)
+        Dim form As PopupForm.PopupForm = CType(sender, PopupForm.PopupForm)
+        Dim rptItem As RepeaterItem = CType(sender, Control).NamingContainer
+        If rptItem.DataItem IsNot Nothing Then
+            CType(form.FindControl("hdnSalesReportDisputeId"), HiddenField).Value = rptItem.DataItem("SalesReportDisputeId")
+            CType(form.FindControl("ltlBuilder"), Literal).Text = rptItem.DataItem("BuilderCompany")
+            If Not IsDBNull(rptItem.DataItem("VendorTotalAmount")) Then
+                CType(form.FindControl("ltlVendorAmount"), Literal).Text = FormatCurrency(rptItem.DataItem("VendorTotalAmount"))
+            End If
+            If Not IsDBNull(rptItem.DataItem("BuilderTotalAmount")) Then
+                CType(form.FindControl("ltlBuilderAmount"), Literal).Text = FormatCurrency(rptItem.DataItem("BuilderTotalAmount"))
+            End If
+
+            CType(form.FindControl("txtComments"), TextBox).Text = IIf(IsDBNull(rptItem.DataItem("VendorComments")), String.Empty, rptItem.DataItem("VendorComments"))
+            CType(form.FindControl("ltlBuilderComments"), Literal).Text = IIf(IsDBNull(rptItem.DataItem("BuilderComments")), String.Empty, rptItem.DataItem("BuilderComments"))
+
+            Dim trReason As HtmlTableRow = form.FindControl("trReason")
+            Dim trNewAmount As HtmlTableRow = form.FindControl("trNewAmount")
+
+            Dim drpResponse As DropDownList = form.FindControl("drpResponse")
+            drpResponse.DataSource = DisputeResponseRow.GetList(DB)
+            drpResponse.DataTextField = "DisputeResponse"
+            drpResponse.DataValueField = "DisputeResponseID"
+            drpResponse.DataBind()
+            If Not IsDBNull(rptItem.DataItem("DisputeResponseID")) Then
+                drpResponse.SelectedValue = rptItem.DataItem("DisputeResponseID")
+                If drpResponse.SelectedItem.Text.ToLower.Contains("refuse") Then
+                    trReason.Style.Remove("display")
+                    trNewAmount.Style.Add("display", "none")
+                ElseIf drpResponse.SelectedItem.Text.ToLower.Contains("new") Then
+                    trReason.Style.Add("display", "none")
+                    trNewAmount.Style.Remove("display")
+                Else
+                    trReason.Style.Add("display", "none")
+                    trNewAmount.Style.Add("display", "none")
+                End If
+            End If
+
+                Dim drpReason As DropDownList = form.FindControl("drpReason")
+                drpReason.DataSource = DisputeResponseReasonRow.GetList(DB)
+                drpReason.DataTextField = "DisputeResponseReason"
+                drpReason.DataValueField = "DisputeResponseReasonID"
+                drpReason.DataBind()
+
+        End If
+    End Sub
+
+    Protected Sub frmResponse_Postback(ByVal sender As Object, ByVal args As System.EventArgs)
+        Dim form As PopupForm.PopupForm = CType(sender, Control).NamingContainer
+        form.Validate()
+        If Not form.IsValid Then Exit Sub
+
+        Dim SalesReportDisputeId As Integer = CType(form.FindControl("hdnSalesReportDisputeId"), HiddenField).Value
+        Dim dbDispute As SalesReportDisputeRow = SalesReportDisputeRow.GetRow(DB, SalesReportDisputeId)
+        dbDispute.DisputeResponseID = CType(form.FindControl("drpResponse"), DropDownList).SelectedValue
+
+        Dim dbResponse As DisputeResponseRow = DisputeResponseRow.GetRow(DB, dbDispute.DisputeResponseID)
+        If dbResponse.DisputeResponse.ToLower.Contains("refuse") Then
+            dbDispute.DisputeResponseReasonID = CType(form.FindControl("drpReason"), DropDownList).SelectedValue
+        Else
+            dbDispute.DisputeResponseReasonID = Nothing
+        End If
+        If dbResponse.DisputeResponse.ToLower.Contains("new") Then
+            dbDispute.ResolutionAmount = CType(form.FindControl("txtNewAmount"), TextBox).Text
+        Else
+            dbDispute.ResolutionAmount = Nothing
+        End If
+        dbDispute.VendorComments = CType(form.FindControl("txtComments"), TextBox).Text
+        dbDispute.Update()
+        BindReport()
+        phResult.Visible = True
+        upReport.Update()
+    End Sub
+
+    Protected Sub rptReport_ItemCreated(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.RepeaterItemEventArgs) Handles rptReport.ItemCreated
+        If e.Item.ItemType <> ListItemType.AlternatingItem And e.Item.ItemType <> ListItemType.Item Then
+            Exit Sub
+        End If
+
+        Dim frmResponse As PopupForm.PopupForm = e.Item.FindControl("frmResponse")
+        AddHandler frmResponse.TemplateLoaded, AddressOf frmResponse_TemplateLoaded
+        AddHandler frmResponse.Postback, AddressOf frmResponse_Postback
+        ScriptManager.GetCurrent(Page).RegisterAsyncPostBackControl(frmResponse)
+    End Sub
+End Class

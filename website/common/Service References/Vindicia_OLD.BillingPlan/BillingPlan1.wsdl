@@ -1,0 +1,454 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:xsdl="http://soap.vindicia.com/v7_0/BillingPlan" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:vin="http://soap.vindicia.com/v7_0/Vindicia" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:enc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tns="http://soap.vindicia.com/v7_0/BillingPlan" xmlns="http://schemas.xmlsoap.org/wsdl/" name="BillingPlan" targetNamespace="http://soap.vindicia.com/v7_0/BillingPlan" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <documentation>WSDL Specification for BillingPlan</documentation>
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://soap.vindicia.com/v7_0/BillingPlan">
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+      <xsd:import schemaLocation="./Vindicia.xsd" namespace="http://soap.vindicia.com/v7_0/Vindicia" />
+      <xsd:element name="update">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="auth" type="vin:Authentication" />
+            <xsd:element name="billingPlan" type="vin:BillingPlan" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="updateResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="return" type="vin:Return" />
+            <xsd:element minOccurs="0" name="billingPlan" type="vin:BillingPlan" />
+            <xsd:element name="created" type="xsd:boolean" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fetchByVid">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="auth" type="vin:Authentication" />
+            <xsd:element name="vid" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fetchByVidResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="return" type="vin:Return" />
+            <xsd:element minOccurs="0" name="billingPlan" type="vin:BillingPlan" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fetchByMerchantBillingPlanId">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="auth" type="vin:Authentication" />
+            <xsd:element name="merchantBillingPlanId" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fetchByMerchantBillingPlanIdResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="return" type="vin:Return" />
+            <xsd:element minOccurs="0" name="billingPlan" type="vin:BillingPlan" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fetchByBillingPlanStatus">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="auth" type="vin:Authentication" />
+            <xsd:element name="status" type="vin:BillingPlanStatus" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fetchByBillingPlanStatusResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="return" type="vin:Return" />
+            <xsd:element minOccurs="0" maxOccurs="unbounded" name="billingPlans" type="vin:BillingPlan" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fetchAll">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="auth" type="vin:Authentication" />
+            <xsd:element minOccurs="0" name="page" type="xsd:int" />
+            <xsd:element minOccurs="0" name="pageSize" type="xsd:int" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fetchAllResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="return" type="vin:Return" />
+            <xsd:element minOccurs="0" maxOccurs="unbounded" name="billingPlans" type="vin:BillingPlan" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fetchByMerchantEntitlementId">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="auth" type="vin:Authentication" />
+            <xsd:element name="merchantEntitlementId" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fetchByMerchantEntitlementIdResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="return" type="vin:Return" />
+            <xsd:element minOccurs="0" maxOccurs="unbounded" name="billingPlans" type="vin:BillingPlan" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fetchAllInSeason">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="auth" type="vin:Authentication" />
+            <xsd:element minOccurs="0" name="page" type="xsd:int" />
+            <xsd:element minOccurs="0" name="pageSize" type="xsd:int" />
+            <xsd:element minOccurs="0" name="nowDate" type="xsd:date" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fetchAllInSeasonResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="return" type="vin:Return" />
+            <xsd:element minOccurs="0" maxOccurs="unbounded" name="billingPlans" type="vin:BillingPlan" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fetchAllOffSeason">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="auth" type="vin:Authentication" />
+            <xsd:element minOccurs="0" name="page" type="xsd:int" />
+            <xsd:element minOccurs="0" name="pageSize" type="xsd:int" />
+            <xsd:element minOccurs="0" name="nowDate" type="xsd:date" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="fetchAllOffSeasonResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="return" type="vin:Return" />
+            <xsd:element minOccurs="0" maxOccurs="unbounded" name="billingPlans" type="vin:BillingPlan" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="update_in">
+    <wsdl:part name="parameters" element="tns:update" />
+  </wsdl:message>
+  <wsdl:message name="update_out">
+    <wsdl:part name="parameters" element="tns:updateResponse" />
+  </wsdl:message>
+  <wsdl:message name="fetchByVid_in">
+    <wsdl:part name="parameters" element="tns:fetchByVid" />
+  </wsdl:message>
+  <wsdl:message name="fetchByVid_out">
+    <wsdl:part name="parameters" element="tns:fetchByVidResponse" />
+  </wsdl:message>
+  <wsdl:message name="fetchByMerchantBillingPlanId_in">
+    <wsdl:part name="parameters" element="tns:fetchByMerchantBillingPlanId" />
+  </wsdl:message>
+  <wsdl:message name="fetchByMerchantBillingPlanId_out">
+    <wsdl:part name="parameters" element="tns:fetchByMerchantBillingPlanIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="fetchByBillingPlanStatus_in">
+    <wsdl:part name="parameters" element="tns:fetchByBillingPlanStatus" />
+  </wsdl:message>
+  <wsdl:message name="fetchByBillingPlanStatus_out">
+    <wsdl:part name="parameters" element="tns:fetchByBillingPlanStatusResponse" />
+  </wsdl:message>
+  <wsdl:message name="fetchAll_in">
+    <wsdl:part name="parameters" element="tns:fetchAll" />
+  </wsdl:message>
+  <wsdl:message name="fetchAll_out">
+    <wsdl:part name="parameters" element="tns:fetchAllResponse" />
+  </wsdl:message>
+  <wsdl:message name="fetchByMerchantEntitlementId_in">
+    <wsdl:part name="parameters" element="tns:fetchByMerchantEntitlementId" />
+  </wsdl:message>
+  <wsdl:message name="fetchByMerchantEntitlementId_out">
+    <wsdl:part name="parameters" element="tns:fetchByMerchantEntitlementIdResponse" />
+  </wsdl:message>
+  <wsdl:message name="fetchAllInSeason_in">
+    <wsdl:part name="parameters" element="tns:fetchAllInSeason" />
+  </wsdl:message>
+  <wsdl:message name="fetchAllInSeason_out">
+    <wsdl:part name="parameters" element="tns:fetchAllInSeasonResponse" />
+  </wsdl:message>
+  <wsdl:message name="fetchAllOffSeason_in">
+    <wsdl:part name="parameters" element="tns:fetchAllOffSeason" />
+  </wsdl:message>
+  <wsdl:message name="fetchAllOffSeason_out">
+    <wsdl:part name="parameters" element="tns:fetchAllOffSeasonResponse" />
+  </wsdl:message>
+  <wsdl:portType name="BillingPlanPortType">
+    <wsdl:operation name="update">
+      <wsdl:input message="tns:update_in" />
+      <wsdl:output message="tns:update_out" />
+    </wsdl:operation>
+    <wsdl:operation name="fetchByVid">
+      <wsdl:input message="tns:fetchByVid_in" />
+      <wsdl:output message="tns:fetchByVid_out" />
+    </wsdl:operation>
+    <wsdl:operation name="fetchByMerchantBillingPlanId">
+      <wsdl:input message="tns:fetchByMerchantBillingPlanId_in" />
+      <wsdl:output message="tns:fetchByMerchantBillingPlanId_out" />
+    </wsdl:operation>
+    <wsdl:operation name="fetchByBillingPlanStatus">
+      <wsdl:input message="tns:fetchByBillingPlanStatus_in" />
+      <wsdl:output message="tns:fetchByBillingPlanStatus_out" />
+    </wsdl:operation>
+    <wsdl:operation name="fetchAll">
+      <wsdl:input message="tns:fetchAll_in" />
+      <wsdl:output message="tns:fetchAll_out" />
+    </wsdl:operation>
+    <wsdl:operation name="fetchByMerchantEntitlementId">
+      <wsdl:input message="tns:fetchByMerchantEntitlementId_in" />
+      <wsdl:output message="tns:fetchByMerchantEntitlementId_out" />
+    </wsdl:operation>
+    <wsdl:operation name="fetchAllInSeason">
+      <wsdl:input message="tns:fetchAllInSeason_in" />
+      <wsdl:output message="tns:fetchAllInSeason_out" />
+    </wsdl:operation>
+    <wsdl:operation name="fetchAllOffSeason">
+      <wsdl:input message="tns:fetchAllOffSeason_in" />
+      <wsdl:output message="tns:fetchAllOffSeason_out" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="BillingPlanBinding" type="tns:BillingPlanPortType">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="update">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Creates a new BillingPlan object or updates an existing one.<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>billingPlan</b></dt>
+<dd>Object to create</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>billingPlan</b></dt>
+<dd>The resultant object</dd>
+<dt><b>created</b></dt>
+<dd>True if the object was created new</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/v7_0/BillingPlan#update" />
+      <wsdl:input>
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="fetchByVid">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Loads a BillingPlan by Vindicia's unique ID<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>vid</b></dt>
+<dd>Vindicia ID for the object</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>billingPlan</b></dt>
+<dd>The resultant object</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/v7_0/BillingPlan#fetchByVid" />
+      <wsdl:input>
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="fetchByMerchantBillingPlanId">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Loads a BillingPlan by merchant's unique BillingPlan Id<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>merchantBillingPlanId</b></dt>
+<dd>Merchant's BillingPlan Id for this object</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>billingPlan</b></dt>
+<dd>The resultant object</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/v7_0/BillingPlan#fetchByMerchantBillingPlanId" />
+      <wsdl:input>
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="fetchByBillingPlanStatus">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Load a list of BillingPlans by status<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>status</b></dt>
+<dd>The status of the BillingPlan</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>billingPlans</b></dt>
+<dd>The resultant object</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/v7_0/BillingPlan#fetchByBillingPlanStatus" />
+      <wsdl:input>
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="fetchAll">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>page</b></dt>
+<dd>The offset, based on pageSize, to return.</dd>
+<dt><b>pageSize</b></dt>
+<dd>The number of BillingPlans to return per page.</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>billingPlans</b></dt>
+<dd>The resultant object</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/v7_0/BillingPlan#fetchAll" />
+      <wsdl:input>
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="fetchByMerchantEntitlementId">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Loads all BillingPlans that grant an entitlement<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>merchantEntitlementId</b></dt>
+<dd>Merchant's unique entitlement id</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>billingPlans</b></dt>
+<dd>The resultant objects</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/v7_0/BillingPlan#fetchByMerchantEntitlementId" />
+      <wsdl:input>
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="fetchAllInSeason">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Loads all in-season BillingPlans for a merchant<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>page</b></dt>
+<dd>Optional page number to begin results returned</dd>
+<dt><b>pageSize</b></dt>
+<dd>Optional number of results to display per a page</dd>
+<dt><b>nowDate</b></dt>
+<dd>optional date to use - defaults to today.</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>billingPlans</b></dt>
+<dd>The resultant objects</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/v7_0/BillingPlan#fetchAllInSeason" />
+      <wsdl:input>
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="fetchAllOffSeason">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Loads all off-season BillingPlans for a merchant<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>page</b></dt>
+<dd>Optional page number to begin results returned</dd>
+<dt><b>pageSize</b></dt>
+<dd>Optional number of results to display per a page</dd>
+<dt><b>nowDate</b></dt>
+<dd>optional date to use - defaults to today.</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>billingPlans</b></dt>
+<dd>The resultant objects</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/v7_0/BillingPlan#fetchAllOffSeason" />
+      <wsdl:input>
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="BillingPlan">
+    <wsdl:port name="BillingPlanPort" binding="tns:BillingPlanBinding">
+      <soap:address location="https://soap.vindicia.com/soap.pl" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

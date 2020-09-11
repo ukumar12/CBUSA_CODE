@@ -1,0 +1,264 @@
+<definitions name="Refund" targetNamespace="http://soap.vindicia.com/Refund" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:enc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://soap.vindicia.com/Refund" xmlns:vin="http://soap.vindicia.com/Vindicia" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsdl="http://soap.vindicia.com/Refund" >
+  <documentation>WSDL Specification for Refund</documentation>
+  <types>
+    <xsd:schema targetNamespace="http://soap.vindicia.com/Refund">
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+      <xsd:import namespace="http://soap.vindicia.com/Vindicia" schemaLocation="./Vindicia.xsd" />
+    </xsd:schema>
+  </types>
+  <message name="fetchByVid_in">
+    <part name="auth" type="vin:Authentication" />
+    <part name="vid" type="xsd:string" />
+  </message>
+  <message name="fetchByVid_out">
+    <part name="return" type="vin:Return" />
+    <part name="refund" type="vin:Refund" />
+  </message>
+  <message name="fetchByAccount_in">
+    <part name="auth" type="vin:Authentication" />
+    <part name="account" type="vin:Account" />
+  </message>
+  <message name="fetchByAccount_out">
+    <part name="return" type="vin:Return" />
+    <part name="refunds" type="vin:ArrayOfRefunds" />
+  </message>
+  <message name="fetchByTransaction_in">
+    <part name="auth" type="vin:Authentication" />
+    <part name="transaction" type="vin:Transaction" />
+  </message>
+  <message name="fetchByTransaction_out">
+    <part name="return" type="vin:Return" />
+    <part name="refunds" type="vin:ArrayOfRefunds" />
+  </message>
+  <message name="fetchDeltaSince_in">
+    <part name="auth" type="vin:Authentication" />
+    <part name="timestamp" type="xsd:dateTime" />
+    <part name="paymentMethod" type="vin:PaymentMethod" />
+  </message>
+  <message name="fetchDeltaSince_out">
+    <part name="return" type="vin:Return" />
+    <part name="refunds" type="vin:ArrayOfRefunds" />
+  </message>
+  <message name="report_in">
+    <part name="auth" type="vin:Authentication" />
+    <part name="refunds" type="vin:ArrayOfRefunds" />
+  </message>
+  <message name="report_out">
+    <part name="return" type="vin:Return" />
+    <part name="refunds" type="vin:ArrayOfRefunds" />
+  </message>
+  <message name="perform_in">
+    <part name="auth" type="vin:Authentication" />
+    <part name="refunds" type="vin:ArrayOfRefunds" />
+  </message>
+  <message name="perform_out">
+    <part name="return" type="vin:Return" />
+    <part name="refunds" type="vin:ArrayOfRefunds" />
+  </message>
+  <portType name="RefundPortType">
+    <operation name="fetchByVid" parameterOrder="auth vid">
+      <input message="tns:fetchByVid_in" />
+      <output message="tns:fetchByVid_out" />
+    </operation>
+    <operation name="fetchByAccount" parameterOrder="auth account">
+      <input message="tns:fetchByAccount_in" />
+      <output message="tns:fetchByAccount_out" />
+    </operation>
+    <operation name="fetchByTransaction" parameterOrder="auth transaction">
+      <input message="tns:fetchByTransaction_in" />
+      <output message="tns:fetchByTransaction_out" />
+    </operation>
+    <operation name="fetchDeltaSince" parameterOrder="auth timestamp paymentMethod">
+      <input message="tns:fetchDeltaSince_in" />
+      <output message="tns:fetchDeltaSince_out" />
+    </operation>
+    <operation name="report" parameterOrder="auth refunds">
+      <input message="tns:report_in" />
+      <output message="tns:report_out" />
+    </operation>
+    <operation name="perform" parameterOrder="auth refunds">
+      <input message="tns:perform_in" />
+      <output message="tns:perform_out" />
+    </operation>
+  </portType>
+  <binding name="RefundBinding" type="tns:RefundPortType">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="fetchByVid">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Loads a refund for a Vindicia ID<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>vid</b></dt>
+<dd>Vindicia ID for the object</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>refund</b></dt>
+<dd>The refund object with this VID</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/Refund#fetchByVid" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Refund" use="encoded" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Refund" use="encoded" />
+      </output>
+    </operation>
+    <operation name="fetchByAccount">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Loads refunds for an Account<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>account</b></dt>
+<dd>Account to load by</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>refunds</b></dt>
+<dd>Array of Refund objects associated with Account</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/Refund#fetchByAccount" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Refund" use="encoded" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Refund" use="encoded" />
+      </output>
+    </operation>
+    <operation name="fetchByTransaction">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Loads a refund for a Transaction<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>transaction</b></dt>
+<dd>Transaction to load by</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>refunds</b></dt>
+<dd>The Refund objects for the Transaction</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/Refund#fetchByTransaction" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Refund" use="encoded" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Refund" use="encoded" />
+      </output>
+    </operation>
+    <operation name="fetchDeltaSince">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+ARRAY(0x8a04278)<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>timestamp</b></dt>
+<dd>All refunds after this timestamp</dd>
+<dt><b>paymentMethod</b></dt>
+<dd>Optional payment method to constrain changes against</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>refunds</b></dt>
+<dd>Array of refund objects that have changed since the timestamp</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/Refund#fetchDeltaSince" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Refund" use="encoded" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Refund" use="encoded" />
+      </output>
+    </operation>
+    <operation name="report">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Reports a list of refunds you have performed on transactions. No refund operation is performed by Vindicia. This is for informational purposes only.<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>refunds</b></dt>
+<dd>An array of <a href="#data_type.Refund">Refund</a> objects</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>refunds</b></dt>
+<dd>An array of <a href="#data_type.Refund">Refund</a> objects</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/Refund#report" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Refund" use="encoded" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Refund" use="encoded" />
+      </output>
+    </operation>
+    <operation name="perform">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+
+      
+Performs refunds of an array of transactions for Cashbox customers.
+Each refund must include a transaction that specifies at least a VID
+or a merchantTransactionId to load an correspond the refund with.  If
+the transaction has not yet been captured, this method will implicitly
+cancel the transaction instead of performing an actual refund.
+<p>
+Has the following return values:<p>
+'400:No refunds specified' if no refunds are specified<br>
+'400:Refund amount negative' if an amount on a refund is negative<br>
+'400:Must specify transaction to load by' if no transaction is specified to refund against<br>
+'206:Some (or all) refunds failed' if one or more refunds fail.  In this case, the corresponding returned refund will be returned with no VID, and a note that indicates what error occurred<br>
+      
+    <p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>refunds</b></dt>
+<dd>An array of <a href="#data_type.Refund">Refund</a> objects</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>refunds</b></dt>
+<dd>An array of <a href="#data_type.Refund">Refund</a> objects</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/Refund#perform" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Refund" use="encoded" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Refund" use="encoded" />
+      </output>
+    </operation>
+  </binding>
+  <service name="Refund">
+    <port binding="tns:RefundBinding" name="RefundPort">
+      <soap:address location="https://soap.vindicia.com/v3.1/soap.pl" />
+    </port>
+  </service>
+</definitions>

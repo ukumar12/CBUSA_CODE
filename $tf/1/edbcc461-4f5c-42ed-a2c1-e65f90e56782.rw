@@ -1,0 +1,5 @@
+﻿
+Partial Class rebates_purchases_history
+    Inherits System.Web.UI.Page
+
+End Class

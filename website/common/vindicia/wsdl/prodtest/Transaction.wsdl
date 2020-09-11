@@ -1,0 +1,677 @@
+<definitions name="Transaction" targetNamespace="http://soap.vindicia.com/Transaction" xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:enc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://soap.vindicia.com/Transaction" xmlns:vin="http://soap.vindicia.com/Vindicia" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsdl="http://soap.vindicia.com/Transaction" >
+  <documentation>WSDL Specification for Transaction</documentation>
+  <types>
+    <xsd:schema targetNamespace="http://soap.vindicia.com/Transaction">
+      <xsd:import namespace="http://schemas.xmlsoap.org/soap/encoding/" />
+      <xsd:import namespace="http://soap.vindicia.com/Vindicia" schemaLocation="./Vindicia.xsd" />
+    </xsd:schema>
+  </types>
+  <message name="fetchByVid_in">
+    <part name="auth" type="vin:Authentication" />
+    <part name="vid" type="xsd:string" />
+  </message>
+  <message name="fetchByVid_out">
+    <part name="return" type="vin:Return" />
+    <part name="transaction" type="vin:Transaction" />
+  </message>
+  <message name="fetchByAccount_in">
+    <part name="auth" type="vin:Authentication" />
+    <part name="account" type="vin:Account" />
+  </message>
+  <message name="fetchByAccount_out">
+    <part name="return" type="vin:Return" />
+    <part name="transactions" type="vin:ArrayOfTransactions" />
+  </message>
+  <message name="fetchByMerchantTransactionId_in">
+    <part name="auth" type="vin:Authentication" />
+    <part name="merchantTransactionId" type="xsd:string" />
+  </message>
+  <message name="fetchByMerchantTransactionId_out">
+    <part name="return" type="vin:Return" />
+    <part name="transaction" type="vin:Transaction" />
+  </message>
+  <message name="fetchDeltaSince_in">
+    <part name="auth" type="vin:Authentication" />
+    <part name="timestamp" type="xsd:dateTime" />
+    <part name="page" type="xsd:int" />
+    <part name="pageSize" type="xsd:int" />
+    <part name="paymentMethod" type="vin:PaymentMethod" />
+  </message>
+  <message name="fetchDeltaSince_out">
+    <part name="return" type="vin:Return" />
+    <part name="transactions" type="vin:ArrayOfTransactions" />
+  </message>
+  <message name="fetchDelta_in">
+    <part name="auth" type="vin:Authentication" />
+    <part name="pageSize" type="xsd:int" />
+  </message>
+  <message name="fetchDelta_out">
+    <part name="return" type="vin:Return" />
+    <part name="transactions" type="vin:ArrayOfTransactions" />
+    <part name="startDate" type="xsd:dateTime" />
+    <part name="endDate" type="xsd:dateTime" />
+  </message>
+  <message name="fetchByAutobill_in">
+    <part name="auth" type="vin:Authentication" />
+    <part name="autobill" type="vin:AutoBill" />
+  </message>
+  <message name="fetchByAutobill_out">
+    <part name="return" type="vin:Return" />
+    <part name="transactions" type="vin:ArrayOfTransactions" />
+  </message>
+  <message name="fetchSearchPage_in">
+    <part name="auth" type="vin:Authentication" />
+    <part name="VID" type="xsd:string" />
+    <part name="objectsPerPage" type="xsd:int" />
+    <part name="pageNumber" type="xsd:int" />
+    <part name="nameValues" type="vin:ArrayOfNameValuePairs" />
+  </message>
+  <message name="fetchSearchPage_out">
+    <part name="return" type="vin:Return" />
+    <part name="transactions" type="vin:ArrayOfTransactions" />
+    <part name="objectsPerPage" type="xsd:int" />
+    <part name="pageNumber" type="xsd:int" />
+  </message>
+  <message name="auth_in">
+    <part name="auth" type="vin:Authentication" />
+    <part name="transaction" type="vin:Transaction" />
+    <part name="explicitCapture" type="xsd:boolean" />
+    <part name="minChargebackProbability" type="xsd:int" />
+  </message>
+  <message name="auth_out">
+    <part name="return" type="vin:Return" />
+    <part name="transaction" type="vin:Transaction" />
+  </message>
+  <message name="calculateSalesTax_in">
+    <part name="auth" type="vin:Authentication" />
+    <part name="transaction" type="vin:Transaction" />
+  </message>
+  <message name="calculateSalesTax_out">
+    <part name="return" type="vin:Return" />
+    <part name="transaction" type="vin:Transaction" />
+    <part name="addressType" type="vin:AddressType" />
+    <part name="originalAddress" type="vin:Address" />
+    <part name="correctedAddress" type="vin:Address" />
+    <part name="taxItems" type="vin:ArrayOfSalesTaxes" />
+    <part name="totalTax" type="xsd:decimal" />
+  </message>
+  <message name="capture_in">
+    <part name="auth" type="vin:Authentication" />
+    <part name="transactions" type="vin:ArrayOfTransactions" />
+  </message>
+  <message name="capture_out">
+    <part name="return" type="vin:Return" />
+    <part name="qtySuccess" type="xsd:int" />
+    <part name="qtyFail" type="xsd:int" />
+    <part name="results" type="vin:ArrayOfCaptureResults" />
+  </message>
+  <message name="cancel_in">
+    <part name="auth" type="vin:Authentication" />
+    <part name="transactions" type="vin:ArrayOfTransactions" />
+  </message>
+  <message name="cancel_out">
+    <part name="return" type="vin:Return" />
+    <part name="qtySuccess" type="xsd:int" />
+    <part name="qtyFail" type="xsd:int" />
+    <part name="results" type="vin:ArrayOfCancelResults" />
+  </message>
+  <message name="authCapture_in">
+    <part name="auth" type="vin:Authentication" />
+    <part name="transaction" type="vin:Transaction" />
+  </message>
+  <message name="authCapture_out">
+    <part name="return" type="vin:Return" />
+    <part name="transaction" type="vin:Transaction" />
+  </message>
+  <message name="report_in">
+    <part name="auth" type="vin:Authentication" />
+    <part name="transactions" type="vin:ArrayOfTransactions" />
+  </message>
+  <message name="report_out">
+    <part name="return" type="vin:Return" />
+  </message>
+  <message name="score_in">
+    <part name="auth" type="vin:Authentication" />
+    <part name="transaction" type="vin:Transaction" />
+    <part name="formData" type="xsd:string" />
+    <part name="scoreControl" type="vin:ArrayOfScoreControls" />
+  </message>
+  <message name="score_out">
+    <part name="return" type="vin:Return" />
+    <part name="score" type="xsd:int" />
+    <part name="scoreCodes" type="vin:ArrayOfScoreCodes" />
+    <part name="improveScore" type="xsd:string" />
+  </message>
+  <portType name="TransactionPortType">
+    <operation name="fetchByVid" parameterOrder="auth vid">
+      <input message="tns:fetchByVid_in" />
+      <output message="tns:fetchByVid_out" />
+    </operation>
+    <operation name="fetchByAccount" parameterOrder="auth account">
+      <input message="tns:fetchByAccount_in" />
+      <output message="tns:fetchByAccount_out" />
+    </operation>
+    <operation name="fetchByMerchantTransactionId" parameterOrder="auth merchantTransactionId">
+      <input message="tns:fetchByMerchantTransactionId_in" />
+      <output message="tns:fetchByMerchantTransactionId_out" />
+    </operation>
+    <operation name="fetchDeltaSince" parameterOrder="auth timestamp page pageSize paymentMethod">
+      <input message="tns:fetchDeltaSince_in" />
+      <output message="tns:fetchDeltaSince_out" />
+    </operation>
+    <operation name="fetchDelta" parameterOrder="auth pageSize">
+      <input message="tns:fetchDelta_in" />
+      <output message="tns:fetchDelta_out" />
+    </operation>
+    <operation name="fetchByAutobill" parameterOrder="auth autobill">
+      <input message="tns:fetchByAutobill_in" />
+      <output message="tns:fetchByAutobill_out" />
+    </operation>
+    <operation name="fetchSearchPage" parameterOrder="auth VID objectsPerPage pageNumber nameValues">
+      <input message="tns:fetchSearchPage_in" />
+      <output message="tns:fetchSearchPage_out" />
+    </operation>
+    <operation name="auth" parameterOrder="auth transaction explicitCapture minChargebackProbability">
+      <input message="tns:auth_in" />
+      <output message="tns:auth_out" />
+    </operation>
+    <operation name="calculateSalesTax" parameterOrder="auth transaction">
+      <input message="tns:calculateSalesTax_in" />
+      <output message="tns:calculateSalesTax_out" />
+    </operation>
+    <operation name="capture" parameterOrder="auth transactions">
+      <input message="tns:capture_in" />
+      <output message="tns:capture_out" />
+    </operation>
+    <operation name="cancel" parameterOrder="auth transactions">
+      <input message="tns:cancel_in" />
+      <output message="tns:cancel_out" />
+    </operation>
+    <operation name="authCapture" parameterOrder="auth transaction">
+      <input message="tns:authCapture_in" />
+      <output message="tns:authCapture_out" />
+    </operation>
+    <operation name="report" parameterOrder="auth transactions">
+      <input message="tns:report_in" />
+      <output message="tns:report_out" />
+    </operation>
+    <operation name="score" parameterOrder="auth transaction formData scoreControl">
+      <input message="tns:score_in" />
+      <output message="tns:score_out" />
+    </operation>
+  </portType>
+  <binding name="TransactionBinding" type="tns:TransactionPortType">
+    <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http" />
+    <operation name="fetchByVid">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Loads a transaction for a Vindicia ID<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>vid</b></dt>
+<dd>Vindicia ID for the object</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>transaction</b></dt>
+<dd>The transaction object with this VID</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/Transaction#fetchByVid" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Transaction" use="encoded" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Transaction" use="encoded" />
+      </output>
+    </operation>
+    <operation name="fetchByAccount">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Loads transactions for an account<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>account</b></dt>
+<dd>Account to load by</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>transactions</b></dt>
+<dd>Array of transaction objects associated with account</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/Transaction#fetchByAccount" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Transaction" use="encoded" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Transaction" use="encoded" />
+      </output>
+    </operation>
+    <operation name="fetchByMerchantTransactionId">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Loads a transaction for a merchant transaction ID<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>merchantTransactionId</b></dt>
+<dd>Merchant's unique ID for transaction</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>transaction</b></dt>
+<dd>The transaction object with this merchant transaction id</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/Transaction#fetchByMerchantTransactionId" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Transaction" use="encoded" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Transaction" use="encoded" />
+      </output>
+    </operation>
+    <operation name="fetchDeltaSince">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Loads a list of transactions that have changed since a timestamp.<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>timestamp</b></dt>
+<dd>All transactions after this timestamp</dd>
+<dt><b>page</b></dt>
+<dd>Optional page number to begin results returned</dd>
+<dt><b>pageSize</b></dt>
+<dd>Optional number of results to display per a page</dd>
+<dt><b>paymentMethod</b></dt>
+<dd>Optional payment method to constrain changes against</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>transactions</b></dt>
+<dd>Array of transaction objects that have changed since the timestamp</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/Transaction#fetchDeltaSince" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Transaction" use="encoded" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Transaction" use="encoded" />
+      </output>
+    </operation>
+    <operation name="fetchDelta">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Loads a list of transactions that have changed since the endDate of the last fetchDelta call or the beginning of time, if the first time calling fetchDelta.<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>pageSize</b></dt>
+<dd>Optional number of results to display per a page</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>transactions</b></dt>
+<dd>Array of transaction objects that have changed since the last time fetchDelta was called</dd>
+<dt><b>startDate</b></dt>
+<dd>The starting timestamp for the range of transactions found</dd>
+<dt><b>endDate</b></dt>
+<dd>The ending timestamp for the range of transactions found</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/Transaction#fetchDelta" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Transaction" use="encoded" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Transaction" use="encoded" />
+      </output>
+    </operation>
+    <operation name="fetchByAutobill">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Loads all transactions associated with an Autobill<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>autobill</b></dt>
+<dd>An Autobill object</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>transactions</b></dt>
+<dd>Billing transactions automatically created for the specified Autobill</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/Transaction#fetchByAutobill" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Transaction" use="encoded" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Transaction" use="encoded" />
+      </output>
+    </operation>
+    <operation name="fetchSearchPage">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+Fetch a page from a previous search<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>VID</b></dt>
+<dd>VID of a search previously begun with <a href="#data_type.searchBegin">searchBegin</a></dd>
+<dt><b>objectsPerPage</b></dt>
+<dd>Number of objects to return per page, maximum (and default) is 100.</dd>
+<dt><b>pageNumber</b></dt>
+<dd>Offset within the pages to fetch</dd>
+<dt><b>nameValues</b></dt>
+<dd>Optional array of name/value pairs to set on the transactions as they are fetched. Please use this with care, it is possible to quickly destroy large amounts of data with it!</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>transactions</b></dt>
+<dd>The transactions that resulted from the search</dd>
+<dt><b>objectsPerPage</b></dt>
+<dd>Number of objects to return per page, maximum is 100.</dd>
+<dt><b>pageNumber</b></dt>
+<dd>Offset within the pages being returned</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/Transaction#fetchSearchPage" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Transaction" use="encoded" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Transaction" use="encoded" />
+      </output>
+    </operation>
+    <operation name="auth">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+
+          
+Perform an auth operation on a transaction.  The transaction object should be filled out with all available information, then this method is called to actually perform the action.  This method has the following output return values:<p>
+'400:Must specify transaction to authorize' if no transaction specified<br>
+'400:No Account or PaymentMethod information' if neither account nor payment method is specified<br>
+'400:Amount negative' if the amount on the transaction is less than zero<br>
+'403:Denied' if the chargback probability is greater than minChargebackProbability<br>
+'404:Unable to load Account' if the specified account may not be loaded by VID or merchantAccountId<br>
+'405:Account has no default payment method' if the specified account is loaded, but no default payment method is available and none is explicitly provided with the transaction<br> 
+<p>
+It will return 200 in all other cases, with the result of the transaction processing in the <a href="#data_type.transactionStatus">transactionStatus</a> field.  The returned transaction will have all respective fields filled out.  There is, in general, little validation of the specific values, as all that is completely necessary is an amount and PaymentMethod information, either given explicitly or gotten implicitly from the account.  The majority of the remaining information is either useful for fraud prevention or for later disputation of fraudulent chargebacks.
+          
+       <p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>transaction</b></dt>
+<dd>The transaction object</dd>
+<dt><b>explicitCapture</b></dt>
+<dd>If true, this transaction will not be captured without an explicit call to capture(). Default value is false (the transaction will be captured either when a complete batch is available or at certain pre-defined times varying on the underlying payment method)</dd>
+<dt><b>minChargebackProbability</b></dt>
+<dd>If Chargeback Probablity from risk scoring is greater than this, the transaction will fail. Default is 100 (all transaction succeed).</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>transaction</b></dt>
+<dd>The transaction object</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/Transaction#auth" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Transaction" use="encoded" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Transaction" use="encoded" />
+      </output>
+    </operation>
+    <operation name="calculateSalesTax">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+
+          
+Calculates the sales tax of the referred transaction.  In order to function, at a bare minimum, the amount and one address must be available.  Either the shipping address may be explicitly filled out, or the billing address may be loaded from the customer account (if any).  If both are available, the shipping address is used in preference.  This method has the following output return values:<p>
+'400:Must specify transaction to calculate sales tax' if no transaction specified<br>
+'400:Amount negative' if the amount on the transaction is less than zero<br>
+'404:Unable to load Account' if the specified account may not be loaded by VID or merchantAccountId<br>
+<p>
+It will return 200 in all other cases.
+          
+       <p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>transaction</b></dt>
+<dd>The transaction object</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>transaction</b></dt>
+<dd>The transaction object, with line-item(s) for sales tax</dd>
+<dt><b>addressType</b></dt>
+<dd>The chosen address for tax calculation (shipping or billing)</dd>
+<dt><b>originalAddress</b></dt>
+<dd>The original values for the chosen address</dd>
+<dt><b>correctedAddress</b></dt>
+<dd>The computed values for the chosen address, after correction for inconsistencies in address</dd>
+<dt><b>taxItems</b></dt>
+<dd>Array of individual sales tax line items computed</dd>
+<dt><b>totalTax</b></dt>
+<dd>Total tax computed</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/Transaction#calculateSalesTax" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Transaction" use="encoded" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Transaction" use="encoded" />
+      </output>
+    </operation>
+    <operation name="capture">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+ARRAY(0x8965c64)<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>transactions</b></dt>
+<dd>An array of <a href="#data_type.Transaction">Transaction</a> objects</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>qtySuccess</b></dt>
+<dd>The number of transactions successfully captured</dd>
+<dt><b>qtyFail</b></dt>
+<dd>The number of transactions not successfully captured</dd>
+<dt><b>results</b></dt>
+<dd>An array of error codes and merchant id's for the list of transactions</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/Transaction#capture" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Transaction" use="encoded" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Transaction" use="encoded" />
+      </output>
+    </operation>
+    <operation name="cancel">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+ARRAY(0x8aec944)<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>transactions</b></dt>
+<dd>An array of <a href="#data_type.Transaction">Transaction</a> objects</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>qtySuccess</b></dt>
+<dd>The number of transactions successfully cancelled</dd>
+<dt><b>qtyFail</b></dt>
+<dd>The number of transactions not successfully cancelled</dd>
+<dt><b>results</b></dt>
+<dd>An array of error codes and merchant id's for the list of transactions</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/Transaction#cancel" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Transaction" use="encoded" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Transaction" use="encoded" />
+      </output>
+    </operation>
+    <operation name="authCapture">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+ARRAY(0x85a7478)<p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>transaction</b></dt>
+<dd>The transaction object</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>transaction</b></dt>
+<dd>The transaction object</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/Transaction#authCapture" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Transaction" use="encoded" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Transaction" use="encoded" />
+      </output>
+    </operation>
+    <operation name="report">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+
+      Performs the recording function of methodLink=score 
+      in a batch fashion on multiple transactions, without returning a
+      score.  Useful to cleanup a transient failure, such as a network
+      failure; to report historic transactions, or for merchants who do
+      not utilize real-time screening.
+    <p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>transactions</b></dt>
+<dd>An array of <a href="#data_type.Transaction">Transaction</a> objects</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/Transaction#report" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Transaction" use="encoded" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Transaction" use="encoded" />
+      </output>
+    </operation>
+    <operation name="score">
+      <xsd:annotation>
+        <xsd:documentation><![CDATA[
+
+      
+          score() takes information about a transaction, and
+      returns a score.  Merchants should
+      call this prior to authorizing the transaction, and, based upon this
+      score, decide to either reject the transaction, go forward with it, or
+      require the customer to provide more information. Once more
+      information is provided, score() may be called again to
+      retrieve a new score.  This method also causes transaction information
+      to be noted in Vindicia's system in the event of an eventual
+      chargeback.  Note that this method does not cause any actual billing
+      to occur and should not include any actual credit card information in
+      the clear.
+      
+    <p>
+<h4>Input Fields</h4><dl>
+<dt><b>auth</b></dt>
+<dd>Credentials required to authenticate this request</dd>
+<dt><b>transaction</b></dt>
+<dd>Description of the details of the transaction</dd>
+<dt><b>formData</b></dt>
+<dd>Form data supplied by the user in response to the use of the improveScore mechanism</dd>
+<dt><b>scoreControl</b></dt>
+<dd>Optional array to manipulate what scores are run and what their values are</dd>
+</dl>
+<h4>Output Fields</h4><dl>
+<dt><b>return</b></dt>
+<dd>Basic results of this request (success, failure, error, etc.)</dd>
+<dt><b>score</b></dt>
+<dd>
+          
+          The score of the transaction based upon the information
+          provided.  Ranges  from 0 (best) to 100 (worst).  May also be
+          -1, indicating that Vindicia has no opinion, or -2 indicating an
+          error condition.  -2 error transactions should be retried later
+          in order to complete the transaction database for chargeback
+          challenging.  Further information about why a given score was
+          returned is available in <b>scoreCodes</b>.  If the transaction score
+          is not acceptable, the score may be improved by presenting the
+          information in <b>scoreImprovements</b> to the user and resubmitting
+          a score call.
+          
+        </dd>
+<dt><b>scoreCodes</b></dt>
+<dd>Array describing what score tests were tripped by this transaction</dd>
+<dt><b>improveScore</b></dt>
+<dd>HTML describing a question or questions that may be asked of the customer to improve the score of this transaction</dd>
+</dl>
+]]></xsd:documentation>
+      </xsd:annotation>
+      <soap:operation soapAction="http://soap.vindicia.com/Transaction#score" />
+      <input>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Transaction" use="encoded" />
+      </input>
+      <output>
+        <soap:body encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" namespace="http://soap.vindicia.com/Transaction" use="encoded" />
+      </output>
+    </operation>
+  </binding>
+  <service name="Transaction">
+    <port binding="tns:TransactionBinding" name="TransactionPort">
+      <soap:address location="https://soap.prodtest.sj.vindicia.com/v3.0/soap.pl" />
+    </port>
+  </service>
+</definitions>

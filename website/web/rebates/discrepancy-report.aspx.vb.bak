@@ -1,0 +1,260 @@
+﻿Imports Components
+Imports DataLayer
+Imports PopupForm
+Imports System.Linq
+Imports System.Data
+Imports System.Web.Services
+
+Partial Class rebates_discrepancy_report
+    Inherits SitePage
+
+    Private ReadOnly Property Now() As DateTime
+        Get
+            Dim param As String = SysParam.GetValue(DB, "DemoReportingDate")
+            If param = Nothing OrElse param = "0" Then
+                Return DateTime.Now
+            Else
+                Return param
+            End If
+        End Get
+    End Property
+
+    Private ReadOnly Property LastQuarter() As Integer
+        Get
+            Dim ret As Integer = Math.Ceiling(Now.Month / 3) - 1
+            Return IIf(ret = 0, 4, ret)
+        End Get
+    End Property
+
+    Private ReadOnly Property LastYear() As Integer
+        Get
+            Return IIf(LastQuarter = 4, Now.Year - 1, Now.Year)
+        End Get
+    End Property
+
+    Private m_dvInvoices As DataView
+    Private ReadOnly Property dvInvoices() As DataView
+        Get
+            If m_dvInvoices Is Nothing Then
+                m_dvInvoices = SalesReportBuilderInvoiceRow.GetAllBuilderInvoices(DB, Session("BuilderId"), LastQuarter, LastYear).DefaultView
+            End If
+            Return m_dvInvoices
+        End Get
+    End Property
+
+    Private m_dvPurchases As DataView
+    Private ReadOnly Property dvPurchases() As DataView
+        Get
+            If m_dvPurchases Is Nothing Then
+                m_dvPurchases = PurchasesReportVendorPORow.GetAllVendorPOs(DB, Session("BuilderId"), LastQuarter, LastYear).DefaultView
+            End If
+            Return m_dvPurchases
+        End Get
+    End Property
+
+    Private m_dtDisputeResponse As DataTable
+    Private ReadOnly Property dtDisputeResponse() As DataTable
+        Get
+            If m_dtDisputeResponse Is Nothing Then
+                m_dtDisputeResponse = DisputeResponseRow.GetList(DB)
+            End If
+            Return m_dtDisputeResponse
+        End Get
+    End Property
+
+    Private m_dtDisputeResponseReason As DataTable
+    Private ReadOnly Property dtDisputeResponseReason() As DataTable
+        Get
+            If m_dtDisputeResponseReason Is Nothing Then
+                m_dtDisputeResponseReason = DisputeResponseReasonRow.GetList(DB)
+            End If
+            Return m_dtDisputeResponseReason
+        End Get
+    End Property
+
+    Protected Sub Page_Load(ByVal sender As Object, ByVal e As System.EventArgs) Handles Me.Load
+        EnsureBuilderAccess()
+
+        If Not IsPostBack And Not ScriptManager.GetCurrent(Page).IsInAsyncPostBack Then
+            BindReports()
+        End If
+    End Sub
+
+    Private Sub BindReports()
+        rptReport.DataSource = PurchasesReportRow.GetDiscrepancyReport(DB, Session("BuilderId"), LastQuarter, LastYear)
+        rptReport.DataBind()
+    End Sub
+
+    Protected Sub frmDispute_TemplateLoaded(ByVal sender As Object, ByVal e As System.EventArgs)
+        Dim form As PopupForm.PopupForm = CType(sender, PopupForm.PopupForm)
+        Dim rptItem As RepeaterItem = CType(sender, Control).NamingContainer
+        If rptItem.DataItem IsNot Nothing Then
+            'hdnSalesReportId.Value = rptItem.DataItem("SalesReportID")
+            CType(form.FindControl("hdnVendorId"), HiddenField).Value = rptItem.DataItem("VendorID")
+            CType(form.FindControl("ltlVendor"), Literal).Text = rptItem.DataItem("VendorCompany")
+            If Not IsDBNull(rptItem.DataItem("VendorTotal")) Then
+                CType(form.FindControl("ltlVendorAmount"), Literal).Text = FormatCurrency(rptItem.DataItem("VendorTotal"))
+            End If
+            CType(form.FindControl("txtBuilderAmount"), TextBox).Text = FormatCurrency(rptItem.DataItem("BuilderTotal"))
+        End If
+        CType(form.FindControl("btnClose"), Button).OnClientClick = "CloseDisputeForm('" & form.ClientID & "');return false;"
+    End Sub
+
+    Protected Sub frmDispute_Callback(ByVal sender As Object, ByVal e As PopupFormEventArgs)
+        Dim form As PopupForm.PopupForm = CType(sender, PopupForm.PopupForm)
+        If Not form.IsValid Then Exit Sub
+
+        Dim VendorID As Integer = e.Data("hdnVendorID")
+
+        Dim BuilderAmount As Double = e.Data("txtBuilderAmount")
+        Dim dbSalesReport As SalesReportRow = SalesReportRow.GetSalesReportByPeriod(DB, VendorID, LastYear, LastQuarter)
+
+        Dim dbVendorReport As SalesReportBuilderTotalAmountRow = SalesReportBuilderTotalAmountRow.GetRow(DB, dbSalesReport.SalesReportID, Session("BuilderId"))
+
+        Dim dbDispute As SalesReportDisputeRow = SalesReportDisputeRow.GetRow(DB, dbSalesReport.SalesReportID)
+        dbDispute.BuilderID = Session("BuilderId")
+        dbDispute.BuilderComments = e.Data("txtComments")
+        dbDispute.BuilderTotalAmount = BuilderAmount
+        dbDispute.SalesReportID = dbSalesReport.SalesReportID
+        dbDispute.VendorTotalAmount = dbVendorReport.TotalAmount
+        If dbDispute.Created = Nothing Then
+            dbDispute.Insert()
+        Else
+            dbDispute.Update()
+        End If
+        BindReports()
+    End Sub
+
+    Protected Sub rptReport_ItemCommand(ByVal source As Object, ByVal e As System.Web.UI.WebControls.RepeaterCommandEventArgs) Handles rptReport.ItemCommand
+        Dim DisputeID As Integer = e.CommandArgument
+        If e.CommandArgument = Nothing Then
+            DisputeID = Request("__EVENTARGUMENT")
+        End If
+        Dim dbDispute As SalesReportDisputeRow = SalesReportDisputeRow.GetRow(DB, DisputeID)
+        Dim dbVendorReport As SalesReportRow = SalesReportRow.GetRow(DB, dbDispute.SalesReportID)
+        Dim dbBuilderReport As PurchasesReportRow = PurchasesReportRow.GetPurchasesReportByPeriod(DB, Session("BuilderID"), LastQuarter, LastYear)
+        Dim dbReportVendor As PurchasesReportVendorTotalAmountRow = PurchasesReportVendorTotalAmountRow.GetRow(DB, dbBuilderReport.PurchasesReportID, dbVendorReport.VendorID)
+
+        dbReportVendor.TotalAmount = dbDispute.VendorTotalAmount
+        dbReportVendor.Update()
+
+        dbDispute.ResolutionAmount = dbDispute.VendorTotalAmount
+        dbDispute.Update()
+
+        BindReports()
+    End Sub
+
+    Protected Sub rptReport_ItemCreated(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.RepeaterItemEventArgs) Handles rptReport.ItemCreated
+        If e.Item.ItemType <> ListItemType.AlternatingItem And e.Item.ItemType <> ListItemType.Item Then
+            Exit Sub
+        End If
+
+        Dim form As PopupForm.PopupForm = e.Item.FindControl("frmDispute")
+        AddHandler form.TemplateLoaded, AddressOf frmDispute_TemplateLoaded
+        AddHandler form.Callback, AddressOf frmDispute_Callback
+
+        Dim rptInvoices As Repeater = e.Item.FindControl("rptInvoices")
+        If e.Item.DataItem IsNot Nothing Then
+            If Not IsDBNull(e.Item.DataItem("VendorId")) Then
+                dvInvoices.RowFilter = "VendorId=" & e.Item.DataItem("VendorId")
+                If dvInvoices.Count > 0 Then
+                    rptInvoices.DataSource = dvInvoices
+                    rptInvoices.DataBind()
+                Else
+                    e.Item.FindControl("phNoInvoices").Visible = True
+                End If
+            End If
+
+            Dim rptPurchases As Repeater = e.Item.FindControl("rptPurchases")
+            dvPurchases.RowFilter = "VendorId=" & e.Item.DataItem("VendorId")
+            If dvPurchases.Count > 0 Then
+                rptPurchases.DataSource = dvPurchases
+                rptPurchases.DataBind()
+            Else
+                e.Item.FindControl("phNoPurchases").Visible = False
+            End If
+        End If
+    End Sub
+
+    Protected Sub rptReport_ItemDataBound(ByVal sender As Object, ByVal e As System.Web.UI.WebControls.RepeaterItemEventArgs) Handles rptReport.ItemDataBound
+        If e.Item.ItemType <> ListItemType.AlternatingItem And e.Item.ItemType <> ListItemType.Item Then
+            Exit Sub
+        End If
+
+        Dim ltlVendorTotal As Literal = e.Item.FindControl("ltlVendorTotal")
+        Dim ltlBuilderTotal As Literal = e.Item.FindControl("ltlBuilderTotal")
+        Dim ltlDifference As Literal = e.Item.FindControl("ltlDifference")
+
+        If IsDBNull(e.Item.DataItem("VendorTotal")) Then
+            ltlVendorTotal.Text = "N/A"
+        Else
+            ltlVendorTotal.Text = FormatCurrency(e.Item.DataItem("VendorTotal"))
+        End If
+        If IsDBNull(e.Item.DataItem("BuilderTotal")) Then
+            ltlBuilderTotal.Text = "N/A"
+        Else
+            ltlBuilderTotal.Text = FormatCurrency(e.Item.DataItem("BuilderTotal"))
+        End If
+
+        If IsDBNull(e.Item.DataItem("VendorTotal")) Or IsDBNull(e.Item.DataItem("BuilderTotal")) Then
+            ltlDifference.Text = "N/A"
+        Else
+            Dim diff As Double = e.Item.DataItem("VendorTotal") - e.Item.DataItem("BuilderTotal")
+            ltlDifference.Text = FormatCurrency(diff)
+        End If
+
+        Dim rptInvoices As Repeater = e.Item.FindControl("rptInvoices")
+        Dim rptPurchases As Repeater = e.Item.FindControl("rptPurchases")
+        If rptInvoices.Items.Count = 0 And rptPurchases.Items.Count = 0 Then
+            e.Item.FindControl("btnDetails").Visible = False
+        End If
+
+        Dim divDetails As HtmlGenericControl = e.Item.FindControl("divDetails")
+        divDetails.Style("display") = "none"
+
+        Dim btnDispute As Button = e.Item.FindControl("btnDispute")
+        Dim btnCancelDispute As Button = e.Item.FindControl("btnCancelDispute")
+        Dim ltlDisputeResponse As Literal = e.Item.FindControl("ltlDisputeResponse")
+        If IsDBNull(e.Item.DataItem("VendorTotal")) Then
+            btnDispute.Style.Add("display", "none")
+            btnCancelDispute.Style.Add("display", "none")
+            ltlDisputeResponse.Visible = False
+        Else
+            If IsDBNull(e.Item.DataItem("SalesReportDisputeID")) Then
+                btnCancelDispute.Style.Add("display", "none")
+                ltlDisputeResponse.Visible = False
+            Else
+                Page.ClientScript.RegisterArrayDeclaration("SalesReportDisputeIds", "{'btnId':'" & btnCancelDispute.ClientID & "','disputeId':'" & e.Item.DataItem("SalesReportDisputeID") & "'}")
+                If IsDBNull(e.Item.DataItem("DisputeResponseID")) Then
+                    btnDispute.Style.Add("display", "none")
+                    ltlDisputeResponse.Visible = False
+                Else
+                    Dim response As String = (From row As DataRow In dtDisputeResponse.AsEnumerable Where row("DisputeResponseID") = e.Item.DataItem("DisputeResponseID") Select row("DisputeResponse")).FirstOrDefault
+                    Dim reason As String = (From row As DataRow In dtDisputeResponseReason.AsEnumerable Where row("DisputeResponseReasonID") = e.Item.DataItem("DisputeResponseReasonID") Select row("DisputeResponseReason")).FirstOrDefault
+                    ltlDisputeResponse.Text = "<p style=""text-align:center;"">"
+                    ltlDisputeResponse.Text &= "<b>" & response & "</b>"
+                    If Not IsDBNull(e.Item.DataItem("ResolutionAmount")) Then
+                        ltlDisputeResponse.Text &= "<br/>New Amount:&nbsp;" & FormatCurrency(e.Item.DataItem("ResolutionAmount"))
+                    End If
+                    ltlDisputeResponse.Text &= "<br/><span class=""smaller"">" & reason & "</span></p>"
+                    If Not IsDBNull(e.Item.DataItem("BuilderComments")) Then
+                        ltlDisputeResponse.Text &= "<p class=""smaller""><b>Builder Comments:</b><br/>" & e.Item.DataItem("BuilderComments") & "</p>"
+                    End If
+                    If Not IsDBNull(e.Item.DataItem("VendorComments")) Then
+                        ltlDisputeResponse.Text &= "<p class=""smaller""><b>Vendor Comments:</b><br/>" & e.Item.DataItem("VendorComments") & "</p>"
+                    End If
+                    ltlDisputeResponse.Visible = True
+                    btnDispute.Visible = False
+                    btnCancelDispute.Visible = False
+                End If
+            End If
+        End If
+    End Sub
+
+    <WebMethod(EnableSession:=True)> _
+    Public Shared Function CancelDispute(ByVal SalesReportDisputeID As Integer) As Boolean
+        Dim dbDispute As SalesReportDisputeRow = SalesReportDisputeRow.GetRow(Utility.GlobalDB.DB, SalesReportDisputeID)
+        dbDispute.Remove()
+        Return True
+    End Function
+End Class
